@@ -6,3 +6,7 @@ gulp.task('sass', function(){
         .pipe(sass())
         .pipe(gulp.dest('css'))
 });
+
+gulp.task('hello', function() {
+    console.log('Hallo, dies wurde mithilfe von Gulp erzeugt')
+});
