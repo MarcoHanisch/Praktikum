@@ -5,7 +5,7 @@ var port = 8080
 app.use(express.static('../test'));
 
 app.get('/',(req, res) => {
-    res.sendfile(__dirname+'/index.html')
+    res.sendfile(__dirname+'/html/index.html')
 })
 
 app.listen(port, (err) => {
