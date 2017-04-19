@@ -1,0 +1,18 @@
+<div *ngIf="pokemon">
+<h3>
+  {{pokemon.name}} 
+</h3>
+<div><label> id:  </label> {{pokemon.id}} </div>
+<div><label> name:  </label> {{pokemon.name}} </div>
+<div><label> Typ: </label></div>
+<select [(ngModel)]="pokemon.typ">
+  <option value="Feuer">Feuer</option>
+  <option value="Wasser">Wasser</option>
+  <option value="Pflanze">Pflanze</option>
+  <option vlaue="Käfer">Käfer</option>
+</select>
+<!-- <div><label> typ:  </label> 
+  <input [(ngModel)]="pokemon.typ" placeholder="typ"> 
+</div> -->
+<button (click)="goBack()">Back</button>
+</div>
