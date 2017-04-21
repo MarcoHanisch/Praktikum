@@ -32,5 +32,22 @@ export class PokemonComponent implements OnInit {
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selectedPokemon.id]);
   }
+add(name: string): void {
+  name = name.trim();
+  if (!name) { return; }
+  this.pokemonService.create(name)
+                .then(pokemon => {
+                  this.pokemons.push(pokemon);
+                  this.selectedPokemon = null;
+                });
+}
 
+delete(pokemon: Pokemon): void {
+  this.pokemonService
+      .delete(pokemon.id)
+      .then(() => {
+        this.pokemons = this.pokemons.filter(h => h !== pokemon);
+        if (this.selectedPokemon === pokemon) { this.selectedPokemon = null; }
+      });
+}
 }

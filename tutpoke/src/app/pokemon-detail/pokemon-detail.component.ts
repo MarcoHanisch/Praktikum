@@ -26,4 +26,9 @@ export class PokemonDetailComponent implements OnInit {
       this.location.back();
   }
 
+  save(): void {
+    this.pokemonService.update(this.pokemon)
+        .then(() => this.goBack);
+  }
+
 }

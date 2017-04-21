@@ -1,8 +1,15 @@
+<div>
+  <label>Pokemon name:</label> <input #pokemonName />
+  <button (click)="add(pokemonName.value); pokemonName.value=''">
+    Add
+  </button>
+</div>
 <ul class="pokemons">
 <li *ngFor="let pokemon of pokemons" 
 [class.selected]="pokemon === selectedPokemon"
 (click)="onSelect(pokemon)">
-  <span class="badge">{{pokemon.id}}</span> {{pokemon.name}}
+  <span class="badge">{{pokemon.id}}</span> <span>{{pokemon.name}}</span>
+  <button class="delete" (click)="delete(pokemon); $event.stopPropagation()">x</button>
 </li>
 </ul>
 <div *ngIf="selectedPokemon">

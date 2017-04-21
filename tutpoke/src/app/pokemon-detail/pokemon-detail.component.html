@@ -4,15 +4,25 @@
 </h3>
 <div><label> id:  </label> {{pokemon.id}} </div>
 <div><label> name:  </label> {{pokemon.name}} </div>
-<div><label> Typ: </label></div>
+<div><label> Typ: </label>
 <select [(ngModel)]="pokemon.typ">
   <option value="Feuer">Feuer</option>
   <option value="Wasser">Wasser</option>
   <option value="Pflanze">Pflanze</option>
-  <option vlaue="Käfer">Käfer</option>
-</select>
+  <option value="Käfer">Käfer</option>
+  <option value="Flug">Flug</option>
+  <option value="Normal">Normal</option>
+  <option value="Boden">Boden</option>
+  <option value="Gestein">Gestein</option>
+  <option value="Elektro">Elektro</option>
+  <option value="Psycho">Psycho</option>  
+  <option value="Geist">Geist</option>
+  <option value="Drache">Drache</option>
+  <option value="Gift">Gift</option>
+</select></div>
 <!-- <div><label> typ:  </label> 
   <input [(ngModel)]="pokemon.typ" placeholder="typ"> 
 </div> -->
 <button (click)="goBack()">Back</button>
+<button (click)="save()">Save</button>
 </div>
