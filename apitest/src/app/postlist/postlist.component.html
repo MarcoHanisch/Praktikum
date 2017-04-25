@@ -1,0 +1,34 @@
+<h1>
+  {{title}}
+</h1>
+<label> new Title: <input #newPostTitle /> </label>
+<button (click)="addPost(newPostTitle); newPostTitle.value=''">Add</button>
+<div class="container">
+  <table class="table table-responsive">
+    <thead>
+      <tr>
+        <th> Posts</th>
+        <th> Options </th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let post of posts">
+      <tr>
+        <td>{{post.title}}</td>
+        <td>
+          <div class="btn-group">
+              <button type="button" (click)="gotoDetail(post)"> 
+                <span class="glyphicon glyphicon-folder-open" ></span>
+              </button>
+              <button type="button" (click)="delete(post); $event.stopPropagation()">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+              <button type="button" (click)="gotoEdit(post)">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

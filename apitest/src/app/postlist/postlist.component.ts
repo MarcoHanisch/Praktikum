@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiserviceService } from './apiservice.service';
+import { ApiserviceService } from '../apiservice.service';
 import { Router } from '@angular/router';
 
 export class Post {
-userID:number;
 id: number;
+userID:number;
 title: string;
 body: string;
 }
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-postlist',
+  templateUrl: './postlist.component.html',
+  styleUrls: ['./postlist.component.css']
 })
-export class AppComponent implements OnInit {
+export class PostlistComponent  implements OnInit {
   title = 'app works!';
 
   posts: Post[];
+
   constructor (private apiserviceService: ApiserviceService,
   private router: Router) {}
   ngOnInit() { this.getPosts();}
@@ -32,7 +33,17 @@ export class AppComponent implements OnInit {
         .getPosts()
         .then(posts => this.posts = posts);
   }*/
-  gotoDetail(): void {
-    this.router.navigate(['/detail'])
+  gotoDetail(post: Post) {
+    this.router.navigate(['/detail', post.id])
+  }
+  gotoEdit(post : Post) {
+    this.router.navigate(['/edit', post.id])
+  }
+  delete(post: Post): void {
+    this.apiserviceService
+      .delete(post.id)
+      .then(()=> {
+        this.posts = this.posts.filter( p=> p !== post)
+      })
   }
 }
