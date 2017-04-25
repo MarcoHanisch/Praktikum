@@ -1,0 +1,19 @@
+<h1>
+  {{title}}
+</h1>
+<div class="container">
+  <table class="table table-striped table-responsive">
+    <thead>
+      <tr>
+        <th> Posts</th>
+        <th> Options </th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let post of posts">
+      <tr>
+        <td>{{post.title}}</td>
+        <td>{{post.userId}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
