@@ -11,6 +11,7 @@ import { PostdetailComponent } from './postdetail/postdetail.component';
 import { PostlistComponent } from './postlist/postlist.component';
 import { EditComponent } from './edit/edit.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

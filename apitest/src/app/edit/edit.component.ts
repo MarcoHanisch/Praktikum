@@ -3,6 +3,7 @@ import 'rxjs/add/operator/switchMap';
 import { ApiserviceService } from '../apiservice.service';
 import { Post } from '../app.component';
 import { Params, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit',
@@ -10,15 +11,22 @@ import { Params, ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
-  post: Post[];
+  post: Post;
   constructor(private apiserviceService : ApiserviceService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private location: Location) { }
 
   ngOnInit(): void {
    this.route.params
             .switchMap((params: Params) => this.apiserviceService.getPost(+params['id']))
             .subscribe(post => this.post = post); 
   }
- 
+  save(): void {
+    this.apiserviceService.update(this.post)
+      .then( );
+  }
+  goBack(): void {
+    this.location.back();
+  }
 
 }

@@ -18,15 +18,18 @@ export class Comment {
   styleUrls: ['./postdetail.component.css']
 })
 export class PostdetailComponent implements OnInit {
-  post: Post[];
+  post: Post;
+  comments: Comment[];
+  
   constructor(private apiserviceService: ApiserviceService,
               private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { this.route.params
+                .switchMap((params: Params) => this.apiserviceService.getComments(+params['id']))
+                .subscribe(comments => this.comments = comments);
     this.route.params
             .switchMap((params: Params) => this.apiserviceService.getPost(+params['id']))
             .subscribe(post => this.post = post);     
-           
   }
-
+ 
 }

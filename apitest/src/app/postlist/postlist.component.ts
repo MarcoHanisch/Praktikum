@@ -46,4 +46,8 @@ export class PostlistComponent  implements OnInit {
         this.posts = this.posts.filter( p=> p !== post)
       })
   }
+  addPost(title: string): void {
+    this.apiserviceService.create(title)
+        .subscribe(post => this.posts.push(post))
+  }
 }

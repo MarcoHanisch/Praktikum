@@ -4,9 +4,11 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { Comment } from './postdetail/postdetail.component';
 
 @Injectable()
 export class ApiserviceService {
+
   private headers = new Headers({'Content-Type': 'application/json'});
   private postsUrl = 'http://jsonplaceholder.typicode.com/posts';
   constructor(private http: Http) { }
@@ -20,7 +22,7 @@ export class ApiserviceService {
     return this.http.get(this.postsUrl)
                 .map(response => response.json())
   }
-  getPost(id: number): Observable<Post[]> {
+  getPost(id: number): Observable<Post> {
     const url = `${this.postsUrl}/${id}`;
     return this.http.get(url)
                 .map(response => response.json())
@@ -28,22 +30,23 @@ export class ApiserviceService {
   getComments(id: number): Observable<Comment[]> {
     const url = `${this.postsUrl}/${id}/comments`;
     return this.http.get(url)
-                  .map(response => response.json());
+                  .map(response => response.json())
   }
-  create(title: string): Observable<Post[]> {
-      let headers = new Headers({ 'Content-Type': 'application/json'});
-      let options = new RequestOptions({ headers: headers});
-      return this.http.post(this.postsUrl, {name}, options)
-                      .map(response => response.json())
+  create(title: string): Observable<Post> {
+    return this.http.post(this.postsUrl, JSON.stringify({title: title}), {headers: this.headers})
+      .map(response => response.json().data as Post)
   }
 delete(id: number): Promise<void> {
   const url = `${this.postsUrl}/${id}`;
   return this.http.delete(url, {headers: this.headers})
               .toPromise()
               .then(()=> null)
-}
+  }
+  update(post: Post): Promise<Post> {
+    const url = `${this.postsUrl}/${post.id}`;
+    return this.http.put(url, JSON.stringify(post))
+      .toPromise()
+      .then(() => post)
+  }
 
   }
- 
-  
-

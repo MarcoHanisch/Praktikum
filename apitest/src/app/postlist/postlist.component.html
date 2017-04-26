@@ -2,7 +2,7 @@
   {{title}}
 </h1>
 <label> new Title: <input #newPostTitle /> </label>
-<button (click)="addPost(newPostTitle); newPostTitle.value=''">Add</button>
+<button (click)="addPost(newPostTitle.value); newPostTitle.value=''">Add</button>
 <div class="container">
   <table class="table table-responsive">
     <thead>
