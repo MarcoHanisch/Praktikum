@@ -1,4 +1,7 @@
-<h1>
-  Posts
-</h1>
+<div class="container">
+  <div class="progress" *ngIf="loaded" >
+      <div class="indeterminate"></div>
+  </div>
 <router-outlet></router-outlet>
+
+</div>

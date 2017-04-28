@@ -15,12 +15,11 @@ body: string;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
-
+  loaded : boolean;
   posts: Post[];
   constructor (private apiserviceService: ApiserviceService,
   private router: Router) {}
-  ngOnInit() { this.getPosts();}
+  ngOnInit() { this.getPosts()}
   getPosts() {
     this.apiserviceService.getPosts()
               .subscribe(
@@ -35,4 +34,5 @@ export class AppComponent implements OnInit {
   gotoDetail(): void {
     this.router.navigate(['/detail'])
   }
+
 }

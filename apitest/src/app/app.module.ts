@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { JsonpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+
 import { AppComponent } from './app.component';
 import { ApiserviceService } from './apiservice.service';
 import { PostdetailComponent } from './postdetail/postdetail.component';
@@ -12,12 +13,14 @@ import { PostlistComponent } from './postlist/postlist.component';
 import { EditComponent } from './edit/edit.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     PostdetailComponent,
     PostlistComponent,
-    EditComponent
+    EditComponent,
+    
   ],
   imports: [
     BrowserModule,

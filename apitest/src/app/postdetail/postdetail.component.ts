@@ -29,7 +29,12 @@ export class PostdetailComponent implements OnInit {
                 .subscribe(comments => this.comments = comments);
     this.route.params
             .switchMap((params: Params) => this.apiserviceService.getPost(+params['id']))
-            .subscribe(post => this.post = post);     
+            .subscribe(post => this.post = post);   
+    
+ }
+  save(name: string, email: string, body: string): void {
+    let id = this.route.snapshot.params['id']
+    this.apiserviceService.createComment(id, name, email, body)
+    .subscribe(comment => this.comments.push(comment))
   }
- 
 }

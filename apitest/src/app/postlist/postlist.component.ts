@@ -15,7 +15,7 @@ body: string;
   styleUrls: ['./postlist.component.css']
 })
 export class PostlistComponent  implements OnInit {
-  title = 'app works!';
+  title = 'Posts';
 
   posts: Post[];
 

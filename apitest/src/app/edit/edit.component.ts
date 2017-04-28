@@ -11,6 +11,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
+  title = 'Edit Post';
+  edited: boolean;
   post: Post;
   constructor(private apiserviceService : ApiserviceService,
               private route: ActivatedRoute,
@@ -22,6 +24,10 @@ export class EditComponent implements OnInit {
             .subscribe(post => this.post = post); 
   }
   save(): void {
+    this.edited = true;
+    setTimeout(function() {
+      this.edited = false
+    }.bind(this), 3000);
     this.apiserviceService.update(this.post)
       .then( );
   }

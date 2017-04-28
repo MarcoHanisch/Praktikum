@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { Comment } from './postdetail/postdetail.component';
 
+
 @Injectable()
 export class ApiserviceService {
 
@@ -34,7 +35,13 @@ export class ApiserviceService {
   }
   create(title: string): Observable<Post> {
     return this.http.post(this.postsUrl, JSON.stringify({title: title}), {headers: this.headers})
-      .map(response => response.json().data as Post)
+      .map(response => response.json())
+  }
+  createComment(id: number, name: string, email: string, body: string): 
+  Observable<Comment> {
+    const url = `${this.postsUrl}/${id}/comments`;
+    return this.http.post(url, JSON.stringify({email: email, name: name, body: body}), {headers: this.headers})
+          .map(response => response.json())
   }
 delete(id: number): Promise<void> {
   const url = `${this.postsUrl}/${id}`;
@@ -48,5 +55,5 @@ delete(id: number): Promise<void> {
       .toPromise()
       .then(() => post)
   }
-
-  }
+  
+}

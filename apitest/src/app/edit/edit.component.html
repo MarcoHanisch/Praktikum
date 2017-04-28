@@ -1,16 +1,24 @@
+<div class="container">
+  <h1> {{title}}</h1>
 <div *ngIf="post">
-<label>
-   Title  <input [(ngModel)]="post.title" placeholder="title"/>
-</label><br>
-<label> Body <textarea [(ngModel)]="post.body" placeholder="body"></textarea></label>
-<div >
-  <button type="button" (click)="save()" > Save
-  </button>
-</div>
-<div class="alert alert-info ">
-  <strong>
-  <label>title:  </label>  {{post.title}}<br>
-  <label>body: </label>  {{post.body}}
-  </strong>
-</div>
+  <div class="form-group">
+    <div class="col-12">
+      <label>  Title </label>
+      <input [(ngModel)]="post.title" class="form-control" placeholder="title"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-12">
+      <label> Body  </label><textarea class="form-control " rows="5" [(ngModel)]="post.body" placeholder="body"></textarea>
+    </div>
+  </div>
+  <div>
+    <button type="button" (click)="save()" > Save </button>
+  </div>
+  <div *ngIf="edited" class="alert alert-info ">
+    <strong>
+      <p>title:  </p>  {{post.title}}<br>
+      <p>body: </p>  {{post.body}}
+    </strong>
+  </div>
 </div>
