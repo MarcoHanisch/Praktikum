@@ -16,13 +16,14 @@ body: string;
 })
 export class PostlistComponent  implements OnInit {
   title = 'Posts';
-
+  
   posts: Post[];
 
   constructor (private apiserviceService: ApiserviceService,
   private router: Router) {}
   ngOnInit() { this.getPosts();}
-  getPosts() {
+  getPosts() {this.apiserviceService.startLoading();
+    this.apiserviceService.progressLoading(90);
     this.apiserviceService.getPosts()
               .subscribe(
                 posts => this.posts = posts
@@ -40,13 +41,16 @@ export class PostlistComponent  implements OnInit {
     this.router.navigate(['/edit', post.id])
   }
   delete(post: Post): void {
+    this.apiserviceService.startLoading();
+    this.apiserviceService.progressLoading(97);
     this.apiserviceService
       .delete(post.id)
       .then(()=> {
         this.posts = this.posts.filter( p=> p !== post)
       })
   }
-  addPost(title: string): void {
+  addPost(title: string): void {this.apiserviceService.startLoading();
+    this.apiserviceService.progressLoading(95);
     this.apiserviceService.create(title)
         .subscribe(post => this.posts.push(post))
   }

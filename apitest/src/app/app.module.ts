@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { JsonpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { SlimLoadingBarModule} from 'ng2-slim-loading-bar';
+import { ProgressBarModule } from 'angular2-progressbar';
 
 import { AppComponent } from './app.component';
 import { ApiserviceService } from './apiservice.service';
@@ -27,6 +29,8 @@ import { EditComponent } from './edit/edit.component';
     FormsModule,
     HttpModule,
     JsonpModule,
+    ProgressBarModule,
+    SlimLoadingBarModule.forRoot(),
     RouterModule.forRoot([
       {
         path: '', redirectTo: '/list', pathMatch: 'full'

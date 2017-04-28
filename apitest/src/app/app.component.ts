@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiserviceService } from './apiservice.service';
 import { Router } from '@angular/router';
+
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 export class Post {
 userID:number;
@@ -17,9 +19,13 @@ body: string;
 export class AppComponent implements OnInit {
   loaded : boolean;
   posts: Post[];
+
   constructor (private apiserviceService: ApiserviceService,
-  private router: Router) {}
-  ngOnInit() { this.getPosts()}
+  private router: Router  ,
+  private slimLoadingBarService: SlimLoadingBarService
+  ) {}
+  ngOnInit() { this.getPosts();
+  }
   getPosts() {
     this.apiserviceService.getPosts()
               .subscribe(
@@ -34,5 +40,6 @@ export class AppComponent implements OnInit {
   gotoDetail(): void {
     this.router.navigate(['/detail'])
   }
+
 
 }

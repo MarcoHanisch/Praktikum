@@ -6,13 +6,16 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { Comment } from './postdetail/postdetail.component';
 
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
+
 
 @Injectable()
 export class ApiserviceService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
   private postsUrl = 'http://jsonplaceholder.typicode.com/posts';
-  constructor(private http: Http) { }
+  constructor(private http: Http,
+  private slimLoadingBarService: SlimLoadingBarService) { }
  /* getPosts(): Promise<Post[]> {
     return this.http.get(this.postsUrl)
                   .toPromise()
@@ -55,5 +58,12 @@ delete(id: number): Promise<void> {
       .toPromise()
       .then(() => post)
   }
+  startLoading( ){
+  this.slimLoadingBarService.start();
   
+}
+
+progressLoading(id: number){
+  this.slimLoadingBarService.progress = id
+}
 }

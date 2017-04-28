@@ -4,6 +4,7 @@ import { Post } from '../postlist/postlist.component';
 import 'rxjs/add/operator/switchMap';
 import { ActivatedRoute, Params } from '@angular/router';
 
+
 export class Comment {
   postId: number;
   id: number;
@@ -30,11 +31,16 @@ export class PostdetailComponent implements OnInit {
     this.route.params
             .switchMap((params: Params) => this.apiserviceService.getPost(+params['id']))
             .subscribe(post => this.post = post);   
-    
+    this.apiserviceService.startLoading();
+    this.apiserviceService.progressLoading(90)
  }
   save(name: string, email: string, body: string): void {
-    let id = this.route.snapshot.params['id']
+   
+    this.apiserviceService.startLoading();
+    this.apiserviceService.progressLoading(94);
+     let id = this.route.snapshot.params['id']
     this.apiserviceService.createComment(id, name, email, body)
     .subscribe(comment => this.comments.push(comment))
+   
   }
 }

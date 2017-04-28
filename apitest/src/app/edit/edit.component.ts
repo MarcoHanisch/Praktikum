@@ -5,6 +5,7 @@ import { Post } from '../app.component';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -22,6 +23,8 @@ export class EditComponent implements OnInit {
    this.route.params
             .switchMap((params: Params) => this.apiserviceService.getPost(+params['id']))
             .subscribe(post => this.post = post); 
+    this.apiserviceService.startLoading();
+    this.apiserviceService.progressLoading(90)
   }
   save(): void {
     this.edited = true;
