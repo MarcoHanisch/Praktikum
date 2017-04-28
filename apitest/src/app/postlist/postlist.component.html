@@ -1,7 +1,10 @@
 <div class="container">
   <h1>{{title}}</h1>
 <label> new Title: <input #newPostTitle /> </label>
-<button (click)="addPost(newPostTitle.value); newPostTitle.value=''">Add</button>
+<button class="btn btn-info" (click)="addPost(newPostTitle.value); newPostTitle.value=''">Add</button>
+<div *ngIf="empty" class="alert alert-danger">
+  <strong>You must insert a new Post-Title!</strong>
+</div>
 <div class="container">
   <table class="table table-responsive table-striped">
     <thead>

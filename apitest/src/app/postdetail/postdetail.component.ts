@@ -21,7 +21,7 @@ export class Comment {
 export class PostdetailComponent implements OnInit {
   post: Post;
   comments: Comment[];
-  
+  empty: boolean;
   constructor(private apiserviceService: ApiserviceService,
               private route: ActivatedRoute) { }
 
@@ -35,7 +35,12 @@ export class PostdetailComponent implements OnInit {
     this.apiserviceService.progressLoading(90)
  }
   save(name: string, email: string, body: string): void {
-   
+   if(!name ) {this.empty = true;  setTimeout(function() {
+               this.empty = false }.bind(this), 3000); return} 
+   if(!email) {this.empty = true ; setTimeout(function() {
+               this.eempty = false }.bind(this), 3000); return}
+   if(!body) {this.empty= true; setTimeout(function() {
+              this.edited = false }.bind(this), 3000); return}
     this.apiserviceService.startLoading();
     this.apiserviceService.progressLoading(94);
      let id = this.route.snapshot.params['id']

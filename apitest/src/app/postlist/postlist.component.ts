@@ -16,7 +16,7 @@ body: string;
 })
 export class PostlistComponent  implements OnInit {
   title = 'Posts';
-  
+  empty : boolean;
   posts: Post[];
 
   constructor (private apiserviceService: ApiserviceService,
@@ -49,9 +49,13 @@ export class PostlistComponent  implements OnInit {
         this.posts = this.posts.filter( p=> p !== post)
       })
   }
-  addPost(title: string): void {this.apiserviceService.startLoading();
+  addPost(title: string): void {
+    if (!title) { this.empty = true; setTimeout(function() {
+                 this.empty = false  }.bind(this), 5000); ; return}
+    this.apiserviceService.startLoading();
     this.apiserviceService.progressLoading(95);
     this.apiserviceService.create(title)
         .subscribe(post => this.posts.push(post))
   }
+
 }
