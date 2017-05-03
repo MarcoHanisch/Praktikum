@@ -8,6 +8,10 @@ import { Comment } from './postdetail/postdetail.component';
 
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+
 
 @Injectable()
 export class ApiserviceService {
@@ -66,4 +70,7 @@ delete(id: number): Promise<void> {
 progressLoading(id: number){
   this.slimLoadingBarService.progress = id
 }
+  
+
+ 
 }

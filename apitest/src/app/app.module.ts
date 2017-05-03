@@ -6,13 +6,18 @@ import { JsonpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { SlimLoadingBarModule} from 'ng2-slim-loading-bar';
-import { ProgressBarModule } from 'angular2-progressbar';
+import { Ng2PaginationModule } from 'ng2-pagination';
+
 
 import { AppComponent } from './app.component';
 import { ApiserviceService } from './apiservice.service';
 import { PostdetailComponent } from './postdetail/postdetail.component';
 import { PostlistComponent } from './postlist/postlist.component';
 import { EditComponent } from './edit/edit.component';
+import { SearchComponent } from './search/search.component';
+
+
+import { NgPipesModule } from 'ngx-pipes';
 
 
 
@@ -22,6 +27,11 @@ import { EditComponent } from './edit/edit.component';
     PostdetailComponent,
     PostlistComponent,
     EditComponent,
+    SearchComponent,
+    
+ 
+    
+   
     
   ],
   imports: [
@@ -29,7 +39,8 @@ import { EditComponent } from './edit/edit.component';
     FormsModule,
     HttpModule,
     JsonpModule,
-    ProgressBarModule,
+    Ng2PaginationModule,
+   NgPipesModule,
     SlimLoadingBarModule.forRoot(),
     RouterModule.forRoot([
       {
@@ -48,6 +59,7 @@ import { EditComponent } from './edit/edit.component';
     ])
   ],
   providers: [ApiserviceService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+ 
 })
 export class AppModule { }

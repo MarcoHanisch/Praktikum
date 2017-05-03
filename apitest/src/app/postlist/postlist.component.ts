@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ApiserviceService } from '../apiservice.service';
 import { Router } from '@angular/router';
 
+
+
+
 export class Post {
 id: number;
 userID:number;
@@ -12,22 +15,28 @@ body: string;
 @Component({
   selector: 'app-postlist',
   templateUrl: './postlist.component.html',
-  styleUrls: ['./postlist.component.css']
+  styleUrls: ['./postlist.component.css'],
+  
 })
 export class PostlistComponent  implements OnInit {
   title = 'Posts';
   empty : boolean;
-  posts: Post[];
+ public posts: Post[];
 
   constructor (private apiserviceService: ApiserviceService,
-  private router: Router) {}
+  private router: Router) {
+    
+
+  }
   ngOnInit() { this.getPosts();}
   getPosts() {this.apiserviceService.startLoading();
     this.apiserviceService.progressLoading(90);
     this.apiserviceService.getPosts()
               .subscribe(
                 posts => this.posts = posts
-              )
+              );
+
+   
   }
  /* getPosts(): void {
     this.apiserviceService
@@ -51,11 +60,11 @@ export class PostlistComponent  implements OnInit {
   }
   addPost(title: string): void {
     if (!title) { this.empty = true; setTimeout(function() {
-                 this.empty = false  }.bind(this), 5000); ; return}
+                 this.empty = false  }.bind(this), 5000) ; return}
     this.apiserviceService.startLoading();
     this.apiserviceService.progressLoading(95);
     this.apiserviceService.create(title)
         .subscribe(post => this.posts.push(post))
   }
-
+ 
 }
