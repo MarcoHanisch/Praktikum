@@ -24,7 +24,8 @@ export class EditComponent implements OnInit {
             .switchMap((params: Params) => this.apiserviceService.getPost(+params['id']))
             .subscribe(post => this.post = post); 
     this.apiserviceService.startLoading();
-    this.apiserviceService.progressLoading(90)
+    this.apiserviceService.progressLoading(50);
+    this.apiserviceService.completeLoading()
   }
   save(): void {
     this.edited = true;

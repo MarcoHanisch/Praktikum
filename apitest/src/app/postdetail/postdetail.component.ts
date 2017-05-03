@@ -32,7 +32,8 @@ export class PostdetailComponent implements OnInit {
             .switchMap((params: Params) => this.apiserviceService.getPost(+params['id']))
             .subscribe(post => this.post = post);   
     this.apiserviceService.startLoading();
-    this.apiserviceService.progressLoading(90)
+    this.apiserviceService.progressLoading(60);
+    this.apiserviceService.completeLoading()
  }
   save(name: string, email: string, body: string): void {
    if(!name ) {this.empty = true;  setTimeout(function() {
@@ -42,10 +43,11 @@ export class PostdetailComponent implements OnInit {
    if(!body) {this.empty= true; setTimeout(function() {
               this.edited = false }.bind(this), 3000); return}
     this.apiserviceService.startLoading();
-    this.apiserviceService.progressLoading(94);
+    this.apiserviceService.progressLoading(60);
      let id = this.route.snapshot.params['id']
     this.apiserviceService.createComment(id, name, email, body)
-    .subscribe(comment => this.comments.push(comment))
+    .subscribe(comment => this.comments.push(comment));
+    this.apiserviceService.completeLoading()
    
   }
 }

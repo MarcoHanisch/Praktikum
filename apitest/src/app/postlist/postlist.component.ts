@@ -30,11 +30,12 @@ export class PostlistComponent  implements OnInit {
   }
   ngOnInit() { this.getPosts();}
   getPosts() {this.apiserviceService.startLoading();
-    this.apiserviceService.progressLoading(90);
+    this.apiserviceService.progressLoading(60);
     this.apiserviceService.getPosts()
               .subscribe(
                 posts => this.posts = posts
               );
+   this.apiserviceService.completeLoading()
 
    
   }
@@ -51,20 +52,22 @@ export class PostlistComponent  implements OnInit {
   }
   delete(post: Post): void {
     this.apiserviceService.startLoading();
-    this.apiserviceService.progressLoading(97);
+    this.apiserviceService.progressLoading(50);
     this.apiserviceService
       .delete(post.id)
       .then(()=> {
         this.posts = this.posts.filter( p=> p !== post)
-      })
+      });
+      this.apiserviceService.completeLoading()
   }
   addPost(title: string): void {
     if (!title) { this.empty = true; setTimeout(function() {
                  this.empty = false  }.bind(this), 5000) ; return}
     this.apiserviceService.startLoading();
-    this.apiserviceService.progressLoading(95);
+    this.apiserviceService.progressLoading(50);
     this.apiserviceService.create(title)
-        .subscribe(post => this.posts.push(post))
+        .subscribe(post => this.posts.push(post));
+        this.apiserviceService.completeLoading()
   }
  
 }

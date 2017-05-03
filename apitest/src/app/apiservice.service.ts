@@ -67,10 +67,12 @@ delete(id: number): Promise<void> {
   
 }
 
-progressLoading(id: number){
+  progressLoading(id: number){
   this.slimLoadingBarService.progress = id
 }
-  
+  completeLoading() {
+    this.slimLoadingBarService.complete()
+  }
 
  
 }
