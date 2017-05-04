@@ -26,50 +26,59 @@ export class ApiserviceService {
                   .then(response => response.json().data as Post[])
                   
   }*/
+  
   getPosts(): Observable<Post[]> {
     return this.http.get(this.postsUrl)
                 .map(response => response.json())
   }
+ 
   getPost(id: number): Observable<Post> {
     const url = `${this.postsUrl}/${id}`;
     return this.http.get(url)
                 .map(response => response.json())
   }
+  
   getComments(id: number): Observable<Comment[]> {
     const url = `${this.postsUrl}/${id}/comments`;
     return this.http.get(url)
                   .map(response => response.json())
   }
+ 
   create(title: string): Observable<Post> {
     return this.http.post(this.postsUrl, JSON.stringify({title: title}), {headers: this.headers})
       .map(response => response.json())
   }
+ 
   createComment(id: number, name: string, email: string, body: string): 
   Observable<Comment> {
     const url = `${this.postsUrl}/${id}/comments`;
     return this.http.post(url, JSON.stringify({email: email, name: name, body: body}), {headers: this.headers})
           .map(response => response.json())
   }
-delete(id: number): Promise<void> {
+  
+  delete(id: number): Promise<void> {
   const url = `${this.postsUrl}/${id}`;
   return this.http.delete(url, {headers: this.headers})
               .toPromise()
               .then(()=> null)
   }
+  
   update(post: Post): Promise<Post> {
     const url = `${this.postsUrl}/${post.id}`;
     return this.http.put(url, JSON.stringify(post))
       .toPromise()
       .then(() => post)
   }
+  
   startLoading( ){
   this.slimLoadingBarService.start();
   
-}
+  }
 
   progressLoading(id: number){
   this.slimLoadingBarService.progress = id
-}
+  }
+  
   completeLoading() {
     this.slimLoadingBarService.complete()
   }

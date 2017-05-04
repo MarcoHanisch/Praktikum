@@ -6,10 +6,10 @@ import { Router } from '@angular/router';
 
 
 export class Post {
-id: number;
-userID:number;
-title: string;
-body: string;
+  id: number;
+  userID:number;
+  title: string;
+  body: string;
 }
 
 @Component({
@@ -21,35 +21,39 @@ body: string;
 export class PostlistComponent  implements OnInit {
   title = 'Posts';
   empty : boolean;
- public posts: Post[];
+  public posts: Post[];
 
   constructor (private apiserviceService: ApiserviceService,
-  private router: Router) {
-    
+                private router: Router) {  }
+  
+  ngOnInit() {
+     this.getPosts()
+    }
 
-  }
-  ngOnInit() { this.getPosts();}
-  getPosts() {this.apiserviceService.startLoading();
+  getPosts() {
+    this.apiserviceService.startLoading();
     this.apiserviceService.progressLoading(60);
     this.apiserviceService.getPosts()
               .subscribe(
                 posts => this.posts = posts
               );
    this.apiserviceService.completeLoading()
-
-   
   }
+
  /* getPosts(): void {
     this.apiserviceService
         .getPosts()
         .then(posts => this.posts = posts);
+
   }*/
   gotoDetail(post: Post) {
     this.router.navigate(['/detail', post.id])
   }
+
   gotoEdit(post : Post) {
     this.router.navigate(['/edit', post.id])
   }
+
   delete(post: Post): void {
     this.apiserviceService.startLoading();
     this.apiserviceService.progressLoading(50);
@@ -60,6 +64,7 @@ export class PostlistComponent  implements OnInit {
       });
       this.apiserviceService.completeLoading()
   }
+
   addPost(title: string): void {
     if (!title) { this.empty = true; setTimeout(function() {
                  this.empty = false  }.bind(this), 5000) ; return}

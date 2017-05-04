@@ -20,13 +20,14 @@ export class EditComponent implements OnInit {
               private location: Location) { }
 
   ngOnInit(): void {
-   this.route.params
-            .switchMap((params: Params) => this.apiserviceService.getPost(+params['id']))
-            .subscribe(post => this.post = post); 
     this.apiserviceService.startLoading();
     this.apiserviceService.progressLoading(50);
+    this.route.params
+            .switchMap((params: Params) => this.apiserviceService.getPost(+params['id']))
+            .subscribe(post => this.post = post); 
     this.apiserviceService.completeLoading()
   }
+  
   save(): void {
     this.edited = true;
     setTimeout(function() {
@@ -35,6 +36,7 @@ export class EditComponent implements OnInit {
     this.apiserviceService.update(this.post)
       .then( );
   }
+ 
   goBack(): void {
     this.location.back();
   }

@@ -1,5 +1,4 @@
 <div class="container">
-
   <div *ngIf="post" class="jumbotron">
     <h2 class="display-9">
     {{post.title}}
@@ -15,9 +14,9 @@
     <li class="list-group-item"> {{comment.body}} </li>
   </ul>
   <h5> New Comment </h5>
-   <div *ngIf="empty" class="alert alert-danger">
-  <strong>You must insert a new Comment-name, Comment and your email!</strong>
-</div>
+  <div *ngIf="empty" class="alert alert-danger">
+    <strong>You must insert a new Comment-name, Comment and your email!</strong>
+  </div>
   <div class="form-group">
     <p> name: </p>
     <input #name class="form-control" placeholder="name"/>
@@ -33,5 +32,4 @@
   <div>
     <button type="button" class="btn btn-info" (click)="save(name.value, email.value, body.value)"> Save </button>
   </div>
- 
 </div>

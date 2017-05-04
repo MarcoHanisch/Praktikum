@@ -1,24 +1,25 @@
 <div class="container">
   <h1> {{title}}</h1>
-<div *ngIf="post">
-  <div class="form-group">
-    <div class="col-12">
-      <label>  Title </label>
-      <input [(ngModel)]="post.title" class="form-control" placeholder="title"/>
+  <div *ngIf="post">
+    <div class="form-group">
+      <div class="col-12">
+        <label>  Title </label>
+        <input [(ngModel)]="post.title" class="form-control" placeholder="title"/>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-12">
-      <label> Body  </label><textarea class="form-control " rows="5" [(ngModel)]="post.body" placeholder="body"></textarea>
+    <div class="form-group">
+      <div class="col-12">
+        <label> Body  </label><textarea class="form-control " rows="5" [(ngModel)]="post.body" placeholder="body"></textarea>
+      </div>
     </div>
-  </div>
-  <div>
-    <button type="button" class="btn btn-info" (click)="save()" > Save </button>
-  </div>
-  <div *ngIf="edited" class="alert alert-info ">
-    <strong>
-      <p>title:  </p>  {{post.title}}<br>
-      <p>body: </p>  {{post.body}}
-    </strong>
+    <div>
+      <button type="button" class="btn btn-info" (click)="save()" > Save </button>
+    </div>
+    <div *ngIf="edited" class="alert alert-info ">
+      <strong>
+       <p>title:  </p>  {{post.title}}<br>
+       <p>body: </p>  {{post.body}}
+      </strong>
+    </div>
   </div>
 </div>
