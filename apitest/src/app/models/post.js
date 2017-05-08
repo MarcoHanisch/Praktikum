@@ -3,8 +3,7 @@ var Schema = mongoose.Schema
 
 var PostSchema = new Schema({
     title: String,
-    comments: [{ content: String, User_id: String}],
-    topics: [{ name: String }],
+    topics: { name: String },
     User_id: String
 })
 

@@ -1,7 +1,7 @@
 var express = require('express')
 var app = express()
 var port = 8080
-var mongoose = require('mongoose')
+var mongoose = require('mongoose').set('debug', 'true')
 var bodyParser = require('body-parser')
 var router = express.Router()
 
@@ -9,10 +9,12 @@ app.use(express.static('../test'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+mongoose.Promise = global.Promise;
 mongoose.connect('localhost/ForumDatabase');
 
 var Post = require('./app/models/post')
 var User = require('./app/models/user')
+var Comment = require('./app/models/comment')
 
 app.get('/',(req, res) => {
     res.sendFile(__dirname+'/index.html')
@@ -49,6 +51,7 @@ router.route('/posts')
             var post = new Post();
             post.title = req.body.title;
             post.topics.name = req.body.name;
+            post.comments.content = req.body.content;
             post.save(function(err) {
                 if(err) 
                 res.send(err);
@@ -57,7 +60,7 @@ router.route('/posts')
         })
 
         .get(function(req, res) {
-            Post.find({}, {_id:0, title:1, User_id:1},function(err, posts) {
+            Post.find(function(err, posts) {
                 if(err)
                 res.send(err)
                 res.json(posts)
@@ -76,7 +79,7 @@ router.route('/posts/:post_id')
             Post.findById(req.params.post_id , function(err,post){
                 if (err)
                 res.send(err)
-                post.title = req.body.title,
+                post.title = req.body.title
                 post.topics.name = req.body.name
                 post.save(function(err) {
                 if(err) 
@@ -94,19 +97,50 @@ router.route('/posts/:post_id')
                 res.json({message:'Succesfully deleted '})
             })
         })
-        .post(function(req, res){
-            Post.findById(req.params.post_id, function(err, post){
+        
+router.route('/posts/:post_id/comments')
+        .post(function(req, res) {
+            var comment = new Comment();
+           comment.title = req.body.title;
+            comment.content = req.body.content;
+            comment.Post_id = req.params.post_id;
+            comment.save(function(err) {
+                if(err) 
+                res.send(err);
+                res.json(comment)
+            })
+        })
+        .get(function(req, res){
+            Comment.find({"Post_id": req.params.post_id}, function(err, comments){
                 if(err)
                 res.send(err)
-                post.comments.content = req.body.content
-                post.save(function(err){
-                    if(err)
-                    res.send(err);
-                    res.json(post)
-                })
+                res.json(comments)
             })
         })
 
+router.route('/comment/:comment_id')
+         .put(function(req, res){
+            Comment.findById(req.params.comment_id , function(err,comment){
+                if (err)
+                res.send(err)
+                comment.title = req.body.title
+                comment.content = req.body.content
+                comment.save(function(err) {
+                if(err) 
+                res.send(err);
+                res.json({message: 'Comment updated'})
+            })
+            })
+        })
+
+        .delete(function(req, res){
+            Comment.remove({_id: req.params.comment_id},
+             function(err, comment){
+                if (err)
+                res.send(err)
+                res.json({message:'Succesfully deleted '})
+            })
+        })
 
 router.route('/user')
         .post(function(req, res) {
