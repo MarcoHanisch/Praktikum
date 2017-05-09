@@ -4,10 +4,15 @@ var port = 8080
 var mongoose = require('mongoose').set('debug', 'true')
 var bodyParser = require('body-parser')
 var router = express.Router()
+var cookieParser = require('cookie-parser')
+var jwt = require('jsonwebtoken')
 
 app.use(express.static('../test'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.use(cookieParser());
+app.set('superSecret', 'apitest')
 
 mongoose.Promise = global.Promise;
 mongoose.connect('localhost/ForumDatabase');
@@ -28,8 +33,31 @@ app.listen(port, (err) => {
     console.log('server is listening')
 })
 
+router.route('/authenticate')
+        .post(function(req, res){
+            User.findOne({name: req.body.name}, function(err, user){
+                if(err) throw err;
+                if(!user) {
+                    res.json({succes: false, message: 'User not found'});
+                } else if(user) {
+                    if (user.password != req.body.password){
+                        res.json({succes: false, message: 'Wrong password'});
+                    }else {
+                        var token = jwt.sign(user, app.get('superSecret'), {
+                            expiresIn: 60000
+                        });
+                        res.json({
+                            succes: true,
+                            message: 'Enjoy your token',
+                            token: token
+                        });
+                    }
+                }
+            });
+        });
+
 router.route('/topics')
-        .get(function(req, res){
+        .get(/*isLoggedIn,*/ function(req, res){
             Post.distinct("topics.name", function(err, post){
                 if(err)
                 res.send(err)
@@ -45,6 +73,42 @@ router.route('/topics/:topicsname')
                 res.json(post)
             })
         })
+
+router.route('/user')
+        .post(function(req, res) {
+            var user = new User();
+            user.name = req.body.name
+            user.password = req.body.password
+            user.isAdmin = req.body.admin
+            user.save(function(err) {
+                if(err) 
+                res.send(err);
+                res.json({message: 'User created'})
+            })
+        })
+        
+router.use(function(req, res, next){
+    var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
+
+    if (token){
+
+        jwt.verify(token, app.get('superSecret'), function(err, decoded){
+            if (err) {
+                return res.json({succes: false, message: 'Failed to authenticate'});
+            }else {
+                req.decoded = decoded;
+                next();
+            }
+        });
+    } else {
+        return res.status(403).send({
+            succes: false,
+            message: 'no token provided'
+        });
+    }
+});
+
+
 
 router.route('/posts')
         .post(function(req, res) {
@@ -142,24 +206,7 @@ router.route('/comment/:comment_id')
             })
         })
 
-router.route('/user')
-        .post(function(req, res) {
-            var user = new User();
-            user.name = req.body.name
-            user.password = req.body.password
-            user.save(function(err) {
-                if(err) 
-                res.send(err);
-                res.json({message: 'User created'})
-            })
-        })
-        .get(function(req, res) {
-            User.find(function(err, user) {
-                if(err)
-                res.send(err)
-                res.json(user)
-            })
-        })
+
 
 router.route('/user/:user_id')
         .delete(function(req, res){
@@ -184,6 +231,16 @@ router.route('/user/:user_id')
             })
             })
         })
+
+router.route('/user')
+        .get(function(req, res) {
+            User.find(function(err, user) {
+                if(err)
+                res.send(err)
+                res.json(user)
+            })
+        })
+
 
 
 app.use('/api', router)
