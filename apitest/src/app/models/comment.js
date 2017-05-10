@@ -4,7 +4,7 @@ var Schema = mongoose.Schema
 var CommentSchema = new Schema({
     title: String,
     content: String,
-    User_id: String,
+    Username: String,
     Post_id: String ,
 })
 

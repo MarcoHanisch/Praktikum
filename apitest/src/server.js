@@ -21,6 +21,9 @@ var Post = require('./app/models/post')
 var User = require('./app/models/user')
 var Comment = require('./app/models/comment')
 
+var jwt_simple = require('jwt-simple')
+
+
 app.get('/',(req, res) => {
     res.sendFile(__dirname+'/index.html')
 })
@@ -33,6 +36,8 @@ app.listen(port, (err) => {
     console.log('server is listening')
 })
 
+
+
 router.route('/authenticate')
         .post(function(req, res){
             User.findOne({name: req.body.name}, function(err, user){
@@ -43,8 +48,8 @@ router.route('/authenticate')
                     if (user.password != req.body.password){
                         res.json({succes: false, message: 'Wrong password'});
                     }else {
-                        var token = jwt.sign(user, app.get('superSecret'), {
-                            expiresIn: 60000
+                        var token = jwt.sign(user={username: user.name, isAdmin: user.isAdmin, id:user._id}, app.get('superSecret'), {
+                            expiresIn: 300
                         });
                         res.json({
                             succes: true,
@@ -57,7 +62,7 @@ router.route('/authenticate')
         });
 
 router.route('/topics')
-        .get(/*isLoggedIn,*/ function(req, res){
+        .get( function(req, res){
             Post.distinct("topics.name", function(err, post){
                 if(err)
                 res.send(err)
@@ -76,17 +81,25 @@ router.route('/topics/:topicsname')
 
 router.route('/user')
         .post(function(req, res) {
-            var user = new User();
-            user.name = req.body.name
-            user.password = req.body.password
-            user.isAdmin = req.body.admin
-            user.save(function(err) {
-                if(err) 
-                res.send(err);
-                res.json({message: 'User created'})
-            })
-        })
-        
+            User.findOne({name: req.body.name}, function(err, user){
+                if(err) throw err;
+                if(user) {
+                    res.json({succes: false, message: 'User is already in use'});
+                } else {
+                    var user = new User
+                    user.name = req.body.name
+                    user.password = req.body.password
+                    user.isAdmin = req.body.admin
+                    user.save(function(err) {
+                    if(err) 
+                    res.send(err);
+                    res.json(user)
+                    })
+                    }
+                })
+            
+        });
+      
 router.use(function(req, res, next){
     var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
 
@@ -112,18 +125,20 @@ router.use(function(req, res, next){
 
 router.route('/posts')
         .post(function(req, res) {
+            var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
+            var decoded = jwt_simple.decode(token, app.get('superSecret'))
             var post = new Post();
             post.title = req.body.title;
-            post.topics.name = req.body.name;
-            post.comments.content = req.body.content;
+            post.topics.name = req.body.topics;
+            post.Username = req.decoded.username;
             post.save(function(err) {
                 if(err) 
                 res.send(err);
-                res.json({message: 'Post created'})
+                res.json(post)
             })
         })
 
-        .get(function(req, res) {
+        .get( function(req, res) {
             Post.find(function(err, posts) {
                 if(err)
                 res.send(err)
@@ -136,26 +151,40 @@ router.route('/posts/:post_id')
             Post.findById(req.params.post_id, function(err, post){
                 if(err)
                 res.send(err)
-                res.json(post)
+                else { Comment.find({"Post_id": req.params.post_id}, function(err, comments){
+                if(err)
+                res.send(err)
+                res.json([post,comments])
+            })}
+               
             })
+            
+            
         })
         .put(function(req, res){
             Post.findById(req.params.post_id , function(err,post){
+                var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
+                var decoded = jwt_simple.decode(token, app.get('superSecret'))
+                if(decoded.username == req.body.name){
                 if (err)
                 res.send(err)
                 post.title = req.body.title
-                post.topics.name = req.body.name
+                post.topics.name = req.body.topics
                 post.save(function(err) {
                 if(err) 
                 res.send(err);
                 res.json({message: 'Post updated'})
-            })
+            })} else res.json({message: 'wrong user'})
             })
         })
 
         .delete(function(req, res){
+            var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
+            var decoded = jwt_simple.decode(token, app.get('superSecret'))
+            if(decoded.isAdmin = false)
+            res.json({message: 'wrong authorization'})
             Post.remove({_id: req.params.post_id},
-             function(err, post){
+                function(err, post){
                 if (err)
                 res.send(err)
                 res.json({message:'Succesfully deleted '})
@@ -164,27 +193,27 @@ router.route('/posts/:post_id')
         
 router.route('/posts/:post_id/comments')
         .post(function(req, res) {
+            var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
+            var decoded = jwt_simple.decode(token, app.get('superSecret'))
             var comment = new Comment();
-           comment.title = req.body.title;
+            comment.title = req.body.title;
             comment.content = req.body.content;
             comment.Post_id = req.params.post_id;
+            comment.Username = req.decoded.username;
             comment.save(function(err) {
                 if(err) 
                 res.send(err);
                 res.json(comment)
             })
         })
-        .get(function(req, res){
-            Comment.find({"Post_id": req.params.post_id}, function(err, comments){
-                if(err)
-                res.send(err)
-                res.json(comments)
-            })
-        })
+       
 
 router.route('/comment/:comment_id')
          .put(function(req, res){
             Comment.findById(req.params.comment_id , function(err,comment){
+                var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
+                var decoded = jwt_simple.decode(token, app.get('superSecret'))
+                if(decoded.username == req.body.name){
                 if (err)
                 res.send(err)
                 comment.title = req.body.title
@@ -193,13 +222,17 @@ router.route('/comment/:comment_id')
                 if(err) 
                 res.send(err);
                 res.json({message: 'Comment updated'})
-            })
+            })} else res.json({message: 'wrong user'})
             })
         })
 
         .delete(function(req, res){
             Comment.remove({_id: req.params.comment_id},
              function(err, comment){
+                var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
+                var decoded = jwt_simple.decode(token, app.get('superSecret'))
+                if(decoded.isAdmin = false)
+                res.json({message: 'wrong authorization'})
                 if (err)
                 res.send(err)
                 res.json({message:'Succesfully deleted '})
@@ -210,37 +243,53 @@ router.route('/comment/:comment_id')
 
 router.route('/user/:user_id')
         .delete(function(req, res){
+            var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
+            var decoded = jwt_simple.decode(token, app.get('superSecret'))
+            if(decoded.isAdmin = false ){
+                res.json({message: 'wrong authorization'})
+            } else {
             User.remove({_id: req.params.user_id}
             , function(err, user){
                 if (err)
                 res.send(err)
                 res.json({message:'Succesfully deleted '})
-            })
+            })}
         })
-        .put(function(req, res){
+
+        .put( function(req, res){
             User.findById(req.params.user_id , function(err,user){
+                var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
+                var decoded = jwt_simple.decode(token, app.get('superSecret'))
+                if(decoded.id == req.params.user_id){
                 if (err)
                 res.send(err)
                 user.name = req.body.name
                 user.password = req.body.password
-
+                user.isAdmin = req.body.admin
                 user.save(function(err) {
                 if(err) 
                 res.send(err);
                 res.json({message: 'User updated'})
-            })
+            })} else res.json({message: 'You could only edit your own user'})
             })
         })
 
-router.route('/user')
-        .get(function(req, res) {
-            User.find(function(err, user) {
+        .get(function(req, res){
+            User.find({_id: req.params.user_id},{_id:0, name:1, isAdmin:1}, function(err, user){
                 if(err)
                 res.send(err)
                 res.json(user)
             })
         })
 
+router.route('/user')
+        .get( function(req, res) {
+            User.find(/*{},{_id:0, name:1, isAdmin:1 },*/function(err, user) {
+                if(err)
+                res.send(err)
+                res.json(user)
+            })
+        })
 
 
 app.use('/api', router)
