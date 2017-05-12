@@ -1,0 +1,14 @@
+<p>
+  user works!
+</p>
+<div class="container">
+  <li *ngFor="let user of user">
+    {{user.name}}
+  </li>
+</div>
+<div>
+  <label> new Name: <input #name  /> </label>
+  <label> new password: <input #password  /> </label>
+  
+  <button class="btn btn-info" (click)="addUser(name.value, password.value); password.value=''">Add</button>
+</div>

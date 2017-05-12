@@ -1,0 +1,10 @@
+<p>
+  login works!
+</p>
+<div class="container">
+  <label> Username:</label>
+  <input #name>
+  <label> Password:</label>
+  <input #password>
+  <button (click)="login(name.value, password.value)"> Login</button>
+</div>
