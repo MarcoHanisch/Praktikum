@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from 'angular2-auth';
@@ -17,7 +17,9 @@ import { AuthService } from './auth.service';
 import { LoggedInGuard } from './logged-in.guard';
 import { PostdetailComponent } from './postdetail/postdetail.component';
 import { TopicdetailComponent } from './topicdetail/topicdetail.component';
-import { UserdetailComponent } from './userdetail/userdetail.component'
+import { UserdetailComponent } from './userdetail/userdetail.component';
+import { PostaddComponent } from './postadd/postadd.component';
+import { EdituserComponent } from './edituser/edituser.component'
 
 
 
@@ -56,7 +58,15 @@ const ROUTES = [
   },
   {
     path: 'user/:user_id',
-    component: UserdetailComponent
+    component: UserdetailComponent,
+    canActivate: [LoggedInGuard]
+  },{
+    path:'posts/:post_id/edit',
+    component: PostaddComponent
+  },
+  {
+    path:'user/:user_id/edit',
+    component: EdituserComponent
   }
 ];
 @NgModule({
@@ -68,7 +78,9 @@ const ROUTES = [
     UserComponent,
     PostdetailComponent,
     TopicdetailComponent,
-    UserdetailComponent
+    UserdetailComponent,
+    PostaddComponent,
+    EdituserComponent
   ],
   imports: [
     BrowserModule,

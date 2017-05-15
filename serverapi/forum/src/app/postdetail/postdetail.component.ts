@@ -7,7 +7,7 @@ import 'rxjs/add/operator/switchMap';
 @Component({
   selector: 'app-postdetail',
   templateUrl: './postdetail.component.html',
-  styleUrls: ['./postdetail.component.css']
+  styleUrls: ['./postdetail.component.css'],
 })
 export class PostdetailComponent implements OnInit {
   
@@ -15,6 +15,7 @@ export class PostdetailComponent implements OnInit {
  
   post: any = [] ;
   comments: any = [];
+  post_id : string;
 
   ngOnInit() {
     this.route.params
@@ -25,6 +26,13 @@ export class PostdetailComponent implements OnInit {
        .switchMap((params: Params) =>  this.postsService.getComments(params['post_id'])).subscribe(comments => {
       this.comments = comments
     })
+    this.route.params.subscribe((params: Params) => {
+      this.post_id = params['post_id']
+   })
+  }
+
+  addComment(title: string, content: string, post_id: string): void { 
+    this.postsService.addComment(title,content, post_id).subscribe(comments =>this.comments.push(comments))
   }
 
 }

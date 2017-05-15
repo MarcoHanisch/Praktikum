@@ -7,4 +7,8 @@
     {{post.title}}
     {{post.Username}}
   </li>
+  <label> new Title: <input #title  /> </label>
+  <label> new topics: <input #topics  /> </label>
+  
+  <button class="btn btn-info" (click)="addPost(title.value, topics.value); topics.value=''; title.value=''">Add</button>
 </div>

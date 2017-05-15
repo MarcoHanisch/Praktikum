@@ -4,11 +4,11 @@ import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
-  selector: 'app-userdetail',
-  templateUrl: './userdetail.component.html',
-  styleUrls: ['./userdetail.component.css']
+  selector: 'app-edituser',
+  templateUrl: './edituser.component.html',
+  styleUrls: ['./edituser.component.css']
 })
-export class UserdetailComponent implements OnInit {
+export class EdituserComponent implements OnInit {
   user: any = [];
 
   constructor(private postsService : PostsService, private route : ActivatedRoute) { }
@@ -18,6 +18,9 @@ export class UserdetailComponent implements OnInit {
       .switchMap((params: Params) => this.postsService.getUser(params['user_id'])).subscribe(user => {
         this.user = user
       })
+  }
+editUser(name: string, password: string,isAdmin: boolean, user_id: string): void { 
+    this.postsService.editUser(name,password,isAdmin,user_id).subscribe(user =>this.user.push(user))
   }
 
   

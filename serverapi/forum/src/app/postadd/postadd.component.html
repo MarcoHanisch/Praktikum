@@ -1,0 +1,7 @@
+<p>
+  postadd works!
+</p>
+<div class="container" *ngIf="post">
+  <label> Title: <input [(ngModel)]="post.title" class="form-control" placeholder="title"/></label>
+ <label> Topics: <input #topics [(ngModel)]="post.topics"/></label>
+</div>

@@ -1,14 +1,21 @@
 <p>
   postdetail works!
 </p>
-<div class="container" *ngFor="let post of post">
+<div class="container" *ngIf="post">
     <h2>{{post.title}}</h2>
     <p>{{post.Username}}</p>
-    
-</div>
+  <input [value]="post_id" #id/>
+
     <div class="container" *ngFor="let comment of comments">
     <li> {{comment.title}}<br>
      {{comment.content}}<br>
      {{comment.Username}}
     </li>
     </div>
+<div >
+    <label> new title: <input #title  /> </label>
+  <label> new content: <input #content  /> </label>
+  
+  <button class="btn btn-info" (click)="addComment(title.value, content.value,id.value)">Add</button>
+</div>
+</div>

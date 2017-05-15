@@ -1,0 +1,10 @@
+<p>
+  edituser works!
+</p>
+<div class="container" *ngFor="let user of user">
+  <label> UserName: <input #name [(ngModel)]="user.name" /></label>
+  <label> Userpassword: <input #password [(ngModel)]="user.password" /></label>
+  <label> Admin: <input #isAdmin class="checkbox" [(ngModel)]="user.isAdmin"/></label>
+   <button class="btn btn-info" (click)="editUser(name.value, password.value,isAdmin.value)">edit</button>
+</div>
+ 

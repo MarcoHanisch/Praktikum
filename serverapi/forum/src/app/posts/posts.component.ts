@@ -15,6 +15,8 @@ export class PostsComponent implements OnInit {
       this.posts = posts
     })
   }
-
+  addPost(title: string, topics: string): void {
+    this.postsService.addPost(title,topics).subscribe(posts =>this.posts.push(posts));
+  }
 
 }

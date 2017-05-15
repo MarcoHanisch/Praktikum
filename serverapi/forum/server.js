@@ -121,8 +121,8 @@ router.route('/posts')
             })
         })
       
-/*router.use(function(req, res, next){
-    var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
+router.use(function(req, res, next){
+    var token = req.body.token || req.query.token ||req.headers['x-acces-token']||req.headers['Authorization:'];
 
     if (token){
 
@@ -140,7 +140,7 @@ router.route('/posts')
             message: 'no token provided'
         });
     }
-});*/
+});
 
 
 
@@ -173,16 +173,17 @@ router.route('/posts/:post_id')
             Post.findById(req.params.post_id, function(err, post){
                 if(err)
                 res.send(err)
-                else { Comment.find({"Post_id": req.params.post_id}, function(err, comments){
-                if(err)
-                res.send(err)
-                res.json([post,comments])
+               // else { Comment.find({"Post_id": req.params.post_id}, function(err, comments){
+               // if(err)
+                //res.send(err)
+                res.json(post)
             })}
                
-            })
+       // }  )
             
             
-        })
+       // }
+        )
         .put(function(req, res){
             Post.findById(req.params.post_id , function(err,post){
                 var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
@@ -273,21 +274,21 @@ router.route('/user/:user_id')
             User.remove({_id: req.params.user_id}
             , function(err, user){
                 if (err)
-                res.send(err)
+                res.send(err);
                 res.json({message:'Succesfully deleted '})
             })}
         })
 
         .put( function(req, res){
-            User.findById(req.params.user_id , function(err,user){
+            User.findById({_id: req.params.user_id} , function(err,user){
                 var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
                 var decoded = jwt_simple.decode(token, app.get('superSecret'))
-                if(decoded.id == req.params.user_id){
+                if(decoded.isAdmin = true){
                 if (err)
                 res.send(err)
                 user.name = req.body.name
                 user.password = req.body.password
-                user.isAdmin = req.body.admin
+                user.isAdmin = req.body.isAdmin
                 user.save(function(err) {
                 if(err) 
                 res.send(err);
@@ -297,7 +298,7 @@ router.route('/user/:user_id')
         })
 
         .get(function(req, res){
-            User.find({_id: req.params.user_id},{_id:0, name:1, isAdmin:1}, function(err, user){
+            User.find({_id: req.params.user_id},/*{_id:0, name:1, isAdmin:1},*/ function(err, user){
                 if(err)
                 res.send(err)
                 res.json(user)
