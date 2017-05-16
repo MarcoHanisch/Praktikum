@@ -19,7 +19,11 @@ export class UserdetailComponent implements OnInit {
         this.user = user
       })
   }
-
+deleteUser(user): void {
+    this.postsService.deleteUser(user._id).then(()=> {
+      this.user = this.user.filter(u => u !== user)
+    })
+  }
   
 
 }

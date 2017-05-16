@@ -208,10 +208,14 @@ router.route('/posts/:post_id')
             res.json({message: 'wrong authorization'})
             Post.remove({_id: req.params.post_id},
                 function(err, post){
-                if (err)
-                res.send(err)
+                if (err){
+                res.send(err)}
+                else{ Comment.find({"Post_id": req.params.post_id}).remove(function(err){
+                    if(err)
+                    res.send(err)
+                })
                 res.json({message:'Succesfully deleted '})
-            })
+            }})
         })
         
 router.route('/posts/:post_id/comments')
@@ -229,10 +233,17 @@ router.route('/posts/:post_id/comments')
                 res.json(comment)
             })
         })
-       
+router.route('/comments')
+        .get( function(req, res) {
+            Comment.find(function(err, comments) {
+                if(err)
+                res.send(err)
+                res.json(comments)
+            })
+        })      
 
 router.route('/comment/:comment_id')
-         .put(function(req, res){
+        /* .put(function(req, res){
             Comment.findById(req.params.comment_id , function(err,comment){
                 var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
                 var decoded = jwt_simple.decode(token, app.get('superSecret'))
@@ -246,6 +257,12 @@ router.route('/comment/:comment_id')
                 res.send(err);
                 res.json({message: 'Comment updated'})
             })} else res.json({message: 'wrong user'})
+            })
+        })*/
+
+        .put(function(req,res){
+            Comment.findOneAndUpdate({_id: req.params.comment_id},req.body,function(err,comment){
+                res.send(comment)
             })
         })
 
@@ -261,6 +278,13 @@ router.route('/comment/:comment_id')
                 res.json({message:'Succesfully deleted '})
             })
         })
+        .get(function(req, res){
+            Comment.find({_id: req.params.comment_id}, function(err, comment){
+                if(err)
+                res.send(err)
+                res.json(comment)
+            })
+        })
 
 
 
@@ -271,31 +295,47 @@ router.route('/user/:user_id')
             if(decoded.isAdmin = false ){
                 res.json({message: 'wrong authorization'})
             } else {
-            User.remove({_id: req.params.user_id}
-            , function(err, user){
+            User.find({_id: req.params.user_id}).remove(
+             function(err, user){
                 if (err)
                 res.send(err);
                 res.json({message:'Succesfully deleted '})
             })}
         })
 
-        .put( function(req, res){
-            User.findById({_id: req.params.user_id} , function(err,user){
+       /* .put( function(req, res){
+           
                 var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
                 var decoded = jwt_simple.decode(token, app.get('superSecret'))
-                if(decoded.isAdmin = true){
+                if(decoded.isAdmin = false){
+                    res.json({message: 'wrong authorization'})
+                } else{
+                User.find({_id: req.params.user_id}).update( function(err,user){
                 if (err)
                 res.send(err)
-                user.name = req.body.name
-                user.password = req.body.password
-                user.isAdmin = req.body.isAdmin
+                var user = User
+                user.name = req.body.name || user.name
+                user.password = req.body.password ||user.password
+                user.isAdmin = req.body.isAdmin || user.isAdmin
                 user.save(function(err) {
                 if(err) 
                 res.send(err);
                 res.json({message: 'User updated'})
-            })} else res.json({message: 'You could only edit your own user'})
+            })} 
+            )}
+        })*/
+        
+        .put(function(req,res) {
+             var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
+                var decoded = jwt_simple.decode(token, app.get('superSecret'))
+                if(decoded.isAdmin != true){
+                    res.json({message: 'wrong authorization'})
+                } else{
+            User.findOneAndUpdate({_id: req.params.user_id}, req.body, function(err, user){
+                res.send(user)
             })
-        })
+        }})
+        
 
         .get(function(req, res){
             User.find({_id: req.params.user_id},/*{_id:0, name:1, isAdmin:1},*/ function(err, user){

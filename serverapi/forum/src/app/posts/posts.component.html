@@ -6,6 +6,9 @@
   [class.selected]="post === selectedPost">
     {{post.title}}
     {{post.Username}}
+    <button type="button" class="btn btn-primary" (click)="deletePost(post); $event.stopPropagation()">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
   </li>
   <label> new Title: <input #title  /> </label>
   <label> new topics: <input #topics  /> </label>

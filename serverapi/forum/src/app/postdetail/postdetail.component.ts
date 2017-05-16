@@ -34,5 +34,9 @@ export class PostdetailComponent implements OnInit {
   addComment(title: string, content: string, post_id: string): void { 
     this.postsService.addComment(title,content, post_id).subscribe(comments =>this.comments.push(comments))
   }
-
+ deleteComment(comment): void {
+    this.postsService.deleteComment(comment._id).then(()=> {
+      this.comments = this.comments.filter(u => u !== comment)
+    })
+  }
 }

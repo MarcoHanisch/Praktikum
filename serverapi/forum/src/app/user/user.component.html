@@ -3,8 +3,11 @@
 </p>
 <div class="container">
   <li *ngFor="let user of user">
-    {{user.name}}
+    {{user.name}}<button type="button" class="btn btn-primary" (click)="deleteUser(user); $event.stopPropagation()">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
   </li>
+  
 </div>
 <div>
   <label> new Name: <input #name  /> </label>

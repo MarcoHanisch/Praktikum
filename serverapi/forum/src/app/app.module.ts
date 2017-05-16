@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from 'angular2-auth';
 
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
@@ -19,7 +20,8 @@ import { PostdetailComponent } from './postdetail/postdetail.component';
 import { TopicdetailComponent } from './topicdetail/topicdetail.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
 import { PostaddComponent } from './postadd/postadd.component';
-import { EdituserComponent } from './edituser/edituser.component'
+import { EdituserComponent } from './edituser/edituser.component';
+import { EditcommentComponent } from './editcomment/editcomment.component'
 
 
 
@@ -67,6 +69,10 @@ const ROUTES = [
   {
     path:'user/:user_id/edit',
     component: EdituserComponent
+  },
+  {
+    path:'comment/:comment_id',
+    component: EditcommentComponent
   }
 ];
 @NgModule({
@@ -80,12 +86,14 @@ const ROUTES = [
     TopicdetailComponent,
     UserdetailComponent,
     PostaddComponent,
-    EdituserComponent
+    EdituserComponent,
+    EditcommentComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(ROUTES, {useHash: true}),
    // AuthModule.forRoot(),
   

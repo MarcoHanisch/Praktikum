@@ -21,4 +21,10 @@ export class UserComponent implements OnInit {
     this.postsService.postUser(name,password).subscribe(user =>this.user.push(user));
   }
 
+  deleteUser(user): void {
+    this.postsService.deleteUser(user._id).then(()=> {
+      this.user = this.user.filter(u => u !== user)
+    })
+  }
+
 }

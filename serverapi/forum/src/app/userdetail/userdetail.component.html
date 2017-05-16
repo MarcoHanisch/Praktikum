@@ -4,4 +4,7 @@
 <div class="container" *ngFor="let user of user">
   <li>{{user.name}}</li>
   <button (click)="delete()"> Delete </button>
+  <button type="button" class="btn btn-primary" (click)="deleteUser(user); $event.stopPropagation()">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
 </div>

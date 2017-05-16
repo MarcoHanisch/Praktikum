@@ -18,5 +18,11 @@ export class PostsComponent implements OnInit {
   addPost(title: string, topics: string): void {
     this.postsService.addPost(title,topics).subscribe(posts =>this.posts.push(posts));
   }
+    deletePost(post): void {
+    this.postsService.deletePost(post._id).then(()=> {
+      this.posts = this.posts.filter(u => u !== post)
+    })
+  }
+
 
 }
