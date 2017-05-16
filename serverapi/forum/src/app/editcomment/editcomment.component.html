@@ -1,0 +1,9 @@
+<p>
+  editcomment works!
+</p>
+<div class="container" *ngFor="let comment of comment">
+  <label> UserName: <input #name [(ngModel)]="comment.title" /></label>
+  <label> Userpassword: <input #password [(ngModel)]="comment.content" /></label>
+  <input #id [(ngModel)]="comment._id"/>
+   <button class="btn btn-info" (click)="editComment(name.value, password.value,id.value)">edit</button>
+</div>
