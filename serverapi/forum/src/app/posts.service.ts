@@ -58,8 +58,11 @@ export class PostsService {
         .map(response => response.json());
   }
   postUser(name: string, password: string): Observable<User> {
-    
-    return this.http.post('http://localhost:8080/api/user', JSON.stringify({name: name, password: password}))
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let token = localStorage.getItem('token');
+    headers.append('x-acces-token', `${token}`);
+    return this.http.post('http://localhost:8080/api/user', JSON.stringify({name: name, password: password}), {headers})
       .map(response => response.json())
   }
   getTopic(topicsname: string){

@@ -30,7 +30,7 @@ import { EditcommentComponent } from './editcomment/editcomment.component'
 const ROUTES = [
   {
     path: '',
-    redirectTo:'posts',
+    redirectTo:'topics',
     pathMatch: 'full'
   },
   {
@@ -39,7 +39,8 @@ const ROUTES = [
   },
   {
     path: 'posts',
-    component: PostsComponent
+    component: PostsComponent,
+    canActivate: [LoggedInGuard]
   },
   {
     path: 'login',
@@ -52,27 +53,32 @@ const ROUTES = [
   },
   {
     path: 'posts/:post_id',
-    component: PostdetailComponent
+    component: PostdetailComponent,
+    canActivate: [LoggedInGuard]
   },
   {
     path:'topics/:topicsname',
-    component: TopicdetailComponent
+    component: TopicdetailComponent,
+    canActivate: [LoggedInGuard]
   },
   {
     path: 'user/:user_id',
     component: UserdetailComponent,
     canActivate: [LoggedInGuard]
   },{
-    path:'posts/:post_id/edit',
-    component: PostaddComponent
+    path:'posts/edit/:post_id',
+    component: PostaddComponent,
+    canActivate: [LoggedInGuard]
   },
   {
-    path:'user/:user_id/edit',
-    component: EdituserComponent
+    path:'user/edit/:user_id',
+    component: EdituserComponent,
+    canActivate: [LoggedInGuard]
   },
   {
     path:'comment/:comment_id',
-    component: EditcommentComponent
+    component: EditcommentComponent,
+    canActivate: [LoggedInGuard]
   }
 ];
 @NgModule({

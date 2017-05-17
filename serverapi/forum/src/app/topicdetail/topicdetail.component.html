@@ -1,8 +1,29 @@
-<p>
-  topicdetail works!
-</p>
-<div class="container" *ngFor="let topic of topic">
-  <li>{{topic.title}}</li>
+<table class="table table-responsive table-striped">
+      <thead>
+        <tr>
+          <th> Posts</th>
+          <th> Username</th>
+          <th> Options </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr  *ngFor="let post of posts " >
+          <td>{{post.title}}</td>
+          <td>{{post.Username}}</td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary" (click)="gotoDetail(post)"> 
+                <span class="glyphicon glyphicon-folder-open" ></span>
+              </button>
+              <button type="button" class="btn btn-primary" (click)="deletePost(post); $event.stopPropagation()">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+              <button type="button" class="btn btn-primary" (click)="gotoEdit(post)">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-  
-</div>

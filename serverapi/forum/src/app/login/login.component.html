@@ -1,10 +1,11 @@
-<p>
-  login works!
-</p>
-<div class="container">
+<h2>
+  Login
+</h2>
+<p> Bitte einloggen um fortzufahren</p>
+<div class="form-group">
   <label> Username:</label>
-  <input #name>
+  <input #name type="text" class="form-control">
   <label> Password:</label>
-  <input #password>
-  <button (click)="login(name.value, password.value)"> Login</button>
+  <input #password type="text" class="form-control">
 </div>
+  <button class="btn btn-primary" (click)="login(name.value, password.value)"> Login</button>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../posts.service';
 import { AuthService } from '../auth.service';
 import { AuthModule } from 'angular2-auth';
+import { Router } from '@angular/router';
 
 
 
@@ -13,7 +14,7 @@ import { AuthModule } from 'angular2-auth';
 export class LoginComponent implements OnInit {
   user: any =[]
    
-  constructor(private postsService: PostsService, private authservice : AuthService) { }
+  constructor(private postsService: PostsService, private authservice : AuthService, private router: Router) { }
 
  /*login(name: string, password: string) {
     if(!name){return}
@@ -25,9 +26,9 @@ export class LoginComponent implements OnInit {
   }*/
 
   login(name: string, password: string) {
-    this.authservice.login(name, password).subscribe (user => {
-      this.user = user
-    })
+    this.authservice.login(name, password).subscribe (user => 
+      this.user = user)
+    this.router.navigate(['posts'])
   }
   ngOnInit() {
   }

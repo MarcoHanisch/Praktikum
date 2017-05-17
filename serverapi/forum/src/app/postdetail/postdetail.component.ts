@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../posts.service';
-import { Params, ActivatedRoute } from '@angular/router';
+import { Params, ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import { Location } from '@angular/common'
 
 
 @Component({
@@ -11,11 +12,12 @@ import 'rxjs/add/operator/switchMap';
 })
 export class PostdetailComponent implements OnInit {
   
-  constructor(private postsService: PostsService, private route : ActivatedRoute) { }
- 
+  constructor(private postsService: PostsService, private route : ActivatedRoute, private location: Location, private router: Router) { }
+  selectedid: string;
   post: any = [] ;
   comments: any = [];
   post_id : string;
+  user: any = []
 
   ngOnInit() {
     this.route.params
@@ -39,4 +41,5 @@ export class PostdetailComponent implements OnInit {
       this.comments = this.comments.filter(u => u !== comment)
     })
   }
+   
 }

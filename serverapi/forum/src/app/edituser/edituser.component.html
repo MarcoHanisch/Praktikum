@@ -1,11 +1,21 @@
-<p>
-  edituser works!
-</p>
-<div class="container" *ngFor="let user of user">
-  <label> UserName: <input #name [(ngModel)]="user.name" /></label>
-  <label> Userpassword: <input #password [(ngModel)]="user.password" /></label>
-  <label> Admin: <input #isAdmin class="checkbox" [(ngModel)]="user.isAdmin"/></label>
-  <input #id [(ngModel)]="user._id"/>
-   <button class="btn btn-info" (click)="editUser(name.value, password.value,isAdmin.value,id.value)">edit</button>
+
+<div  *ngFor="let user of user">
+  <div class="form-group">
+    <form class="form-inline">
+  <label> UserName: <input #name [(ngModel)]="user.name" class="form-control" name="name" /></label>
+    </form>
+  <form class="form-inline">
+  <label> Userpassword: <input #password [(ngModel)]="user.password" class="form-control" name="password"/></label>
+  </form>
+  <form class="form-inline">
+  
+  <label> Admin: <input #isAdmin type="checkbox" class="form-control" [(ngModel)]="user.isAdmin"  name="isAdmin"/></label>
+  
+  </form>
+  </div>
+  <input #id hidden [(ngModel)]="user._id" name="id"/>
+   <button class="btn btn-info" (click)="editUser(name.value, password.value,user.isAdmin,id.value)">edit</button>
+
 </div>
+
  

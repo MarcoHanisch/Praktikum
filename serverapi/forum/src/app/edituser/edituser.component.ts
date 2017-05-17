@@ -21,7 +21,7 @@ export class EdituserComponent implements OnInit {
   }
 editUser(name: string, password: string,isAdmin: boolean, user_id: string): void { 
     this.postsService.editUser(name,password,isAdmin,user_id).subscribe(user =>this.user.push(user))
-    this.router.navigate(['/user'])
+    this.router.navigate(['user'])
   }
 
   

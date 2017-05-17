@@ -18,40 +18,19 @@ export class PostaddComponent implements OnInit {
   postForm: FormGroup;
 
   constructor(private route: ActivatedRoute, private postsService: PostsService, private fb: FormBuilder) {
-    this.createForm()
+    
    }
 
-   createForm(){
-     this.postForm = this.fb.group({
-       title: '',
-       secretLairs: this.fb.array([])
-     })
-   }
+  
 
   ngOnInit() {
     this.route.params
       .switchMap((params: Params) =>  this.postsService.getPost(params['post_id'])).subscribe(post => {
       this.post = post
     })
-    this.postForm.setValue({
-      title: this.post.name,
-      topics: this.post.descriptions[0] || new Topics()
-    })
   }
-  get secretLairs(): FormArray {
-    return this.postForm.get('secrestLairs') as FormArray
-  };
-
-  setTopics(topics: Topics[]){
-    const topicsFGs = topics.map(topics => this.fb.group(topics));
-    const topicsFormArray = this.fb.array(topicsFGs);
-    this.postForm.setControl('secretLairs', topicsFormArray)
+  editPost(title: string, topics:string, post_id: string){
+    this.postsService.editPost(title, topics, post_id).subscribe(post => this.post.push(post))
+   
   }
-
-  addLair(){
-    this.secretLairs.push(this.fb.group(new Topics()));
-  }
-
-  
-
 }

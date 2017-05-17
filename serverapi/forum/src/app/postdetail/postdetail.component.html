@@ -1,19 +1,18 @@
-<p>
-  postdetail works!
-</p>
+
 <div class="container" *ngIf="post">
     <h2>{{post.title}}</h2>
     <p>{{post.Username}}</p>
   <input hidden [value]="post_id" #id/>
 
-    <div class="container" *ngFor="let comment of comments">
-    <li> {{comment.title}}<br>
-     {{comment.content}}<br>
-     {{comment.Username}}
-     <button type="button" class="btn btn-primary" (click)="deleteComment(comment); $event.stopPropagation()">
+    <div class="panel panel-default" *ngFor="let comment of comments">
+    <div class="panel-heading"> {{comment.title}}
+      <button type="button" class="btn btn-primary btn-sm pull-right" (click)="deleteComment(comment); $event.stopPropagation()">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
-    </li>
+      </div>
+      <div class="panel-body">  {{comment.content}}</div>
+          <li class="list-group-item">{{comment.Username}}</li>
+     
     </div>
 <div >
     <label> new title: <input #title  /> </label>
@@ -21,4 +20,5 @@
   
   <button class="btn btn-info" (click)="addComment(title.value, content.value,id.value)">Add</button>
 </div>
+
 </div>

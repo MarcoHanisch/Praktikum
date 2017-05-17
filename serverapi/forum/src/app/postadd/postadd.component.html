@@ -1,24 +1,10 @@
 <p>
   postadd works!
 </p>
-<!--<div class="container" *ngIf="post">
-  <label> Title: <input [(ngModel)]="post.title" class="form-control" placeholder="title"/></label>
- <label> Topics: <input #topics [(ngModel)]="post.topics"/></label>
-</div>-->
-<form [formGroup]="postForm">
-    <div class="form-group">
-      <label class="center-block">Title:
-        <input class="form-control" [value]="post.title">
-      </label>
-    </div>
-    <div formGroupName="topics" class="well well-lg">
-      <h4>Secret Lair</h4>
-      <div class="form-group">
-        <label class="center-block">Description:
-          <input class="form-control" [value]="post.topics.description">
-        </label>
-      </div>
-    </div>
-</form>
-<p> Title value: {{postForm.value | json}}</p>
+<div class="container" *ngIf="post">
+  <label> Title: <input #title [(ngModel)]="post.title" class="form-control" placeholder="title"/></label>
+ <label> Topics: <input #topics [value]="post?.topics?.description"/></label>
+ <input #id [value]="post._id" hidden>
+ <button class="btn btn-primary" (click)="editPost(title.value, topics.value, id.value)">Edit </button>
+</div>
 

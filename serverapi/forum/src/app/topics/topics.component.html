@@ -1,8 +1,9 @@
-<p>
-  topics works!
-</p>
 <div class="container">
-  <li  *ngFor="let topic of topics">
+  <h2> Topics </h2>
+  <ul class="list-group">
+  <li class="list-group-item"  *ngFor="let topic of topics" [class.selected]="isSelected(topic)" (click)="onSelect(topic)">
     {{topic}}
+   
   </li>
+  </ul>
 </div>

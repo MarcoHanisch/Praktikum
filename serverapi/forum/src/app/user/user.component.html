@@ -1,14 +1,30 @@
-<p>
-  user works!
-</p>
-<div class="container">
-  <li *ngFor="let user of user">
-    {{user.name}}<button type="button" class="btn btn-primary" (click)="deleteUser(user); $event.stopPropagation()">
+<table class="table table-responsive table-striped">
+      <thead>
+        <tr>
+          <th> Username</th>
+          <th> Options </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr  *ngFor="let user of user " >
+          <td>{{user.name}}</td>
+          <td>
+             <div class="btn-group">
+              <button type="button" class="btn btn-primary" (click)="gotoDetail(user)"> 
+                <span class="glyphicon glyphicon-folder-open" ></span>
+              </button>
+            <button type="button" class="btn btn-primary" (click)="deleteUser(user); $event.stopPropagation()">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
-  </li>
-  
-</div>
+              <button type="button" class="btn btn-primary" (click)="gotoEdit(user)">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>
+              </div>
+              </td>
+        </tr>
+        </tbody>
+        </table>
+
 <div>
   <label> new Name: <input #name  /> </label>
   <label> new password: <input #password  /> </label>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../posts.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -9,7 +10,7 @@ import { PostsService } from '../posts.service';
 export class UserComponent implements OnInit {
   user: any =[];
 
-  constructor(private postsService: PostsService) { }
+  constructor(private postsService: PostsService, private router: Router) { }
 
   ngOnInit() {
     this.postsService.getAllUser().subscribe(user => {
@@ -26,5 +27,10 @@ export class UserComponent implements OnInit {
       this.user = this.user.filter(u => u !== user)
     })
   }
-
+  gotoDetail(user){
+    this.router.navigate(['/user', user._id])
+  }
+  gotoEdit(user){
+    this.router.navigate(['/user/edit', user._id])
+  }
 }
