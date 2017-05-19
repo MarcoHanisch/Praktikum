@@ -9,6 +9,38 @@ var jwt = require('jsonwebtoken')
 var http = require('http')
 var path = require('path')
 
+mongoose.Promise = global.Promise;
+mongoose.connect('localhost/ForumDatabase');
+
+var fixtures = require('pow-mongodb-fixtures').connect('ForumDatabase');
+
+var map1
+
+function callback() {
+ 
+    console.log()
+}
+//fixtures.clear(function(err) {
+    //Drops the database
+//});
+
+//Objects
+fixtures.clearAllAndLoad({
+    users: [
+        { name: 'Admin', password: 'password', isAdmin: true },
+        { name: 'Test', password: 'test', isAdmin:false }
+    ],
+    posts:[
+        {title: 'Test', topics:{description: ['Test','Test2']} , Username: 'Test'},
+        {title: 'Other Post', topics: 'topics', Username:'Admin'}
+    ]
+}, callback);
+
+//Files
+//fixtures.load(__dirname + '/fixtures/user.js', callback);
+
+//Directories (loads all files in the directory)
+//fixtures.load(__dirname + '/fixtures', callback);
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -18,8 +50,7 @@ app.use(express.static('dist'));
 app.use(cookieParser());
 app.set('superSecret', 'apitest')
 
-mongoose.Promise = global.Promise;
-mongoose.connect('localhost/ForumDatabase');
+
 
 var Post = require('./src/app/models/post')
 var User = require('./src/app/models/user')
@@ -150,7 +181,7 @@ router.route('/posts')
             var decoded = jwt_simple.decode(token, app.get('superSecret'))
             var post = new Post();
             post.title = req.body.title;
-            post.topics.description = req.body.topics;
+            post.topics.description =  req.body.topics;
             post.Username = req.decoded.username;
             post.save(function(err) {
                 if(err) 
