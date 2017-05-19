@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../posts.service';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
-import { Location } from '@angular/common'
+import { Location } from '@angular/common';
+import { JwtHelper } from 'angular2-jwt'
 
 
 @Component({
@@ -18,6 +19,8 @@ export class PostdetailComponent implements OnInit {
   comments: any = [];
   post_id : string;
   user: any = []
+  jwtHelper: JwtHelper = new JwtHelper();
+  decoded: any;
 
   ngOnInit() {
     this.route.params
@@ -31,6 +34,7 @@ export class PostdetailComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.post_id = params['post_id']
    })
+   this.useJwtHelper()
   }
 
   addComment(title: string, content: string, post_id: string): void { 
@@ -41,5 +45,11 @@ export class PostdetailComponent implements OnInit {
       this.comments = this.comments.filter(u => u !== comment)
     })
   }
-   
+    useJwtHelper() {
+    var token = localStorage.getItem('token');
+     this.decoded = this.jwtHelper.decodeToken(token)
+  }
+   gotoComment(comment){
+     this.router.navigate(['/comment', comment._id])
+   }
 }

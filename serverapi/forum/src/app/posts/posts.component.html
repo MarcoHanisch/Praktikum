@@ -7,18 +7,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr  *ngFor="let post of posts " >
+        <tr  *ngFor="let post of posts " [class.selected]="isSelected(post)" (click)="onSelect(post)" >
           <td>{{post.title}}</td>
           <td>{{post.Username}}</td>
           <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-primary" (click)="gotoDetail(post)"> 
-                <span class="glyphicon glyphicon-folder-open" ></span>
-              </button>
-              <button type="button" class="btn btn-primary" (click)="deletePost(post); $event.stopPropagation()">
+            <div *ngIf="loggedIn === true" class="btn-group">
+              <button *ngIf="decoded.isAdmin === true" type="button" class="btn btn-primary" (click)="deletePost(post); $event.stopPropagation()">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
-              <button type="button" class="btn btn-primary" (click)="gotoEdit(post)">
+              <button *ngIf="decoded.username === post.Username" type="button" class="btn btn-primary" (click)="gotoEdit(post)">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
             </div>
@@ -26,9 +23,13 @@
         </tr>
       </tbody>
     </table>
-<div>
+
+<div *ngIf="loggedIn === true">
   <label> new Title: <input #title  /> </label>
   <label> new topics: <input #topics  /> </label>
   
   <button class="btn btn-info" (click)="addPost(title.value, topics.value); topics.value=''; title.value=''">Add</button>
+</div>
+<div *ngIf="loggedIn === false">
+  <h3>Bitte einloggen um Posts zu lesen oder anzulegen </h3>
 </div>

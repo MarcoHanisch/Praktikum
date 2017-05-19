@@ -1,13 +1,14 @@
 
 <div  *ngFor="let user of user">
+  <div *ngIf="decoded.isAdmin === true || decoded.username === user.name">
   <div class="form-group">
-    <form class="form-inline">
+    <form  class="form-inline">
   <label> UserName: <input #name [(ngModel)]="user.name" class="form-control" name="name" /></label>
     </form>
-  <form class="form-inline">
+  <form *ngIf="decoded.username === user.name" class="form-inline">
   <label> Userpassword: <input #password [(ngModel)]="user.password" class="form-control" name="password"/></label>
   </form>
-  <form class="form-inline">
+  <form class="form-inline" *ngIf="decoded.isAdmin === true">
   
   <label> Admin: <input #isAdmin type="checkbox" class="form-control" [(ngModel)]="user.isAdmin"  name="isAdmin"/></label>
   
@@ -16,6 +17,7 @@
   <input #id hidden [(ngModel)]="user._id" name="id"/>
    <button class="btn btn-info" (click)="editUser(name.value, password.value,user.isAdmin,id.value)">edit</button>
 
+</div>
 </div>
 
  

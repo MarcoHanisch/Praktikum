@@ -3,6 +3,7 @@ import { PostsService } from '../posts.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
+import { JwtHelper } from 'angular2-jwt'
 
 @Component({
   selector: 'app-topicdetail',
@@ -12,7 +13,9 @@ import 'rxjs/add/operator/map';
 export class TopicdetailComponent implements OnInit {
   posts : any = [];
   private params : Params;
-  
+  jwtHelper: JwtHelper = new JwtHelper();
+  decoded: any;
+  selectedPost: any;
 
   constructor(private postsService: PostsService, private route: ActivatedRoute, private router: Router) { }
 
@@ -21,6 +24,7 @@ export class TopicdetailComponent implements OnInit {
      .switchMap((params: Params) =>  this.postsService.getTopic(params['topicsname'])).subscribe(posts => {
       this.posts = posts
     })
+    this.useJwtHelper()
   }
    deletePost(post): void {
     this.postsService.deletePost(post._id).then(()=> {
@@ -32,5 +36,15 @@ export class TopicdetailComponent implements OnInit {
   }
   gotoEdit(post){
     this.router.navigate(['/posts/edit', post._id])
+  }
+   useJwtHelper() {
+    var token = localStorage.getItem('token');
+     this.decoded = this.jwtHelper.decodeToken(token)
+  }
+  isSelected(post){
+    return post === this.selectedPost
+  }
+  onSelect(post){
+    this.router.navigate(['/posts', post._id])
   }
 }

@@ -13,8 +13,11 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   user: any =[]
+  failed: boolean = false;
+  error: boolean = false;
+  
    
-  constructor(private postsService: PostsService, private authservice : AuthService, private router: Router) { }
+  constructor(private postsService: PostsService, private authService : AuthService, private router: Router) { }
 
  /*login(name: string, password: string) {
     if(!name){return}
@@ -26,11 +29,19 @@ export class LoginComponent implements OnInit {
   }*/
 
   login(name: string, password: string) {
-    this.authservice.login(name, password).subscribe (user => 
+    if(!name){ this.failed=true; return}
+    if(!password){this.failed=true;return}
+    this.authService.login(name, password).subscribe (user => 
       this.user = user)
-    this.router.navigate(['posts'])
+      if(localStorage.getItem('token')){
+        console.log(localStorage)
+    this.router.navigate(['topics'])}
+    else { this.error=true; console.log(localStorage); return}
   }
   ngOnInit() {
+   
   }
-
+addUser(name: string, password: string): void {
+    this.postsService.postUser(name,password).subscribe(user =>this.user.push(user));
+  }
 }

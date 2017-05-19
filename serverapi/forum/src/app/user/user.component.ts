@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../posts.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service'
+import { JwtHelper } from 'angular2-jwt'
 
 @Component({
   selector: 'app-user',
@@ -9,17 +11,21 @@ import { Router } from '@angular/router';
 })
 export class UserComponent implements OnInit {
   user: any =[];
+  loggedIn: boolean
+  jwtHelper: JwtHelper = new JwtHelper();
+  decoded: any;
+  selectedUser: any;
 
-  constructor(private postsService: PostsService, private router: Router) { }
+  constructor(private postsService: PostsService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.postsService.getAllUser().subscribe(user => {
       this.user = user
     })
-  }
-
-  addUser(name: string, password: string): void {
-    this.postsService.postUser(name,password).subscribe(user =>this.user.push(user));
+    this.loggedIn = this.authService.isLoggedIn()
+    if(this.loggedIn ===true){
+    this.useJwtHelper()}
+    
   }
 
   deleteUser(user): void {
@@ -33,4 +39,15 @@ export class UserComponent implements OnInit {
   gotoEdit(user){
     this.router.navigate(['/user/edit', user._id])
   }
+   useJwtHelper() {
+    var token = localStorage.getItem('token');
+     this.decoded = this.jwtHelper.decodeToken(token)
+  }
+    isSelected(user){
+    return user === this.selectedUser
+  }
+  onSelect(user){
+    this.router.navigate(['/user', user._id])
+  }
 }
+

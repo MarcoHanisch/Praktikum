@@ -1,4 +1,4 @@
-<table class="table table-responsive table-striped">
+<table *ngIf="loggedIn === true" class="table table-responsive table-striped">
       <thead>
         <tr>
           <th> Username</th>
@@ -6,28 +6,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr  *ngFor="let user of user " >
+        <tr  *ngFor="let user of user"  [class.selected]="isSelected(user)" (click)="onSelect(user)">
           <td>{{user.name}}</td>
           <td>
              <div class="btn-group">
-              <button type="button" class="btn btn-primary" (click)="gotoDetail(user)"> 
-                <span class="glyphicon glyphicon-folder-open" ></span>
-              </button>
-            <button type="button" class="btn btn-primary" (click)="deleteUser(user); $event.stopPropagation()">
+            <button *ngIf="decoded.isAdmin === true" type="button" class="btn btn-primary" (click)="deleteUser(user); $event.stopPropagation()">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
-              <button type="button" class="btn btn-primary" (click)="gotoEdit(user)">
+              <button *ngIf="decoded.isAdmin === true || decoded.username === user.name" type="button" class="btn btn-primary" (click)="gotoEdit(user)">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
               </div>
               </td>
         </tr>
-        </tbody>
-        </table>
-
-<div>
-  <label> new Name: <input #name  /> </label>
-  <label> new password: <input #password  /> </label>
-  
-  <button class="btn btn-info" (click)="addUser(name.value, password.value); password.value=''">Add</button>
+       </tbody>
+</table>
+<div *ngIf="loggedIn === false">
+  <h3>Bitte erst einloggen um fortzufahren</h3>
 </div>

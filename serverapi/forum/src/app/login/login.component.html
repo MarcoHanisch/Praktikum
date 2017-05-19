@@ -9,3 +9,18 @@
   <input #password type="text" class="form-control">
 </div>
   <button class="btn btn-primary" (click)="login(name.value, password.value)"> Login</button>
+  <div *ngIf="error === true" class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    Username not found or password is wrong
+  </div>
+   <div *ngIf="failed === true" class="alert alert-warning alert-dismissible">
+     You must insert Password and Username
+  </div>
+  <div class="form-group">
+    <h2> Neuen Nutzer anlegen</h2>
+  <label> new Name: <input #addname class="form-control" /> </label>
+  <label> new password: <input #addpassword class="form-control" /> </label>
+  
+  <button class="btn btn-info" (click)="addUser(addname.value, addpassword.value); password.value=''">Add</button>
+ 
+</div>

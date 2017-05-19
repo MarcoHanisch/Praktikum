@@ -1,9 +1,9 @@
-<p>
-  editcomment works!
-</p>
+
 <div class="container" *ngFor="let comment of comment">
-  <label> UserName: <input #name [(ngModel)]="comment.title" /></label>
-  <label> Userpassword: <input #password [(ngModel)]="comment.content" /></label>
-  <input #id [(ngModel)]="comment._id"/>
-   <button class="btn btn-info" (click)="editComment(name.value, password.value,id.value)">edit</button>
+  <div *ngIf="decoded.username === comment.Username">
+  <label> CommentTitle: <input #title [(ngModel)]="comment.title" /></label>
+  <label> CommentContent: <input #content [(ngModel)]="comment.content" /></label>
+  <input hidden #id [(ngModel)]="comment._id"/>
+   <button class="btn btn-info" (click)="editComment(title.value, content.value,id.value)">edit</button>
+  </div>
 </div>

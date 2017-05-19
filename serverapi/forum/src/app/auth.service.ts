@@ -4,11 +4,12 @@ import { Http, Headers } from '@angular/http';
 
 @Injectable()
 export class AuthService {
-  private loggedIn = false;
+   loggedIn = false;
   private headers = new Headers({'Content-Type': 'application/json'})
 
   constructor(private http: Http) {
      this.loggedIn = !!localStorage.getItem('auth_token');
+     
    }
 /*
   login(name: string, password: string){//unfertig
@@ -32,11 +33,11 @@ login(name: string, password: string){//unfertig
       return this.http.post('http://localhost:8080/api/authenticate', JSON.stringify({name:name, password: password}), {headers: this.headers})
       .map(response => response.json())
       .map((response) => {
-        if(response.succes) {
+        if(response.succes === true) {
           localStorage.setItem('token', response.token);
           this.loggedIn = true
         }
-        return response.succes
+        return response.message
       })
 }
 logout() {

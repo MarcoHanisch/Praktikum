@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from 'angular2-auth';
+import { AuthConfig } from 'angular2-jwt';
 
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
@@ -21,7 +22,8 @@ import { TopicdetailComponent } from './topicdetail/topicdetail.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
 import { PostaddComponent } from './postadd/postadd.component';
 import { EdituserComponent } from './edituser/edituser.component';
-import { EditcommentComponent } from './editcomment/editcomment.component'
+import { EditcommentComponent } from './editcomment/editcomment.component';
+
 
 
 
@@ -40,7 +42,7 @@ const ROUTES = [
   {
     path: 'posts',
     component: PostsComponent,
-    canActivate: [LoggedInGuard]
+    
   },
   {
     path: 'login',
@@ -49,7 +51,7 @@ const ROUTES = [
   {
     path: 'user',
     component: UserComponent,
-    canActivate: [LoggedInGuard]
+    
   },
   {
     path: 'posts/:post_id',
@@ -93,7 +95,8 @@ const ROUTES = [
     UserdetailComponent,
     PostaddComponent,
     EdituserComponent,
-    EditcommentComponent
+    EditcommentComponent,
+   
   ],
   imports: [
     BrowserModule,

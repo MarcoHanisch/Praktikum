@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../posts.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { JwtHelper } from 'angular2-jwt'
 
 @Component({
   selector: 'app-posts',
@@ -8,13 +10,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent implements OnInit {
+  loggedIn: boolean;
+  jwtHelper: JwtHelper = new JwtHelper();
+  decoded: any;
+  selectedPost: any;
 
-  constructor(private postsService: PostsService, private router: Router) { }
+  constructor(private postsService: PostsService, private router: Router, private authService: AuthService) { }
   posts: any = [];
   ngOnInit() {
      this.postsService.getAllPosts().subscribe(posts => {
       this.posts = posts
     })
+    this.loggedIn = this.authService.isLoggedIn()
+     if(this.loggedIn ===true){
+    this.useJwtHelper()}
+  }
+
+  useJwtHelper() {
+    var token = localStorage.getItem('token');
+     this.decoded = this.jwtHelper.decodeToken(token)
   }
   addPost(title: string, topics: string): void {
     this.postsService.addPost(title,topics).subscribe(posts =>this.posts.push(posts));
@@ -29,5 +43,11 @@ export class PostsComponent implements OnInit {
   }
   gotoEdit(post){
     this.router.navigate(['/posts/edit', post._id])
+  }
+ isSelected(post){
+    return post === this.selectedPost
+  }
+  onSelect(post){
+    this.router.navigate(['/posts', post._id])
   }
 }
