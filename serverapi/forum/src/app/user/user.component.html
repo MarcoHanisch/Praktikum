@@ -1,3 +1,4 @@
+<div class="container">
 <table *ngIf="loggedIn === true" class="table table-responsive table-striped">
       <thead>
         <tr>
@@ -10,7 +11,7 @@
           <td>{{user.name}}</td>
           <td>
              <div class="btn-group">
-            <button *ngIf="decoded.isAdmin === true" type="button" class="btn btn-primary" (click)="deleteUser(user); $event.stopPropagation()">
+            <button *ngIf="decoded.isAdmin === true" type="button" class="btn btn-danger" (click)="deleteUser(user); $event.stopPropagation()">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
               <button *ngIf="decoded.isAdmin === true || decoded.username === user.name" type="button" class="btn btn-primary" (click)="gotoEdit(user)">
@@ -23,4 +24,5 @@
 </table>
 <div *ngIf="loggedIn === false">
   <h3>Bitte erst einloggen um fortzufahren</h3>
+</div>
 </div>

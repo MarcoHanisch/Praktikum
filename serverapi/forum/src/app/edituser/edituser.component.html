@@ -1,22 +1,26 @@
-
+<div class="container">
 <div  *ngFor="let user of user">
-  <div *ngIf="decoded.isAdmin === true || decoded.username === user.name">
+  <div *ngIf="decoded.isAdmin === true || decoded.id === user._id">
   <div class="form-group">
     <form  class="form-inline">
-  <label> UserName: <input #name [(ngModel)]="user.name" class="form-control" name="name" /></label>
+  <label> UserName: <input #name [(ngModel)]="user.name" class="form-control" name="namen" /></label>
     </form>
-  <form *ngIf="decoded.username === user.name" class="form-inline">
-  <label> Userpassword: <input #password [(ngModel)]="user.password" class="form-control" name="password"/></label>
+  <form *ngIf="decoded.id === user._id" class="form-inline">
+  <label> Userpassword: <input #password [(ngModel)]="user.password" class="form-control" type="password" name="passwordn"/></label>
   </form>
   <form class="form-inline" *ngIf="decoded.isAdmin === true">
   
-  <label> Admin: <input #isAdmin type="checkbox" class="form-control" [(ngModel)]="user.isAdmin"  name="isAdmin"/></label>
+  <label> Admin: <input #isAdmin type="checkbox" class="form-control" [(ngModel)]="user.isAdmin"  name="isAdminn"/></label>
   
   </form>
   </div>
-  <input #id hidden [(ngModel)]="user._id" name="id"/>
-   <button class="btn btn-info" (click)="editUser(name.value, password.value,user.isAdmin,id.value)">edit</button>
+  <input #id hidden [(ngModel)]="user._id" name="idn"/>
+  {{user | json }}
+  
+  
+   <button class="btn btn-info" (click)="editUser(user.name, user.password,user.isAdmin,user._id)">edit</button>
 
+</div>
 </div>
 </div>
 

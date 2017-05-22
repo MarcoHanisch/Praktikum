@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../posts.service';
-import { Params, ActivatedRoute } from '@angular/router';
+import { Params, ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,7 +20,7 @@ export class PostaddComponent implements OnInit {
   jwtHelper: JwtHelper = new JwtHelper();
   decoded: any;
 
-  constructor(private route: ActivatedRoute, private postsService: PostsService, private fb: FormBuilder) {
+  constructor(private route: ActivatedRoute, private postsService: PostsService, private fb: FormBuilder, private router: Router) {
     
    }
  useJwtHelper() {
@@ -38,6 +38,7 @@ export class PostaddComponent implements OnInit {
   }
   editPost(title: string, topics:string, post_id: string){
     this.postsService.editPost(title, topics, post_id).subscribe(post => this.post.push(post))
+    this.router.navigate(['posts'])
    
   }
 }

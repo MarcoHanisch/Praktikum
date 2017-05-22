@@ -14,16 +14,20 @@ export class PostsComponent implements OnInit {
   jwtHelper: JwtHelper = new JwtHelper();
   decoded: any;
   selectedPost: any;
+  themen: any= [];
 
   constructor(private postsService: PostsService, private router: Router, private authService: AuthService) { }
   posts: any = [];
   ngOnInit() {
      this.postsService.getAllPosts().subscribe(posts => {
       this.posts = posts
-    })
+    });
     this.loggedIn = this.authService.isLoggedIn()
      if(this.loggedIn ===true){
-    this.useJwtHelper()}
+    this.useJwtHelper()};
+    this.postsService.getAllTopics().subscribe(themen => {
+      this.themen = themen
+    });
   }
 
   useJwtHelper() {

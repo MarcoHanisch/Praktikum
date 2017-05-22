@@ -14,18 +14,18 @@ mongoose.connect('localhost/ForumDatabase');
 
 var fixtures = require('pow-mongodb-fixtures').connect('ForumDatabase');
 
-var map1
 
-function callback() {
- 
-    console.log()
-}
+
+
 //fixtures.clear(function(err) {
     //Drops the database
 //});
-
+fixtures.clear(function(err){
+    if(err)
+    res.send(err)
+})
 //Objects
-fixtures.clearAllAndLoad({
+/*fixtures.clearAllAndLoad({
     users: [
         { name: 'Admin', password: 'password', isAdmin: true },
         { name: 'Test', password: 'test', isAdmin:false }
@@ -34,13 +34,13 @@ fixtures.clearAllAndLoad({
         {title: 'Test', topics:{description: ['Test','Test2']} , Username: 'Test'},
         {title: 'Other Post', topics: 'topics', Username:'Admin'}
     ]
-}, callback);
+}, callback);*/
 
 //Files
-//fixtures.load(__dirname + '/fixtures/user.js', callback);
+//fixtures.load(__dirname + '/fixtures/users.js', callback);
 
 //Directories (loads all files in the directory)
-//fixtures.load(__dirname + '/fixtures', callback);
+fixtures.load(__dirname + '/fixtures');
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -93,7 +93,7 @@ router.route('/authenticate')
                     }else {
                         var token = jwt.sign(user={username: user.name, isAdmin: user.isAdmin, id:user._id}, app.get('superSecret'), {
                             expiresIn: 300
-                        });
+                        }) 
                         res.json({
                             succes: true,
                             message: 'Enjoy your token',
@@ -219,7 +219,7 @@ router.route('/posts/:post_id')
             Post.findById(req.params.post_id , function(err,post){
                 var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
                 var decoded = jwt_simple.decode(token, app.get('superSecret'))
-                if(decoded.isAdmin == true){
+                if(decoded.username === post.Username){
                 if (err)
                 res.send(err)
                 post.title = req.body.title
@@ -359,12 +359,13 @@ router.route('/user/:user_id')
         .put(function(req,res) {
              var token = req.body.token || req.query.token ||req.headers['x-acces-token'];
                 var decoded = jwt_simple.decode(token, app.get('superSecret'))
-                if(decoded.isAdmin == false){
-                    res.json({message: 'wrong authorization'})
-                } else{
-            User.findOneAndUpdate({_id: req.params.user_id}, req.body, function(err, user){
+                if(decoded.isAdmin === true || decoded.id === req.params.user_id){
+                    User.findOneAndUpdate({_id: req.params.user_id}, req.body, function(err, user){
                 res.send(user)
             })
+                } else{
+                    res.json({message: 'wrong authorization'})
+            
         }})
         
 

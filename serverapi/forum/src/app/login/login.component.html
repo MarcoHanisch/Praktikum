@@ -1,3 +1,4 @@
+<div class="container">
 <h2>
   Login
 </h2>
@@ -6,7 +7,7 @@
   <label> Username:</label>
   <input #name type="text" class="form-control">
   <label> Password:</label>
-  <input #password type="text" class="form-control">
+  <input #password type="password" class="form-control" (keydown.enter)="login(name.value,password.value)" >
 </div>
   <button class="btn btn-primary" (click)="login(name.value, password.value)"> Login</button>
   <div *ngIf="error === true" class="alert alert-warning alert-dismissible">
@@ -19,8 +20,9 @@
   <div class="form-group">
     <h2> Neuen Nutzer anlegen</h2>
   <label> new Name: <input #addname class="form-control" /> </label>
-  <label> new password: <input #addpassword class="form-control" /> </label>
+  <label> new password: <input #addpassword class="form-control" (keydown.enter)="addUser(addname.value, addpassword.value)"/> </label>
   
   <button class="btn btn-info" (click)="addUser(addname.value, addpassword.value); password.value=''">Add</button>
  
+</div>
 </div>

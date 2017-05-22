@@ -31,13 +31,13 @@ export class LoginComponent implements OnInit {
   login(name: string, password: string) {
     if(!name){ this.failed=true; return}
     if(!password){this.failed=true;return}
-    this.authService.login(name, password).subscribe (user => 
-      this.user = user)
-      if(localStorage.getItem('token')){
-        console.log(localStorage)
+    this.authService.login(name, password).subscribe (user => {
+      this.user = user
+      if(this.user === true){
+        console.log( this.user)
     this.router.navigate(['topics'])}
-    else { this.error=true; console.log(localStorage); return}
-  }
+    else { this.error=true; console.log(this.user); return}
+  })}
   ngOnInit() {
    
   }

@@ -6,7 +6,7 @@
 
     <div class="panel panel-default" *ngFor="let comment of comments">
     <div class="panel-heading"> {{comment.title}}
-      <button *ngIf="decoded.isAdmin === true" type="button" class="btn btn-primary btn-sm pull-right" (click)="deleteComment(comment); $event.stopPropagation()">
+      <button *ngIf="decoded.isAdmin === true" type="button" class="btn btn-danger btn-sm pull-right" (click)="deleteComment(comment); $event.stopPropagation()">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
       </div>
@@ -15,12 +15,12 @@
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
       </div>
-          <li class="list-group-item">{{comment.Username}}</li>
+          <li class="list-group-item">Erstellt von : {{comment.Username}}</li>
      
     </div>
 <div >
     <label> new title: <input #title  /> </label>
-  <label> new content: <input #content  /> </label>
+  <label> new content: <input #content  (keydown.enter)="addComment(title.value, content.value,id.value)"/> </label>
   
   <button class="btn btn-info" (click)="addComment(title.value, content.value,id.value)">Add</button>
 </div>

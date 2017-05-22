@@ -1,8 +1,8 @@
 
 <div class="container" *ngFor="let comment of comment">
   <div *ngIf="decoded.username === comment.Username">
-  <label> CommentTitle: <input #title [(ngModel)]="comment.title" /></label>
-  <label> CommentContent: <input #content [(ngModel)]="comment.content" /></label>
+  <label> CommentTitle: <input #title [(ngModel)]="comment.title" (keydown.enter)="editComment(title.value, content.value,id.value)"/></label>
+  <label> CommentContent: <input #content [(ngModel)]="comment.content" (keydown.enter)="editComment(title.value, content.value,id.value)"/></label>
   <input hidden #id [(ngModel)]="comment._id"/>
    <button class="btn btn-info" (click)="editComment(title.value, content.value,id.value)">edit</button>
   </div>

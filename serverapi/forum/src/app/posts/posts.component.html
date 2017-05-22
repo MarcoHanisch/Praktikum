@@ -1,3 +1,4 @@
+<div class="container"> 
  <table class="table table-responsive table-striped">
       <thead>
         <tr>
@@ -7,12 +8,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr  *ngFor="let post of posts " [class.selected]="isSelected(post)" (click)="onSelect(post)" >
+        <tr  *ngFor="let post of posts | paginate: {itemsPerPage: 9, currentPage:page, id: '1'}; let i = index" [class.selected]="isSelected(post)" (click)="onSelect(post)" >
           <td>{{post.title}}</td>
           <td>{{post.Username}}</td>
           <td>
             <div *ngIf="loggedIn === true" class="btn-group">
-              <button *ngIf="decoded.isAdmin === true" type="button" class="btn btn-primary" (click)="deletePost(post); $event.stopPropagation()">
+              <button *ngIf="decoded.isAdmin === true" type="button" class="btn btn-danger" (click)="deletePost(post); $event.stopPropagation()">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
               <button *ngIf="decoded.username === post.Username" type="button" class="btn btn-primary" (click)="gotoEdit(post)">
@@ -23,6 +24,7 @@
         </tr>
       </tbody>
     </table>
+    <pagination-controls (pageChange)="page = $event" id ="1"></pagination-controls>
 
 <div *ngIf="loggedIn === true">
   <label> new Title: <input #title  /> </label>
@@ -32,4 +34,5 @@
 </div>
 <div *ngIf="loggedIn === false">
   <h3>Bitte einloggen um Posts zu lesen oder anzulegen </h3>
+</div>
 </div>

@@ -7,6 +7,7 @@ import { AuthModule } from 'angular2-auth';
 import { AuthConfig } from 'angular2-jwt';
 
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { Ng2PaginationModule } from 'ng2-pagination'
 
 
 import { AppComponent } from './app.component';
@@ -103,6 +104,7 @@ const ROUTES = [
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
+    Ng2PaginationModule,
     RouterModule.forRoot(ROUTES, {useHash: true}),
    // AuthModule.forRoot(),
   

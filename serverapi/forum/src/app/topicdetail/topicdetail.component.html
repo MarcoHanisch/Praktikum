@@ -1,3 +1,4 @@
+<div class="container">
 <table class="table table-responsive table-striped">
       <thead>
         <tr>
@@ -12,7 +13,7 @@
           <td>{{post.Username}}</td>
           <td>
             <div class="btn-group">
-              <button *ngIf="decoded.isAdmin === true" type="button" class="btn btn-primary" (click)="deletePost(post); $event.stopPropagation()">
+              <button *ngIf="decoded.isAdmin === true" type="button" class="btn btn-danger" (click)="deletePost(post); $event.stopPropagation()">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
               <button  *ngIf=" decoded.username === post.Username" type="button" class="btn btn-primary" (click)="gotoEdit(post)">
@@ -23,4 +24,5 @@
         </tr>
       </tbody>
     </table>
+</div>
 

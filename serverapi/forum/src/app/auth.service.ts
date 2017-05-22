@@ -37,7 +37,7 @@ login(name: string, password: string){//unfertig
           localStorage.setItem('token', response.token);
           this.loggedIn = true
         }
-        return response.message
+        return response.succes
       })
 }
 logout() {
