@@ -15,7 +15,7 @@
   </form>
   </div>
   <input #id hidden [(ngModel)]="user._id" name="idn"/>
-  {{user | json }}
+  
   
   
    <button class="btn btn-info" (click)="editUser(user.name, user.password,user.isAdmin,user._id)">edit</button>

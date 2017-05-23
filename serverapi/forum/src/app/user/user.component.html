@@ -14,7 +14,7 @@
             <button *ngIf="decoded.isAdmin === true" type="button" class="btn btn-danger" (click)="deleteUser(user); $event.stopPropagation()">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
-              <button *ngIf="decoded.isAdmin === true || decoded.username === user.name" type="button" class="btn btn-primary" (click)="gotoEdit(user)">
+              <button *ngIf="decoded.isAdmin === true || decoded.id === user._id" type="button" class="btn btn-primary" (click)="gotoEdit(user)">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
               </div>

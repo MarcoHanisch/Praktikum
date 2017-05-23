@@ -26,14 +26,8 @@ export class PostsService {
     return this.http.get('http://localhost:8080/api/posts')
       .map(response => response.json())
   }
-  login(name: string, password: string){//unfertig
-  let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    let token = localStorage.getItem('token');
-    headers.append('x-acces-token', `${token}`);
-      return this.http.post('http://localhost:8080/api/authenticate', JSON.stringify({name:name, password: password}), {headers})              
-  }
-  getPost(post_id: string) {//unfertig
+ 
+  getPost(post_id: string) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let token = localStorage.getItem('token');
