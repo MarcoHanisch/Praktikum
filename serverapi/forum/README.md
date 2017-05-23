@@ -1,28 +1,54 @@
 # Forum
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
+This project create a typically Forum.
 
-## Development server
+Dieses Projekt erstellt ein typisches Forum.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+###Backend
 
-## Code scaffolding
+MongoDb wird als Datenbank verwendet. Diese hat 3 Collections, eine für Nutzer, eine für Posts und eine für Kommentare.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+Der Server ist mit Node JS und Express ertellt wurden.
 
-## Build
+Der Server greift mittels Mongoose, einem npm-package, auf die Datenbank zu. Zu beachten ist, dass die Datenbank vor dem starten des Servers bereit sein muss, um Verbindungen zu bilden.
+Die Schematas der Collections werden aus ihren Dateien importiert.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+####Api-Routen
 
-## Running unit tests
+Um Zugriffsschutz zu erstellen werden JWT-Token erstellt.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Lediglich ein Teil der Routen ist frei erreichbar. Der Großteil der Routen ist nur mit einem gültigen JWT-Token erreichbar.
 
-## Running end-to-end tests
+Alle Routen nach der folgenden Funktion sind nur mit einem Token erreichbar. Diese Funktion prüft dass Vorhandensein eines gültigen Tokens und ist eine der 2 benötigten Funktionen für JWT.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+```javascript
+router.route('/authenticate')
+        .post(function(req, res){
+            User.findOne({name: req.body.name}, function(err, user){
+                if(err) throw err;
+                if(!user) {
+                    res.json({succes: false, message: 'User not found'});
+                } else if(user) {
+                    if (user.password != req.body.password){
+                        res.json({succes: false, message: 'Wrong password'});
+                    }else {
+                        var token = jwt.sign(user={username: user.name, isAdmin: user.isAdmin, id:user._id}, app.get('superSecret'), {
+                            expiresIn: 300
+                        }) 
+                        res.json({
+                            succes: true,
+                            message: 'Enjoy your token',
+                            token: token
+                        });
+                    }
+                }
+            });
+        });
+```
+Die Funktion jwt.sign() beeinhaltet alle Eigenschaften, welche in dem Token gespeichert werden, sowie die Zeit, für welche der Token gültig ist.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+###Frontend
+
+Für das Frontend wurde Angular 2 verwendet, sowie für das Design Bootstrap.
