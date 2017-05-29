@@ -178,6 +178,20 @@ Hat man dies implementiert kann man die Html-Elemente aufgrund von Token-Informa
 <button *ngIf="decoded.isAdmin === true || decoded.id === user._id">
 ```
 
+### Tests
+
+Behebung des Fehlers 
+
+``` javascript
+23 05 2017 14:47:11.504:ERROR [launcher]: No binary for Chrome browser on your platform.
+  Please, set "CHROME_BIN" env variable.
+  ```
+
+  mittels des Konsolenbefehls 
+  ``` javascript
+  $ export CHROME_BIN=/usr/bin/chromium-browser
+  ```
+
 
 [1]: https://www.mongodb.com/de
 [2]: http://mongoosejs.com/

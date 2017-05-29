@@ -245,7 +245,7 @@ router.route('/posts/:post_id')
                     if(err)
                     res.send(err)
                 })
-                res.json({message:'Succesfully deleted '})
+                res.json({message:'Succesfully deleted'})
             }})}
         })
         

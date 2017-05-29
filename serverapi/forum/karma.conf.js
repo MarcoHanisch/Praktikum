@@ -16,10 +16,20 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     files: [
-      { pattern: './src/test.ts', watched: false }
+      'node_modules/zone.js/dist/proxy.js',
+       'node_modules/zone.js/dist/sync-test.js',
+        'node_modules/zone.js/dist/jasmine-patch.js',
+        'node_modules/zone.js/dist/async-test.js',
+        'node_modules/zone.js/dist/fake-async-test.js',
+        { pattern:  './src/app/auth.service.spec.ts', watched: false},
+      { pattern:  './src/app/posts.service.spec.ts', watched: false },
+      { pattern:  './src/app/user/user.component.spec.ts', watched: false }
+      
     ],
     preprocessors: {
-      './src/test.ts': ['@angular/cli']
+      './src/app/auth.service.spec.ts': ['@angular/cli'],
+      './src/app/posts.service.spec.ts': ['@angular/cli'],
+      './src/app/user/user.component.spec.ts': ['@angular/cli']
     },
     mime: {
       'text/x-typescript': ['ts','tsx']

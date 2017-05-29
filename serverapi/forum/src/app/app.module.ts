@@ -24,6 +24,7 @@ import { UserdetailComponent } from './userdetail/userdetail.component';
 import { PostaddComponent } from './postadd/postadd.component';
 import { EdituserComponent } from './edituser/edituser.component';
 import { EditcommentComponent } from './editcomment/editcomment.component';
+import { KarmatestComponent } from './karmatest/karmatest.component';
 
 
 
@@ -97,6 +98,7 @@ const ROUTES = [
     PostaddComponent,
     EdituserComponent,
     EditcommentComponent,
+    KarmatestComponent,
    
   ],
   imports: [

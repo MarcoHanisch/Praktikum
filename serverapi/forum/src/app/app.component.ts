@@ -11,6 +11,7 @@ import { AuthService } from './auth.service'
 export class AppComponent   {
    isIn = false;
    loggedIn : boolean;
+   title = 'app works'
     toggleState() {
       let bool = this.isIn;
       this.isIn = bool ===false ? true: false;
