@@ -1,14 +1,27 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PostaddComponent } from './postadd.component';
+import { PostsService } from '../posts.service';
+import { AuthService } from '../auth.service'
+import { HttpModule } from '@angular/http'
+import { RouterTestingModule } from'@angular/router/testing'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
 
 describe('PostaddComponent', () => {
   let component: PostaddComponent;
   let fixture: ComponentFixture<PostaddComponent>;
+ let postsService : PostsService
+  let authService : AuthService
 
+   beforeEach(() => {TestBed.resetTestEnvironment(); TestBed.initTestEnvironment( BrowserDynamicTestingModule, platformBrowserDynamicTesting() )
+    .configureTestingModule({declarations:[PostaddComponent]}); 
+  });
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostaddComponent ]
+      declarations: [ PostaddComponent ],
+       providers: [ PostsService, AuthService],
+      imports:[HttpModule, RouterTestingModule, FormsModule, ReactiveFormsModule]
     })
     .compileComponents();
   }));

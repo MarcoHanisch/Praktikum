@@ -16,7 +16,7 @@ export class UserComponent implements OnInit {
   decoded: any;
   selectedUser: any;
 
-  constructor(private postsService: PostsService, private router: Router, private authService: AuthService) { }
+  constructor(public postsService: PostsService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.postsService.getAllUser().subscribe(user => {

@@ -110,14 +110,21 @@ describe("Server", function() {
                 done();
             })
         })
+        it("should be possible to delete a user as admin", function(done){
+            request.delete(url+"/user/5925840408613c256cf47853", { json: true, body:{token}}, function(error, response, body){
+                expect(response.statusCode).toBe(200)
+                expect(body.message).toEqual("Succesfully deleted")
+                done()
+            })
+        })
         it("should not be possible to delete a user, when not be admin", function(done){
-            request.delete(url+"/posts/592294ed3d5dcf11e2e8aac5", function(error, response, body){
+            request.delete(url+"/user/5925840408613c256cf47853", function(error, response, body){
                 expect(response.statusCode).toBe(403)
                 expect(body.message).toMatch(JSON.stringify(['no token provided']))
                 done()
             })
              var token = jwt.sign(user={username:'Komoot', isAdmin: false, id:'592c25abc1c76b3226edfaab'}, 'apitest')
-            request.delete(url+"/posts/592294ed3d5dcf11e2e8aac5", {json: true, body: { token}}, function(error, response, body){
+            request.delete(url+"/user/5925840408613c256cf47853", {json: true, body: { token}}, function(error, response, body){
                 expect(body.message).toEqual("wrong authorization")
                 done()
             })

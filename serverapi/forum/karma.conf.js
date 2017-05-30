@@ -23,13 +23,33 @@ module.exports = function (config) {
         'node_modules/zone.js/dist/fake-async-test.js',
         { pattern:  './src/app/auth.service.spec.ts', watched: false},
       { pattern:  './src/app/posts.service.spec.ts', watched: false },
-      { pattern:  './src/app/user/user.component.spec.ts', watched: false }
+      { pattern:  './src/app/login/login.component.spec.ts', watched: false },
+      { pattern:  './src/app/user/user.component.spec.ts', watched: false },
+      { pattern:  './src/app/userdetail/userdetail.component.spec.ts', watched: false },
+      { pattern:  './src/app/topics/topics.component.spec.ts', watched: false },
+      { pattern:  './src/app/topicdetail/topicdetail.component.spec.ts', watched: false },
+      { pattern:  './src/app/posts/posts.component.spec.ts', watched: false },
+      { pattern:  './src/app/postdetail/postdetail.component.spec.ts', watched: false },
+      { pattern:  './src/app/postadd/postadd.component.spec.ts', watched: false },
+      { pattern:  './src/app/edituser/edituser.component.spec.ts', watched: false },
+      { pattern:  './src/app/editcomment/editcomment.component.spec.ts', watched: false },
+      { pattern:  './src/app/app.component.spec.ts', watched: false }
       
     ],
     preprocessors: {
       './src/app/auth.service.spec.ts': ['@angular/cli'],
       './src/app/posts.service.spec.ts': ['@angular/cli'],
-      './src/app/user/user.component.spec.ts': ['@angular/cli']
+      './src/app/login/login.component.spec.ts': ['@angular/cli'],
+      './src/app/user/user.component.spec.ts': ['@angular/cli'],
+      './src/app/userdetail/userdetail.component.spec.ts': ['@angular/cli'],
+      './src/app/topics/topics.component.spec.ts': ['@angular/cli'],
+      './src/app/topicdetail/topicdetail.component.spec.ts': ['@angular/cli'],
+      './src/app/posts/posts.component.spec.ts': ['@angular/cli'],
+      './src/app/postdetail/postdetail.component.spec.ts': ['@angular/cli'],
+      './src/app/postadd/postadd.component.spec.ts': ['@angular/cli'],
+      './src/app/edituser/edituser.component.spec.ts': ['@angular/cli'],
+      './src/app/editcomment/editcomment.component.spec.ts': ['@angular/cli'],
+      './src/app/app.component.spec.ts' : ['@angular/cli']
     },
     mime: {
       'text/x-typescript': ['ts','tsx']

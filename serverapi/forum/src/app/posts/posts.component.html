@@ -8,7 +8,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr  *ngFor="let post of posts | paginate: {itemsPerPage: 9, currentPage:page, id: '1'}; let i = index" [class.selected]="isSelected(post)" (click)="onSelect(post)" >
+        <tr  *ngFor="let post of posts"  [class.selected]="isSelected(post)" (click)="onSelect(post)" >
           <td>{{post.title}}</td>
           <td>{{post.Username}}</td>
           <td>
@@ -24,7 +24,7 @@
         </tr>
       </tbody>
     </table>
-    <pagination-controls (pageChange)="page = $event" id ="1"></pagination-controls>
+ <!--   <pagination-controls (pageChange)="page = $event" id ="1"></pagination-controls>-->
 
 <div *ngIf="loggedIn === true">
   <label> new Title: <input #title  /> </label>

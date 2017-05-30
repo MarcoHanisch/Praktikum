@@ -306,7 +306,7 @@ router.route('/comment/:comment_id')
                 res.json({message: 'wrong authorization'})} else{
                 if (err)
                 res.send(err)
-                res.json({message:'Succesfully deleted '})
+                res.json({message:'Succesfully deleted'})
             }})
         })
         .get(function(req, res){
@@ -330,7 +330,7 @@ router.route('/user/:user_id')
              function(err, user){
                 if (err)
                 res.send(err);
-                res.json({message:'Succesfully deleted '})
+                res.json({message:'Succesfully deleted'})
             })}
         })
 
