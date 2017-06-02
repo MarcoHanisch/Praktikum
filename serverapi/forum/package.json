@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "testserver": "jasmine-node --verbose server.spec.js"
+    "servertest": "jasmine-node --verbose server.spec.js"
   },
   "private": true,
   "dependencies": {

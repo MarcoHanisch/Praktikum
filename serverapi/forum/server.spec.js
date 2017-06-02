@@ -4,28 +4,20 @@ var url = "http://localhost:8080/api";
 var jwt = require("jsonwebtoken");
 
 describe("Server", function() {
+    
+describe("Posts", function(){
     var token = jwt.sign(user={username: 'NutzerAdmin', isAdmin: true, id:'5925840408613c256cf47853'},'apitest') 
-    describe("GET /", function(){
-        it("return api works", function(done){
-            request.get(url+"/test", function(error,response,body){
-                expect(body).toBe("api works");
+    it("should delete a post", function(done){
+            request.delete(url+"/posts/592294ed3d5dcf11e2e8aac5", {json: true, body:{token}}, function(error,response,body){
+                expect(body.message).toEqual("Succesfully deleted")
+                expect(response.statusCode).toBe(200)
                 done();
             })
         })
-        it("return status code 200", function(done){
-            request.get(url+"/test", function(error,response,body){
-                expect(response.statusCode).toBe(200);
-                done();
-            })
-        })
-        it("return topics", function(done){
-            request.get(url+"/topics", function(error, response, body){
-                expect(body).toMatch(JSON.stringify(["Allgemein"]))
-                expect(body).not.toBeNull()
-                done();
-            })
-        })
-       it("return an special user is forbidden", function(done){
+})
+describe("User", function(){
+    var token = jwt.sign(user={username: 'NutzerAdmin', isAdmin: true, id:'5925840408613c256cf47853'},'apitest')
+    it("return an special user is forbidden", function(done){
            request.get(url+"/user/5925840408613c256cf47853",function(error, response, body){
                expect(body).toMatch("no token provided")
                expect(response.statusCode).toEqual(403)
@@ -41,9 +33,6 @@ describe("Server", function() {
                done()
            })
        })
-       
-    })
-    describe("POST /", function(){
         it("should create a user and send statuscode 200", function(done){
             request.post(url+"/user",{json: true, body:{name:"Nutzer3", password: "test"}}, function(error, response,body){
                 expect(response.statusCode).toBe(200)
@@ -56,31 +45,7 @@ describe("Server", function() {
                 done();
             })
         })
-        it("should authenticate the user succesfull", function(done){
-            request.post(url+"/authenticate", {json: true, body: {name: "Nutzer1", password:"haus"}}, function(error, response,body){
-                expect(body.message).toEqual("Enjoy your token")
-                expect(body.succes).toEqual(true)
-                done();
-            })
-        })
-         it("should show that the password is wrong", function(done){
-            request.post(url+"/authenticate", {json: true, body: {name: "Nutzer1", password:"haus23213"}}, function(error, response,body){
-                expect(body.succes).toEqual(false)
-                expect(body.message).toEqual("Wrong password")
-                done();
-            })
-        })
-         it("should show that the username is wrong", function(done){
-            request.post(url+"/authenticate", {json: true, body: {name: "falschernutzer", password:"haus23213"}}, function(error, response,body){
-                expect(body.succes).toEqual(false)
-                expect(body.message).toEqual("User not found")
-                done();
-            })
-        })
-    })
-   
-    describe("PUT /", function(){
-        it("should put a user", function(done){
+         it("should put a user", function(done){
             request.put("http://localhost:8080/api/user/5925840408613c256cf47853", {json: true, body:{password: "Test3",token}}, function(error, response,body){
                 expect(response.statusCode).toBe(200)
                 done();
@@ -101,16 +66,7 @@ describe("Server", function() {
                 done()
             })
         })
-    })
-    describe("DELETE /", function(){
-        it("should delete a post", function(done){
-            request.delete(url+"/posts/592294ed3d5dcf11e2e8aac5", {json: true, body:{token}}, function(error,response,body){
-                expect(body.message).toEqual("Succesfully deleted")
-                expect(response.statusCode).toBe(200)
-                done();
-            })
-        })
-        it("should be possible to delete a user as admin", function(done){
+         it("should be possible to delete a user as admin", function(done){
             request.delete(url+"/user/5925840408613c256cf47853", { json: true, body:{token}}, function(error, response, body){
                 expect(response.statusCode).toBe(200)
                 expect(body.message).toEqual("Succesfully deleted")
@@ -131,4 +87,36 @@ describe("Server", function() {
         })
     })
 
+describe("Topics",function(){
+     it("return topics", function(done){
+            request.get(url+"/topics", function(error, response, body){
+                expect(body).toMatch(JSON.stringify(["Allgemein"]))
+                expect(body).not.toBeNull()
+                done();
+            })
+        })
+})
+describe("Login", function(){
+    it("should authenticate the user succesfull", function(done){
+            request.post(url+"/authenticate", {json: true, body: {name: "Nutzer1", password:"haus"}}, function(error, response,body){
+                expect(body.message).toEqual("Enjoy your token")
+                expect(body.succes).toEqual(true)
+                done();
+            })
+        })
+         it("should show that the password is wrong", function(done){
+            request.post(url+"/authenticate", {json: true, body: {name: "Nutzer1", password:"haus23213"}}, function(error, response,body){
+                expect(body.succes).toEqual(false)
+                expect(body.message).toEqual("Wrong password")
+                done();
+            })
+        })
+         it("should show that the username is wrong", function(done){
+            request.post(url+"/authenticate", {json: true, body: {name: "falschernutzer", password:"haus23213"}}, function(error, response,body){
+                expect(body.succes).toEqual(false)
+                expect(body.message).toEqual("User not found")
+                done();
+            })
+        })
+})
 })

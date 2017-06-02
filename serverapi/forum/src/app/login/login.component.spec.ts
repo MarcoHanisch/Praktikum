@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser'
+import { Location } from '@angular/common'
 
 import { LoginComponent } from './login.component';
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
@@ -20,6 +21,7 @@ describe('LoginComponent', () => {
   let spy : jasmine.Spy;
   let authService : AuthService;
   let http : Http
+  
 
   beforeEach(() => {TestBed.resetTestEnvironment(); TestBed.initTestEnvironment( BrowserDynamicTestingModule, platformBrowserDynamicTesting() )
     .configureTestingModule({declarations:[LoginComponent]}); 
@@ -49,4 +51,12 @@ describe('LoginComponent', () => {
     expect(el.textContent).toBe('')
     expect(spy).not.toHaveBeenCalled()
   });
+  it('should click login', async(() => {
+    spyOn(component, 'login')
+    let button = fixture.debugElement.nativeElement.querySelector('button')
+    button.click()
+    fixture.whenStable().then(() => {
+      expect(component.login).toHaveBeenCalled()
+    })
+  }))
 });

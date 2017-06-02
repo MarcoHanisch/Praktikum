@@ -29,5 +29,6 @@ describe('AuthService', () => {
   }))
   it('should log in a user', inject([AuthService], (service: AuthService) => {
     expect(service.login('Komoot', 'radfahren')).toBeTruthy()
+    expect(localStorage.getItem('token')).not.toBeNull()
   }))
 });

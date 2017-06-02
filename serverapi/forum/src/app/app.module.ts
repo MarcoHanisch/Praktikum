@@ -31,7 +31,7 @@ import { KarmatestComponent } from './karmatest/karmatest.component';
 
 
 
-const ROUTES = [
+export const ROUTES = [
   {
     path: '',
     redirectTo:'topics',

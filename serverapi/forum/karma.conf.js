@@ -33,7 +33,7 @@ module.exports = function (config) {
       { pattern:  './src/app/postadd/postadd.component.spec.ts', watched: false },
       { pattern:  './src/app/edituser/edituser.component.spec.ts', watched: false },
       { pattern:  './src/app/editcomment/editcomment.component.spec.ts', watched: false },
-      { pattern:  './src/app/app.component.spec.ts', watched: false }
+     { pattern:  './src/app/app.component.spec.ts', watched: false }
       
     ],
     preprocessors: {
