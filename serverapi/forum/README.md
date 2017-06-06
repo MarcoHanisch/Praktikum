@@ -192,8 +192,70 @@ Behebung des Fehlers
   $ export CHROME_BIN=/usr/bin/chromium-browser
   ```
 
+Die Tests sind Backend- und Frontend-seitig mithilfe von [jasmine][5] geschrieben. Frontend-seitig werden die Tests mithilfe von [Karma][6] ausgeführt. Die Optionen von Karma werden in dem karma.conf.js-file angegegeben, unter anderem welche files getestet werden sollen.
+
+Die Tests können mithilfe von describe-Blöcken gegliedert werden.
+``` javascript
+describe("Server", function() { ... }
+```
+Die Tests an sich werden durch it-Funktionen ausgeführt. Damit ein Test erfolgreich ist müssen alle expect-Bedingungen des Tests erfolgreich sein.
+
+``` javascript
+it("return an special user is forbidden", function(done){
+           request.get(url+"/user/5925840408613c256cf47853",function(error, response, body){
+               expect(body).toMatch("no token provided")
+               expect(response.statusCode).toEqual(403)
+               done()
+           })
+       })
+```
+Fontend-seitig wird mithilfe von angular-cli zu jeder Komponente und zu jedem Service, jeweils ein Test-File erzeugt. Diese Tests enthalten mehr Elemente als der Test des Servers. Vor allem sind Angular-typische Imports wichtig. Zudem kann es in den describe-Blöcken auch noch BeforeAll, BeforeEach, AfterAll und AfterEach-Blöcke geben.
+Im Normalfall gibt es mindestens ein BeforeEach-Block, in welchem die Testumgebung definiert wird. Dabei werden benötigte Komponenten, mindestnes  die zu testende, deklariert, benötigte Services definiert, sowie weitere benötigte Module, wie z.b. RouterTestingModule, HttpModule, import.
+``` javascript
+beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ UserdetailComponent ],
+      providers: [
+        {provide: PostsService, useClass: MockPostsService}
+        ],
+      imports: [ HttpModule, BrowserModule, RouterTestingModule]
+    })
+    .compileComponents();
+  }));
+  ```
+Bei Modulen mit dynamischen Elementen muss die Komponente noch mit einem weiteren BeforeEach-Block definiert werden. Dieser initialisiert die Testumgebung und setzt sie vor jedem Test zurück. 
+``` javascript
+ beforeEach(() => {TestBed.resetTestEnvironment(); TestBed.initTestEnvironment( BrowserDynamicTestingModule, platformBrowserDynamicTesting() )
+    .configureTestingModule({declarations:[UserdetailComponent]}); 
+  });
+```
+Damit man beim Testen nicht auf den originalen Service zugreifen muss kann man Mocks schreiben. Um diese zu verwenden muss die geschriebene Mockklasse als zu nutzende Klasse für den Service definiert werden (s.o.). Diese Mockklasse führt keine Anfragen an die API aus, sie dient als Ersatz für den eigentlichen Service, damit API-Abfragen während des Tests simuliert werden können.
+``` javascript
+class MockPostsService {
+ 
+ public getAllUser(): Observable<User[]> {
+    let toReturn: User[] = [] ;
+    toReturn.push(new User('1','Test','Test', false));
+    toReturn.push(new User('2', 'Drei','Zwei', true));
+    return Observable.of(toReturn)
+  };
+
+public postUser( name: string, password: string): Observable<User[]> {
+  toReturn.push(new User('8' ,name,password, false))
+  return Observable.of(toReturn)
+}
+
+public deleteUser(): Promise<void> {
+  toReturn.splice(2,1)
+  return
+}
+
+}
+```
 
 [1]: https://www.mongodb.com/de
 [2]: http://mongoosejs.com/
 [3]: https://www.npmjs.com/package/pow-mongodb-fixtures
-[4]: https://www.npmjs.com/package/angular2-jwt
+[4]: https://www.npmjs.com/package/angular2-jw
+[5]: https://jasmine.github.io/2.4/introduction.html
+[6]: https://karma-runner.github.io/1.0/index.html
