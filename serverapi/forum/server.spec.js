@@ -7,6 +7,43 @@ describe("Server", function() {
     
 describe("Posts", function(){
     var token = jwt.sign(user={username: 'NutzerAdmin', isAdmin: true, id:'5925840408613c256cf47853'},'apitest') 
+    it("should create a post", function(done){
+        request.post(url+"/posts", {json: true, body:{title:"Tschüss", topics: "Tschüss",token}}, function(error, response, body){
+            expect(response.statusCode).toBe(200)
+            done()
+        })
+    })    
+    it("should not be able to edit a post, from an other user", function(done){
+        request.put(url+"/posts/592294ed3d5dcf11e2e8aac5", {json: true, body:{token}}, function(error, response, body){
+            expect(response.statusCode).toBe(200)
+            expect(body.message).toBe("wrong user")
+            done()
+        })
+    })
+    it("should be able to edit own posts", function(done){
+        var token = jwt.sign(user={username:'Komoot', isAdmin: false, id:'123213123123123'},'apitest')
+        request.put(url+"/posts/592294ed3d5dcf11e2e8aac5", {json: true, body:{title:"Hallo nochmal",token}}, function(error, response, body){
+            expect(response.statusCode).toBe(200)
+            expect(body.message).toBe("Post updated")
+            done()
+        })
+    })
+    it("should show all posts", function(done){
+            request.get(url+"/posts", function(error, response, body) {
+                expect(response.statusCode).toEqual(200)
+                expect(body).not.toBeNull
+                done()
+            })
+    })
+    it("should show one post", function(done){
+        request.get(url+"/posts/592294ed3d5dcf11e2e8aac5",{json: true, body:{token}}, function(error, response,body){
+            expect(response.statusCode).toBe(200)
+            expect(body).toMatch(JSON.stringify(['Hallo zusammen']))
+            expect(body).not.toMatch((['Test']))
+            done()
+
+        })
+    })
     it("should delete a post", function(done){
             request.delete(url+"/posts/592294ed3d5dcf11e2e8aac5", {json: true, body:{token}}, function(error,response,body){
                 expect(body.message).toEqual("Succesfully deleted")
@@ -14,6 +51,14 @@ describe("Posts", function(){
                 done();
             })
         })
+    it("should not be possible to delete when user is not admin", function(done){
+        var token = jwt.sign(user={username:'Komoot', isAdmin: false, id:'123213123123123'},'apitest')
+        request.delete(url+"/posts/592294ed3d5dcf11e2e8aac5",{json: true, body:{token}}, function(error, response, body){
+            expect(body.message).toEqual("wrong authorization")
+            expect(response.statusCode).toBe(200)
+            done()
+        })
+    })
 })
 describe("User", function(){
     var token = jwt.sign(user={username: 'NutzerAdmin', isAdmin: true, id:'5925840408613c256cf47853'},'apitest')
@@ -45,15 +90,15 @@ describe("User", function(){
                 done();
             })
         })
-         it("should put a user", function(done){
-            request.put("http://localhost:8080/api/user/5925840408613c256cf47853", {json: true, body:{password: "Test3",token}}, function(error, response,body){
+         it("should edit a user", function(done){
+            request.put(url+"/user/5925840408613c256cf47853", {json: true, body:{password: "Test3",token}}, function(error, response,body){
                 expect(response.statusCode).toBe(200)
                 done();
             })
         })
-        it("should not put a user, as normal user", function(done){
+        it("should not edit a user, as normal user", function(done){
             var token = jwt.sign(user={username:'Komoot', isAdmin: false, id:'592c25abc1c76b3226edfaab'}, 'apitest')
-            request.put("http://localhost:8080/api/user/5925840408613c256cf47853", {json: true, body:{password: "Test6",token}}, function(error, response,body){
+            request.put(url+"/user/5925840408613c256cf47853", {json: true, body:{password: "Test6",token}}, function(error, response,body){
                 expect(response.statusCode).toBe(200)
                 expect(body.message).toMatch(JSON.stringify(['wrong authorization']))
                 done();
@@ -95,6 +140,13 @@ describe("Topics",function(){
                 done();
             })
         })
+    it("should return a specail topic", function(done){
+        request.get(url+"/topics/Allgemein", function(error, response, body){
+            expect(body).not.toBeNull()
+            expect(response.statusCode).toBe(200)
+            done()
+        })
+    })
 })
 describe("Login", function(){
     it("should authenticate the user succesfull", function(done){

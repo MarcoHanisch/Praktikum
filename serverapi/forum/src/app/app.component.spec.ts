@@ -73,5 +73,9 @@ beforeEach(() => {TestBed.resetTestEnvironment(); TestBed.initTestEnvironment( B
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('app works');
   })); 
+  it('should navigate to topics', async() => {
+    router.navigate(['/topics']).then(() => {
+      expect(location.path()).toBe('/topics')})
+  })
   });
 });
