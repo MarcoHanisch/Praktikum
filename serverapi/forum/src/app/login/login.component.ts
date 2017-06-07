@@ -3,6 +3,8 @@ import { PostsService } from '../posts.service';
 import { AuthService } from '../auth.service';
 import { AuthModule } from 'angular2-auth';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core'
+
 
 
 
@@ -17,7 +19,10 @@ export class LoginComponent implements OnInit {
   error: boolean = false;
   
    
-  constructor(private postsService: PostsService, private authService : AuthService, private router: Router) { }
+  constructor(private postsService: PostsService, private authService : AuthService, private router: Router, private translate: TranslateService) {
+     translate.addLangs(["Englisch","Deutsch" ])
+    translate.setDefaultLang('Englisch')
+   }
 
  /*login(name: string, password: string) {
     if(!name){return}

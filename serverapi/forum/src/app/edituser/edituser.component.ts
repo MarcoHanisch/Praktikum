@@ -3,6 +3,8 @@ import { PostsService, User } from '../posts.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { JwtHelper } from 'angular2-jwt'
+import { TranslateService } from '@ngx-translate/core'
+
 
 @Component({
   selector: 'app-edituser',
@@ -14,7 +16,10 @@ export class EdituserComponent implements OnInit {
   jwtHelper: JwtHelper = new JwtHelper();
   decoded: any;
 
-  constructor(private postsService : PostsService, private route : ActivatedRoute, private router : Router) { }
+  constructor(private postsService : PostsService, private route : ActivatedRoute, private router : Router, private translate: TranslateService) {
+     translate.addLangs(["Englisch","Deutsch"])
+    translate.setDefaultLang('Englisch')
+   }
 
   ngOnInit() {
     this.route.params

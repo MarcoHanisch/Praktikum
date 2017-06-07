@@ -3,6 +3,8 @@ import { PostsService } from '../posts.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { JwtHelper } from 'angular2-jwt'
+import { TranslateService } from '@ngx-translate/core'
+
 
 @Component({
   selector: 'app-posts',
@@ -17,7 +19,10 @@ export class PostsComponent implements OnInit {
   themen: any= [];
   posts: any = [];
 
-  constructor(private postsService: PostsService, private router: Router, private authService: AuthService) { }
+  constructor(private postsService: PostsService, private router: Router, private authService: AuthService, private translate: TranslateService) {
+     translate.addLangs(["Englisch","Deutsch"])
+    translate.setDefaultLang('Englisch')
+   }
   
   ngOnInit() {
      this.postsService.getAllPosts().subscribe(posts => {

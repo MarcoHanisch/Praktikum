@@ -1,15 +1,15 @@
 <div class="container">
 <h2>
-  Login
+  {{'LOGIN'| translate}}
 </h2>
-<p> Bitte einloggen um fortzufahren</p>
+<p> {{'LOGINMESSAGE'|translate}}</p>
 <div class="form-group">
-  <label> Username:</label>
+  <label> {{'USERNAME'| translate}}:</label>
   <input #name type="text" class="form-control">
-  <label> Password:</label>
+  <label> {{'PASSWORD'| translate}}:</label>
   <input #password type="password" class="form-control" (keydown.enter)="login(name.value,password.value)" >
 </div>
-  <button class="btn btn-primary" (click)="login(name.value, password.value)"> Login</button>
+  <button class="btn btn-primary" (click)="login(name.value, password.value)"> {{'LOGIN'| translate}}</button>
   <div *ngIf="error === true" class="alert alert-warning alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     Username not found or password is wrong
@@ -18,11 +18,11 @@
      You must insert Password and Username
   </div>
   <div class="form-group">
-    <h2> Neuen Nutzer anlegen</h2>
-  <label> new Name: <input #addname class="form-control" /> </label>
-  <label> new password: <input #addpassword class="form-control" (keydown.enter)="addUser(addname.value, addpassword.value)"/> </label>
+    <h2> {{'NEWUSER'|translate}}</h2>
+  <label> {{'NEWNAME'|translate}}: <input #addname class="form-control" /> </label>
+  <label> {{'NEWPW'|translate}}: <input #addpassword class="form-control" (keydown.enter)="addUser(addname.value, addpassword.value)"/> </label>
   
-  <button class="btn btn-info" (click)="addUser(addname.value, addpassword.value); password.value=''">Add</button>
+  <button class="btn btn-info" (click)="addUser(addname.value, addpassword.value); password.value=''">{{'ADD'| translate}}</button>
  
 </div>
 </div>

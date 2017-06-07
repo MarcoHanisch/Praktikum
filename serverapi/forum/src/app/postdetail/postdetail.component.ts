@@ -4,6 +4,8 @@ import { Params, ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { Location } from '@angular/common';
 import { JwtHelper } from 'angular2-jwt'
+import { TranslateService } from '@ngx-translate/core'
+
 
 
 @Component({
@@ -13,7 +15,10 @@ import { JwtHelper } from 'angular2-jwt'
 })
 export class PostdetailComponent implements OnInit {
   
-  constructor(private postsService: PostsService, private route : ActivatedRoute, private location: Location, private router: Router) { }
+  constructor(private postsService: PostsService, private route : ActivatedRoute, private location: Location, private router: Router, private translate: TranslateService) {
+     translate.addLangs(["Englisch","Deutsch"])
+    translate.setDefaultLang('Englisch')
+   }
   selectedid: string;
   post: any = [] ;
   comments: any = [];

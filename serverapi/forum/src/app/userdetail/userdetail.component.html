@@ -1,13 +1,13 @@
 <div class="container">
-<h2>Userinfo</h2>
+<h2>{{'USERINFO'|translate}}</h2>
 <table class="table table-responsive table-striped">
   <tbody *ngFor="let user of user">
     <tr>
-      <td> Username:</td>
+      <td> {{'USERNAME'| translate}}:</td>
       <td> {{user.name}}</td>
     </tr>
     <tr>
-      <td> Is Admin: </td>
+      <td> {{'ADMIN'| translate}}: </td>
       <td> {{user.isAdmin}}</td>
     </tr>
   </tbody>

@@ -1,7 +1,7 @@
 
 <div class="container" *ngIf="post">
     <h2>{{post.title}}</h2>
-    <p>{{post.Username}}</p>
+    <p>{{'CREATEFROM'| translate}}: {{post.Username}}</p>
   <input hidden [value]="post_id" #id/>
 
     <div class="panel panel-default" *ngFor="let comment of comments">
@@ -15,14 +15,14 @@
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
       </div>
-          <li class="list-group-item">Erstellt von : {{comment.Username}}</li>
+          <li class="list-group-item">{{'CREATEFROM'| translate}} : {{comment.Username}}</li>
      
     </div>
 <div >
-    <label> new title: <input #title  /> </label>
-  <label> new content: <input #content  (keydown.enter)="addComment(title.value, content.value,id.value)"/> </label>
+    <label> {{'NEWTITLE'| translate}}: <input #title  /> </label>
+  <label> {{'NEWCONTENT'| translate}}: <input #content  (keydown.enter)="addComment(title.value, content.value,id.value)"/> </label>
   
-  <button class="btn btn-info" (click)="addComment(title.value, content.value,id.value)">Add</button>
+  <button class="btn btn-info" (click)="addComment(title.value, content.value,id.value)">{{'ADD'| translate}}</button>
 </div>
 
 </div>

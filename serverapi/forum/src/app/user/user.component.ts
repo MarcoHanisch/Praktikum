@@ -3,6 +3,8 @@ import { PostsService } from '../posts.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service'
 import { JwtHelper } from 'angular2-jwt'
+import { TranslateService } from '@ngx-translate/core'
+
 
 @Component({
   selector: 'app-user',
@@ -16,7 +18,10 @@ export class UserComponent implements OnInit {
   decoded: any;
   selectedUser: any;
 
-  constructor(public postsService: PostsService, private router: Router, private authService: AuthService) { }
+  constructor(public postsService: PostsService, private router: Router, private authService: AuthService, private translate: TranslateService) {
+     translate.addLangs(["Englisch","Deutsch"])
+    translate.setDefaultLang('Englisch')
+   }
 
   ngOnInit() {
     this.postsService.getAllUser().subscribe(user => {

@@ -3,14 +3,14 @@
   <div *ngIf="decoded.isAdmin === true || decoded.id === user._id">
   <div class="form-group">
     <form  class="form-inline">
-  <label> UserName: <input #name [(ngModel)]="user.name" class="form-control" name="namen" /></label>
+  <label> {{'USERNAME'| translate}}: <input #name [(ngModel)]="user.name" class="form-control" name="namen" /></label>
     </form>
   <form *ngIf="decoded.id === user._id" class="form-inline">
-  <label> Userpassword: <input #password [(ngModel)]="user.password" class="form-control" type="password" name="passwordn"/></label>
+  <label> {{'PASSWORD'| translate}}: <input #password [(ngModel)]="user.password" class="form-control" type="password" name="passwordn"/></label>
   </form>
   <form class="form-inline" *ngIf="decoded.isAdmin === true">
   
-  <label> Admin: <input #isAdmin type="checkbox" class="form-control" [(ngModel)]="user.isAdmin"  name="isAdminn"/></label>
+  <label> {{'ADMIN'| translate}}: <input #isAdmin type="checkbox" class="form-control" [(ngModel)]="user.isAdmin"  name="isAdminn"/></label>
   
   </form>
   </div>
@@ -18,7 +18,7 @@
   
   
   
-   <button class="btn btn-info" (click)="editUser(user.name, user.password,user.isAdmin,user._id)">edit</button>
+   <button class="btn btn-info" (click)="editUser(user.name, user.password,user.isAdmin,user._id)">{{'EDIT'| translate}}</button>
 
 </div>
 </div>

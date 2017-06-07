@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../posts.service';
 import { Router } from '@angular/router'
 import { AuthService } from '../auth.service';
+import { TranslateService } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-topics',
@@ -13,7 +14,9 @@ export class TopicsComponent implements OnInit {
   private selectedDescription: string;
   loggedIn: boolean;
 
-  constructor(private postsService: PostsService, private router: Router, private authService : AuthService) { }
+  constructor(private postsService: PostsService, private router: Router, private authService : AuthService, private translate: TranslateService) { 
+    translate.addLangs(["Englisch","Deutsch"])
+    translate.setDefaultLang('Englisch') }
 
   ngOnInit() {
    this.postsService.getAllTopics().subscribe(topics => {

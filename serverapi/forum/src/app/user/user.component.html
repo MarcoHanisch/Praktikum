@@ -2,8 +2,8 @@
 <table *ngIf="loggedIn === true" class="table table-responsive table-striped">
       <thead>
         <tr>
-          <th> Username</th>
-          <th> Options </th>
+          <th class="col-xs-10"> {{'USERNAME'| translate}}</th>
+          <th class="col-xs-2"> {{'OPTIONS'| translate}} </th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +23,6 @@
        </tbody>
 </table>
 <div *ngIf="loggedIn === false">
-  <h3>Bitte erst einloggen um fortzufahren</h3>
+  <h3>{{'LOGINMESSAGE'| translate}}</h3>
 </div>
 </div>

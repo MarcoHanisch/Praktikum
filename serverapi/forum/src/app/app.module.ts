@@ -1,13 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from 'angular2-auth';
 import { AuthConfig } from 'angular2-jwt';
 
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Ng2PaginationModule } from 'ng2-pagination'
+import {TranslateModule, TranslateLoader } from '@ngx-translate/core'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
 
 import { AppComponent } from './app.component';
@@ -85,6 +87,11 @@ export const ROUTES = [
     canActivate: [LoggedInGuard]
   }
 ];
+
+export function HttpLoaderFactory(http: Http) {
+  return new TranslateHttpLoader(http)
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -108,6 +115,13 @@ export const ROUTES = [
     ReactiveFormsModule,
     Ng2PaginationModule,
     RouterModule.forRoot(ROUTES, {useHash: true}),
+    TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [Http]
+          }
+        })
    // AuthModule.forRoot(),
   
   ],

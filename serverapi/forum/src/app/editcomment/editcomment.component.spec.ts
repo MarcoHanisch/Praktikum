@@ -50,7 +50,6 @@ describe('EditcommentComponent', () => {
   });
 
   it('should create', () => {
-    localStorage.setItem('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkRyZWkiLCJhZG1pbiI6dHJ1ZX0.se-LDsAtNkK2Ro7DwMZ97jAkMUuxuT5N6dMiv9FDHUM')
     expect(component).toBeTruthy();
   });
 });

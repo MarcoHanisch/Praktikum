@@ -4,6 +4,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import { JwtHelper } from 'angular2-jwt'
+import { TranslateService } from '@ngx-translate/core'
+
 
 @Component({
   selector: 'app-topicdetail',
@@ -17,7 +19,10 @@ export class TopicdetailComponent implements OnInit {
   decoded: any;
   selectedPost: any;
 
-  constructor(private postsService: PostsService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private postsService: PostsService, private route: ActivatedRoute, private router: Router, private translate: TranslateService) {
+     translate.addLangs(["Englisch","Deutsch"])
+    translate.setDefaultLang('Englisch')
+   }
 
   ngOnInit() {
     this.route.params

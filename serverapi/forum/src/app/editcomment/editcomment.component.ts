@@ -4,6 +4,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { Location } from '@angular/common';
 import { JwtHelper } from 'angular2-jwt'
+import { TranslateService } from '@ngx-translate/core'
+
 
 @Component({
   selector: 'app-editcomment',
@@ -15,7 +17,10 @@ export class EditcommentComponent implements OnInit {
   jwtHelper: JwtHelper = new JwtHelper();
   decoded: any;
 
-  constructor(private postsService: PostsService, private route: ActivatedRoute, private location: Location) { }
+  constructor(private postsService: PostsService, private route: ActivatedRoute, private location: Location, private translate: TranslateService) {
+    translate.addLangs(["Englisch","Deutsch"])
+    translate.setDefaultLang('Englisch')
+   }
 
   ngOnInit() {
       this.route.params

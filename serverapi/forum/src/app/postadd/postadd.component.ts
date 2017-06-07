@@ -5,6 +5,8 @@ import 'rxjs/add/operator/switchMap';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtHelper } from 'angular2-jwt'
+import { TranslateService } from '@ngx-translate/core'
+
 
 class Topics {
   description = '';
@@ -20,7 +22,9 @@ export class PostaddComponent implements OnInit {
   jwtHelper: JwtHelper = new JwtHelper();
   decoded: any;
 
-  constructor(private route: ActivatedRoute, private postsService: PostsService, private fb: FormBuilder, private router: Router) {
+  constructor(private route: ActivatedRoute, private postsService: PostsService, private fb: FormBuilder, private router: Router, private translate: TranslateService) {
+     translate.addLangs(["Englisch","Deutsch"])
+    translate.setDefaultLang('Englisch')
     
    }
  useJwtHelper() {
