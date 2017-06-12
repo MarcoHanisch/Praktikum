@@ -27,9 +27,11 @@
  <!--   <pagination-controls (pageChange)="page = $event" id ="1"></pagination-controls>-->
 
 <div *ngIf="loggedIn === true">
-  <label> {{'NEWTITLE'| translate}}: <input #title  /> </label>
-  <label> {{'NEWTOPIC'| translate}}: <input #topics  /> </label>
-  
+  <label> {{'NEWTITLE'| translate}}: </label>
+  <input #title class="form-control" /> 
+  <label> {{'NEWTOPIC'| translate}}: </label>
+   <input #topics class="form-control" /> 
+  <br>
   <button class="btn btn-info" (click)="addPost(title.value, topics.value); topics.value=''; title.value=''">{{'ADD'| translate}}</button>
 </div>
 <div *ngIf="loggedIn === false">

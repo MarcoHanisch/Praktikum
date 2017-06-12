@@ -21,5 +21,17 @@
     "COMMENTCONTENT": "Inhalt des Kommentares",
     "EDIT": "Bearbeiten",
     "ADD": "Hinzufügen",
-    "CREATEFROM": "Erstellt von"
+    "CREATEFROM": "Erstellt von",
+    "LOGINFB": "mit Facebook anmelden",
+    "FIRSTNAME": "Vorname",
+    "LASTNAME": "Nachname",
+    "STREET": "Straße",
+    "NUMBER": "Hausnummer",
+    "ZIP": "PLZ",
+    "TOWN": "Stadt",
+    "COUNTRY": "Land",
+    "NAME": "Name",
+    "ADRESS": "Adresse",
+    "BIRTHDAY": "Geburtstag",
+    "CREATEUSER": "Neuen Nutzer anlegen"  
 }

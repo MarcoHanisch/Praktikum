@@ -1,9 +1,10 @@
-
 <div class="container" *ngFor="let comment of comment">
-  <div *ngIf="decoded.username === comment.Username">
-  <label> {{'COMMENTTITLE'| translate}}: <input #title [(ngModel)]="comment.title" (keydown.enter)="editComment(title.value, content.value,id.value)"/></label>
-  <label> {{'COMMENTCONTENT'| translate}}: <input #content [(ngModel)]="comment.content" (keydown.enter)="editComment(title.value, content.value,id.value)"/></label>
+  <div *ngIf="decoded.username === comment.Username" class="form-group">
+  <label> {{'COMMENTTITLE'| translate}}: </label>
+  <input #title [(ngModel)]="comment.title" class="form-control" (keydown.enter)="editComment(comment.title,comment.content,comment._id)"/>
+  <label> {{'COMMENTCONTENT'| translate}}: </label>
+  <textarea #content [(ngModel)]="comment.content" class="form-control" rows="5" (keydown.enter)="editComment(comment.title,comment.content,comment._id)"></textarea>
   <input hidden #id [(ngModel)]="comment._id"/>
-   <button class="btn btn-info" (click)="editComment(title.value, content.value,id.value)">{{'EDIT'| translate}}</button>
   </div>
+   <button class="btn btn-info" (click)="editComment(comment.title,comment.content,comment._id)">{{'EDIT'| translate}}</button>
 </div>

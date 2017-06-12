@@ -1,0 +1,52 @@
+<div class="container">
+<div class="form-goup">
+   <h2> {{'NEWUSER'|translate}}</h2>
+   <label> {{'NEWNAME'|translate}}:</label>
+   <input #addname class="form-control" /> 
+   <label> {{'NEWPW'|translate}}: </label>
+   <input #addpassword class="form-control" type="password"/> 
+   <label> {{'FIRSTNAME'|translate}} </label>
+   <input #addfirstname class="form-control"/>
+   <label> {{'LASTNAME'|translate}} </label>
+   <input #addlastname class="form-control"/>
+   <label> {{'BIRTHDAY'|translate}}</label>
+   <div class="input-group">
+   <input #addbirthday class="form-control" [value]="date | date:'dd. MMMM y'"/>
+   <span class="input-group-btn">
+     <button class="btn btn-primary" type="button" (click)="showcal()">
+       <span class="glyphicon glyphicon-calendar"></span>
+     </button>
+   </span>
+   </div>
+   <div *ngIf="calendar === true">
+     <datepicker [(ngModel)]="date"  [showWeeks]="true" ></datepicker> 
+   </div>   
+  </div>
+  <div class="row ">
+    <div class="col-sm-10 form-group">
+   <label> {{'STREET'|translate}} </label>
+   <input #addstreet class="form-control"/>
+    </div>
+    <div class="col-sm-2 form-group">
+   <label> {{'NUMBER'|translate}} </label>
+   <input #addnumber class="form-control"/>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col-sm-10 form-group">
+   <label> {{'TOWN'|translate}} </label>
+   <input #addtown class="form-control"/>
+    </div>
+    <div class="col-sm-2 form-group">
+   <label> {{'ZIP'|translate}} </label>
+   <input #addzip class="form-control"/>
+    </div>
+  </div>
+  <div class="form-group">
+   <label> {{'COUNTRY'|translate}} </label>
+   <input #addcountry class="form-control"/>
+  </div>
+  <button class="btn btn-info" 
+  (click)="addUser(addname.value, addpassword.value, addfirstname.value, addlastname.value, addstreet.value,addnumber.value,addzip.value,addtown.value,addcountry.value,addbirthday.value)
+  ; password.value=''">{{'ADD'| translate}}</button>
+</div>

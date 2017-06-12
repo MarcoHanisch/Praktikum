@@ -4,7 +4,8 @@ var posts = exports.posts = {
     post1: {
         title: 'Dies ist ein Test',
         topics: { description: 'test'},
-        Username: 'Nutzer1'
+        Username: 'Nutzer1',
+        _id: id()
     },
     post2: {
         title: 'Hallo zusammen',
@@ -15,6 +16,7 @@ var posts = exports.posts = {
     post3: {
         title: 'Neuigkeiten des Tages',
         topics: { description: 'Allgemein'},
-        Username: 'Nutzer1'
+        Username: 'Nutzer1',
+        _id: id()
     }
 }

@@ -1,28 +1,29 @@
-
 <div class="container" *ngIf="post">
     <h2>{{post.title}}</h2>
     <p>{{'CREATEFROM'| translate}}: {{post.Username}}</p>
   <input hidden [value]="post_id" #id/>
-
+    <div class="panel-group">
     <div class="panel panel-default" *ngFor="let comment of comments">
-    <div class="panel-heading"> {{comment.title}}
-      <button *ngIf="decoded.isAdmin === true" type="button" class="btn btn-danger btn-sm pull-right" (click)="deleteComment(comment); $event.stopPropagation()">
-                <span class="glyphicon glyphicon-remove"></span>
+    <div class="panel-heading clearfix display-inline"> {{comment.title}}
+      <button *ngIf="decoded.isAdmin === true" type="button" class="btn btn-danger pull-right" (click)="deleteComment(comment); $event.stopPropagation()">
+                <span class="glyphicon glyphicon-remove"></span> 
               </button>
       </div>
       <div class="panel-body">  {{comment.content}}
         <button *ngIf="decoded.username === comment.Username" type="button" class="btn btn-primary pull-right" (click)="gotoComment(comment)">
                 <span class="glyphicon glyphicon-pencil"></span>
               </button>
-      </div>
+      </div> 
           <li class="list-group-item">{{'CREATEFROM'| translate}} : {{comment.Username}}</li>
-     
     </div>
-<div >
-    <label> {{'NEWTITLE'| translate}}: <input #title  /> </label>
-  <label> {{'NEWCONTENT'| translate}}: <input #content  (keydown.enter)="addComment(title.value, content.value,id.value)"/> </label>
-  
-  <button class="btn btn-info" (click)="addComment(title.value, content.value,id.value)">{{'ADD'| translate}}</button>
-</div>
+<div class="form-group" >
+    <label> {{'NEWTITLE'| translate}}: </label> 
+    <input #title  class="form-control"/> 
+  <label> {{'NEWCONTENT'| translate}}: </label>
+  <textarea #content class="form-control" (keydown.enter)="addComment(title.value, content.value,id.value); title.value=''; content.value=''" rows="5"> </textarea>
+  </div>
+  <button class="btn btn-info" (click)="addComment(title.value, content.value,id.value); title.value=''; content.value=''">{{'ADD'| translate}}</button>
+
+    </div>
 
 </div>

@@ -51,12 +51,15 @@ export class PostsService {
     return this.http.get('http://localhost:8080/api/user', {headers})
         .map(response => response.json());
   }
-  postUser(name: string, password: string): Observable<User> {
+  postUser(name: string, password: string, firstname: string, lastname: string, 
+  street: string, number: string, ZIP: string, town: string, country: string, birthday: string): Observable<User> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let token = localStorage.getItem('token');
     headers.append('x-acces-token', `${token}`);
-    return this.http.post('http://localhost:8080/api/user', JSON.stringify({name: name, password: password}), {headers})
+    return this.http.post('http://localhost:8080/api/user', 
+    JSON.stringify({name: name, password: password, firstname: firstname, 
+      lastname: lastname, street: street, number: number, ZIP: ZIP, town: town, country: country, birthday: birthday}), {headers})
       .map(response => response.json())
   }
   getTopic(topicsname: string){
@@ -105,12 +108,14 @@ export class PostsService {
     return this.http.put(`${this.url}/posts/${post_id}`,JSON.stringify({title: title, topics: topics}), {headers})
         .map(response => response.json())
   }
-  editUser(name: string, password: string, isAdmin: boolean, user_id: string){
+  editUser(name: string, password: string, isAdmin: boolean, user_id: string, firstname: string, lastname: string,
+  birthday: string, street: string, number: string, town: string, ZIP: string, country: string){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let token = localStorage.getItem('token');
     headers.append('x-acces-token', `${token}`);
-    return this.http.put(`${this.url}/user/${user_id}`,JSON.stringify({name: name, password: password, isAdmin: isAdmin} ), {headers})
+    return this.http.put(`${this.url}/user/${user_id}`,JSON.stringify({name: name, password: password, isAdmin: isAdmin, firstname: firstname,
+    lastname: lastname, birthday: birthday, street: street, number: number, town: town, ZIP: ZIP, country: country} ), {headers})
         .map(response => response.json())
   }
    editComment(title: string,content: string, comment_id: string){

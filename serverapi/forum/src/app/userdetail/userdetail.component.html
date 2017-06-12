@@ -10,6 +10,26 @@
       <td> {{'ADMIN'| translate}}: </td>
       <td> {{user.isAdmin}}</td>
     </tr>
+    <tr>
+      <td> {{'NAME'| translate}} </td>
+      <td> {{user.firstname}}  {{user.lastname}}</td>
+    </tr>
+    <tr>
+      <td> {{'BIRTHDAY'|translate}} </td>
+      <td> {{user.birthday}}</td>
+    </tr>
+    <tr>
+      <td> {{'ADRESS'|translate}} </td>
+      <td> {{user.adress.street}}  {{user.adress.number}}</td>
+    </tr>
+    <tr>
+      <td> {{'TOWN'|translate}} </td>
+      <td> {{user.adress.town}} ,{{user.adress.ZIP}} </td> 
+    </tr>
+    <tr>
+      <td> {{'COUNTRY'| translate}}</td>
+      <td> {{user.adress.country}}</td>
+    </tr>
   </tbody>
 </table>
 </div>

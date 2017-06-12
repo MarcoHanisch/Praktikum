@@ -8,9 +8,10 @@ import { AuthConfig } from 'angular2-jwt';
 
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Ng2PaginationModule } from 'ng2-pagination'
-import {TranslateModule, TranslateLoader } from '@ngx-translate/core'
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
-
+import { FacebookModule } from 'ngx-facebook'
+import { DatepickerModule } from 'ngx-bootstrap'
 
 import { AppComponent } from './app.component';
 import { TopicsComponent } from './topics/topics.component';
@@ -27,6 +28,7 @@ import { PostaddComponent } from './postadd/postadd.component';
 import { EdituserComponent } from './edituser/edituser.component';
 import { EditcommentComponent } from './editcomment/editcomment.component';
 import { KarmatestComponent } from './karmatest/karmatest.component';
+import { NewuserComponent } from './newuser/newuser.component';
 
 
 
@@ -36,7 +38,7 @@ import { KarmatestComponent } from './karmatest/karmatest.component';
 export const ROUTES = [
   {
     path: '',
-    redirectTo:'topics',
+    redirectTo:'login',
     pathMatch: 'full'
   },
   {
@@ -56,6 +58,10 @@ export const ROUTES = [
     path: 'user',
     component: UserComponent,
     
+  },
+  {
+    path: 'newuser',
+    component: NewuserComponent
   },
   {
     path: 'posts/:post_id',
@@ -85,7 +91,12 @@ export const ROUTES = [
     path:'comment/:comment_id',
     component: EditcommentComponent,
     canActivate: [LoggedInGuard]
-  }
+  },
+  {
+    path: '**',
+    component: LoginComponent,
+    
+  },
 ];
 
 export function HttpLoaderFactory(http: Http) {
@@ -106,6 +117,7 @@ export function HttpLoaderFactory(http: Http) {
     EdituserComponent,
     EditcommentComponent,
     KarmatestComponent,
+    NewuserComponent,
    
   ],
   imports: [
@@ -121,8 +133,10 @@ export function HttpLoaderFactory(http: Http) {
             useFactory: HttpLoaderFactory,
             deps: [Http]
           }
-        })
-   // AuthModule.forRoot(),
+        }),
+    FacebookModule.forRoot(),
+    DatepickerModule.forRoot()
+    // AuthModule.forRoot(),
   
   ],
   providers: [PostsService, AuthService, LoggedInGuard],

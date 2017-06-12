@@ -4,7 +4,8 @@ import { AuthService } from '../auth.service';
 import { AuthModule } from 'angular2-auth';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core'
-
+import { FacebookService, LoginResponse } from 'ngx-facebook'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 
 
 
@@ -17,11 +18,19 @@ export class LoginComponent implements OnInit {
   user: any =[]
   failed: boolean = false;
   error: boolean = false;
+
   
    
-  constructor(private postsService: PostsService, private authService : AuthService, private router: Router, private translate: TranslateService) {
+  constructor(private postsService: PostsService, private authService : AuthService, private router: Router, 
+  private translate: TranslateService, private fb: FacebookService, private formBuilder: FormBuilder) {
      translate.addLangs(["Englisch","Deutsch" ])
     translate.setDefaultLang('Englisch')
+    let InitParams = {
+      appId: '1111111111111',
+      xfbml: true,
+      version: 'v2.8'
+    }
+    fb.init(InitParams)
    }
 
  /*login(name: string, password: string) {
@@ -32,7 +41,11 @@ export class LoginComponent implements OnInit {
       this.tokenservice.setToken(user.token)
     })
   }*/
-
+  loginWithFacebook(): void {
+    this.fb.login()
+      .then((response: LoginResponse) => console.log(response))
+      .catch((error: any) => console.error(error))
+  }
   login(name: string, password: string) {
     if(!name){ this.failed=true; return}
     if(!password){this.failed=true;return}
@@ -44,9 +57,10 @@ export class LoginComponent implements OnInit {
     else { this.error=true; console.log(this.user); return}
   })}
   ngOnInit() {
+  
    
   }
-addUser(name: string, password: string): void {
-    this.postsService.postUser(name,password).subscribe(user =>this.user.push(user));
+  gotoCreate(){
+   return this.router.navigate(['newuser'])
   }
 }

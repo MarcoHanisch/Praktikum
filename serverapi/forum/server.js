@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser')
 var jwt = require('jsonwebtoken')
 var http = require('http')
 var path = require('path')
+var nodemailer = require('nodemailer')
 
 mongoose.Promise = global.Promise;
 mongoose.connect('localhost/ForumDatabase');
@@ -37,10 +38,15 @@ fixtures.clear(function(err){
 }, callback);*/
 
 //Files
-//fixtures.load(__dirname + '/fixtures/users.js', callback);
+//fixtures.load(__dirname + '/fixtures/users.js');
+//fixtures.load(__dirname + '/fixtures/posts.js');
+//fixtures.load(__dirname + '/fixtures/comments.js')
 
 //Directories (loads all files in the directory)
-fixtures.load(__dirname + '/fixtures');
+fixtures.load(__dirname + '/fixtures', function(err){
+    if(err)
+    res.send(err)
+});
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -59,6 +65,8 @@ var Comment = require('./src/app/models/comment')
 var jwt_simple = require('jwt-simple')
 
 
+
+
 app.get('/',(req, res) => {
     res.sendFile(__dirname+'dist/index.html')
 })
@@ -73,12 +81,15 @@ app.listen(port, (err) => {
 
 var server = http.createServer(app);
 
+
+
 app.use('/api', router)
 
 router.route('/test')
         .get(function(req,res) {
             res.send('api works')
         })
+
 
 
 router.route('/authenticate')
@@ -133,6 +144,14 @@ router.route('/user')
                     user.name = req.body.name
                     user.password = req.body.password
                     user.isAdmin = false
+                    user.firstname = req.body.firstname
+                    user.lastname = req.body.lastname
+                    user.adress.street = req.body.street
+                    user.adress.number = req.body.number
+                    user.adress.ZIP = req.body.ZIP
+                    user.adress.town = req.body.town
+                    user.adress.country = req.body.country
+                    user.birthday = req.body.birthday
                     user.save(function(err) {
                     if(err) 
                     res.send(err);

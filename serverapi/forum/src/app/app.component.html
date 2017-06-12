@@ -18,15 +18,11 @@
            <li> <a  routerLink="/topics">{{'TOPICS' | translate}}</a></li>
            <li> <a  routerLink="/login">{{'LOGIN' | translate}}</a> </li>
             </ul>
-            
             <div class="navbar-right">
-           
             <select #langSelect (change)="translate.use(langSelect.value)" class="selectpicker form-control ">
                 <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
             </select>
-            
                 <button type="button" class="btn btn-primary navbar-btn " (click)="logout()">{{'LOGOUT' | translate}}</button>
-            
             </div>
             </form>
         </div>

@@ -15,6 +15,7 @@ export class EdituserComponent implements OnInit {
   user: any = [];
   jwtHelper: JwtHelper = new JwtHelper();
   decoded: any;
+  calendar: boolean = false
 
   constructor(private postsService : PostsService, private route : ActivatedRoute, private router : Router, private translate: TranslateService) {
      translate.addLangs(["Englisch","Deutsch"])
@@ -28,14 +29,17 @@ export class EdituserComponent implements OnInit {
       })
       this.useJwtHelper()
   }
-editUser(name: string, password: string,isAdmin: boolean, user_id: string): void { 
-    this.postsService.editUser(name,password,isAdmin,user_id).subscribe(user =>this.user.push(user))
+editUser(name: string, password: string,isAdmin: boolean, user_id: string, firstname: string, lastname: string,
+birthday: string, street: string, number: string, town: string, ZIP: string, country: string): void { 
+    this.postsService.editUser(name,password,isAdmin,user_id,firstname,lastname,birthday,street,number,town,ZIP,country).subscribe(user =>this.user.push(user))
     this.router.navigate(['user'])
   }
  useJwtHelper() {
     var token = localStorage.getItem('token');
      this.decoded = this.jwtHelper.decodeToken(token)
   }
-  
+  showcal() {
+    return this.calendar = (!this.calendar)
+  }
 
 }

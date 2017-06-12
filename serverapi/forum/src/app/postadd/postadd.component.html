@@ -1,10 +1,11 @@
-
 <div class="container" *ngIf="post">
   <div *ngIf="decoded.username === post.Username">
-  <label> Title: <input #title [(ngModel)]="post.title" class="form-control" placeholder="title" (keydown.enter)="editPost(title.value, topics.value, id.value)"/></label>
- <label> Topics: <input #topics [value]="post?.topics?.description" (keydown.enter)="editPost(title.value, topics.value, id.value)"/></label>
+  <label> Title: </label>
+   <input #title [(ngModel)]="post.title" class="form-control" placeholder="title" (keydown.enter)="editPost(title.value, topics.value, id.value)"/>
+ <label> Topics: </label>
+  <input #topics [value]="post?.topics?.description" class="form-control" (keydown.enter)="editPost(title.value, topics.value, id.value)"/>
  <input #id [value]="post._id" hidden>
+ <br>
  <button class="btn btn-primary" (click)="editPost(title.value, topics.value, id.value)">{{'EDIT'| translate}}</button>
 </div>
 </div>
-

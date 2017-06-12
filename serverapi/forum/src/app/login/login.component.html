@@ -10,6 +10,7 @@
   <input #password type="password" class="form-control" (keydown.enter)="login(name.value,password.value)" >
 </div>
   <button class="btn btn-primary" (click)="login(name.value, password.value)"> {{'LOGIN'| translate}}</button>
+  <button class="btn btn-primary" (click)="loginWithFacebook()"> {{'LOGINFB'| translate}}</button>
   <div *ngIf="error === true" class="alert alert-warning alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     Username not found or password is wrong
@@ -17,12 +18,5 @@
    <div *ngIf="failed === true" class="alert alert-warning alert-dismissible">
      You must insert Password and Username
   </div>
-  <div class="form-group">
-    <h2> {{'NEWUSER'|translate}}</h2>
-  <label> {{'NEWNAME'|translate}}: <input #addname class="form-control" /> </label>
-  <label> {{'NEWPW'|translate}}: <input #addpassword class="form-control" (keydown.enter)="addUser(addname.value, addpassword.value)"/> </label>
-  
-  <button class="btn btn-info" (click)="addUser(addname.value, addpassword.value); password.value=''">{{'ADD'| translate}}</button>
- 
-</div>
+ <button type="button" class="btn btn-primary" (click)="gotoCreate()">{{'CREATEUSER'|translate}}</button> 
 </div>
