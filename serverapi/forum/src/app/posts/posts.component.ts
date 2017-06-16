@@ -18,6 +18,8 @@ export class PostsComponent implements OnInit {
   selectedPost: any;
   themen: any= [];
   posts: any = [];
+  date = new Date()
+  reverse: boolean = true
 
   constructor(private postsService: PostsService, private router: Router, private authService: AuthService, private translate: TranslateService) {
      translate.addLangs(["Englisch","Deutsch"])
@@ -37,8 +39,9 @@ export class PostsComponent implements OnInit {
     var token = localStorage.getItem('token');
      this.decoded = this.jwtHelper.decodeToken(token)
   }
-  addPost(title: string, topics: string): void {
-    this.postsService.addPost(title,topics).subscribe(posts =>this.posts.push(posts));
+  addPost(title: string, topics: string, date: Date): void {
+    date = this.date
+    this.postsService.addPost(title,topics,date).subscribe(posts =>this.posts.push(posts));
   }
     deletePost(post): void {
     this.postsService.deletePost(post._id).then(()=> {

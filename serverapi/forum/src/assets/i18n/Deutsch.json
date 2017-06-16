@@ -33,5 +33,9 @@
     "NAME": "Name",
     "ADRESS": "Adresse",
     "BIRTHDAY": "Geburtstag",
-    "CREATEUSER": "Neuen Nutzer anlegen"  
+    "CREATEUSER": "Neuen Nutzer anlegen",
+    "REQUIERED": "Pflichtfelder",
+    "REQUIEREDMESSAGE": "Bitte alle Pflichtfelder ausfüllen",
+    "LOGINFAILURE":"Nutzername konnte nicht gefunden werden oder das Passwort ist falsch",
+    "LOGINNEEDED":"Bitte Passwort und Nutzername eingeben"  
 }

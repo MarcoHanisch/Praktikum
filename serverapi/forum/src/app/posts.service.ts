@@ -83,12 +83,12 @@ export class PostsService {
         .map(response => response.json());
   }
   
-  addPost(title: string, topics: string){
+  addPost(title: string, topics: string, date: Date){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let token = localStorage.getItem('token');
     headers.append('x-acces-token', `${token}`);
-    return this.http.post(`${this.url}/posts`,JSON.stringify({title: title, topics: topics}), {headers})
+    return this.http.post(`${this.url}/posts`,JSON.stringify({title: title, topics: topics, date: date}), {headers})
         .map(response => response.json())
   }
 

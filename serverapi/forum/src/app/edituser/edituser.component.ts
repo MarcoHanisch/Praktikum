@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { JwtHelper } from 'angular2-jwt'
 import { TranslateService } from '@ngx-translate/core'
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms'
 
 
 @Component({
@@ -16,10 +17,13 @@ export class EdituserComponent implements OnInit {
   jwtHelper: JwtHelper = new JwtHelper();
   decoded: any;
   calendar: boolean = false
+  userForm : FormGroup
 
-  constructor(private postsService : PostsService, private route : ActivatedRoute, private router : Router, private translate: TranslateService) {
+  constructor(private postsService : PostsService, private route : ActivatedRoute, private router : Router,
+   private translate: TranslateService, private formBuilder: FormBuilder) {
      translate.addLangs(["Englisch","Deutsch"])
     translate.setDefaultLang('Englisch')
+    this.createForm()
    }
 
   ngOnInit() {
@@ -40,6 +44,23 @@ birthday: string, street: string, number: string, town: string, ZIP: string, cou
   }
   showcal() {
     return this.calendar = (!this.calendar)
+  }
+
+  createForm() {
+    this.userForm = this.formBuilder.group({
+      name: '',
+      password: '',
+      firstname: '',
+      lastname: '',
+      birthday: '',
+      adress: this.formBuilder.group({
+        street: '',
+        number: '',
+        town: '',
+        ZIP: '',
+        country:''
+      })
+    })
   }
 
 }

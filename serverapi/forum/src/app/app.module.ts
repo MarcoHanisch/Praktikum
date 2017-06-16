@@ -12,6 +12,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { FacebookModule } from 'ngx-facebook'
 import { DatepickerModule } from 'ngx-bootstrap'
+import { OrderModule } from 'ngx-order-pipe'
 
 import { AppComponent } from './app.component';
 import { TopicsComponent } from './topics/topics.component';
@@ -29,6 +30,8 @@ import { EdituserComponent } from './edituser/edituser.component';
 import { EditcommentComponent } from './editcomment/editcomment.component';
 import { KarmatestComponent } from './karmatest/karmatest.component';
 import { NewuserComponent } from './newuser/newuser.component';
+import { FooterComponent } from './footer/footer.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 
@@ -91,8 +94,7 @@ export const ROUTES = [
     path:'comment/:comment_id',
     component: EditcommentComponent,
     canActivate: [LoggedInGuard]
-  },
-  {
+  },{
     path: '**',
     component: LoginComponent,
     
@@ -118,6 +120,8 @@ export function HttpLoaderFactory(http: Http) {
     EditcommentComponent,
     KarmatestComponent,
     NewuserComponent,
+    FooterComponent,
+    ChatComponent,
    
   ],
   imports: [
@@ -135,7 +139,8 @@ export function HttpLoaderFactory(http: Http) {
           }
         }),
     FacebookModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    OrderModule
     // AuthModule.forRoot(),
   
   ],

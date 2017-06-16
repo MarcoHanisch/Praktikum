@@ -1,11 +1,12 @@
 <div class="container">
 <div  *ngFor="let user of user">
   <div *ngIf="decoded.isAdmin === true || decoded.id === user._id">
-  <div class="form-group">
-  <label> {{'USERNAME'| translate}}:</label>
+  
+ <div class="form-group">
+  <label> {{'USERNAME'| translate}}</label>
   <input #name [(ngModel)]="user.name" class="form-control" name="namen" disabled/>
   <form *ngIf="decoded.id === user._id" >
-  <label> {{'PASSWORD'| translate}}: </label>
+  <label> {{'PASSWORD'| translate}} </label>
   <input #password [(ngModel)]="user.password" class="form-control" type="password" name="passwordn"/>
   <label> {{'FIRSTNAME'| translate}}</label>
   <input #firstname [(ngModel)]="user.firstname" class="form-control" name="firstname"/>
@@ -31,7 +32,7 @@
     <div class="col-sm-2 form-group">
    <label> {{'NUMBER'| translate}}</label>
    <input #number [(ngModel)]="user.adress.number" class="form-control" name="number"/>
-   {{street.value}}
+ 
     </div>
   </div>
   <div class="row ">
@@ -46,6 +47,7 @@
   </div>
    <label> {{'COUNTRY'| translate}}</label>
    <input #country [(ngModel)]="user.adress.country" class="form-control" name="country"/>
+
   </form>
   <form *ngIf="decoded.isAdmin === true">
   <label> {{'ADMIN'| translate}}: </label>
@@ -55,7 +57,7 @@
   </div>
   <input #id hidden [(ngModel)]="user._id" name="idn"/>
   <button class="btn btn-info" (click)="editUser(user.name, user.password,user.isAdmin,user._id, user.firstname,user.lastname
-  ,user.birthday,user.adress.street,user.adress.number,user.adress.town,user.adress.ZIP,user.adress.country)">{{'EDIT'| translate}}</button>
+  ,user.birthday,street.value,user.adress.number,user.adress.town,user.adress.ZIP,user.adress.country)">{{'EDIT'| translate}}</button>
 </div>
 </div>
 </div>

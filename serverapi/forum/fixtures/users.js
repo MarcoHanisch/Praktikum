@@ -15,7 +15,8 @@ var users = exports.users = {
             town: 'Erfurt',
             ZIP: '980963',
             country: 'Germany'
-        }
+            
+        },
     },
     user2: {
         name: 'Komoot',

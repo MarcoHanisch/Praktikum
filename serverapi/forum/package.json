@@ -47,6 +47,7 @@
     "ng2-pagination": "^2.0.1",
     "ngx-bootstrap": "^1.7.1",
     "ngx-facebook": "^2.4.0",
+    "ngx-order-pipe": "^1.0.0",
     "nodemailer": "^4.0.1",
     "path": "^0.12.7",
     "pow-mongodb-fixtures": "^0.14.0",

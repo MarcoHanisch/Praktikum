@@ -33,5 +33,9 @@
     "NAME": "Name",
     "ADRESS": "Adress",
     "BIRTHDAY": "Birthday" ,
-    "CREATEUSER": "Create a new User"
+    "CREATEUSER": "Create a new User",
+    "REQUIERED": "requiered",
+    "REQUIEREDMESSAGE": "Please fill all requiered fields",
+    "LOGINFAILURE":"Username not found or password is wrong",
+    "LOGINNEEDED":"You must insert Password and Username"    
 }

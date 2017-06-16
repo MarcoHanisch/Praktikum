@@ -13,10 +13,11 @@
   <button class="btn btn-primary" (click)="loginWithFacebook()"> {{'LOGINFB'| translate}}</button>
   <div *ngIf="error === true" class="alert alert-warning alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    Username not found or password is wrong
+    {{'LOGINFAILURE'| translate}}
   </div>
    <div *ngIf="failed === true" class="alert alert-warning alert-dismissible">
-     You must insert Password and Username
+     {{'LOGINNEEDED'| translate}}
   </div>
+  <br><br>
  <button type="button" class="btn btn-primary" (click)="gotoCreate()">{{'CREATEUSER'|translate}}</button> 
 </div>

@@ -1,15 +1,15 @@
 <div class="container">
 <div class="form-goup">
    <h2> {{'NEWUSER'|translate}}</h2>
-   <label> {{'NEWNAME'|translate}}:</label>
+   <label> {{'NEWNAME'|translate}} *</label>
    <input #addname class="form-control" /> 
-   <label> {{'NEWPW'|translate}}: </label>
+   <label> {{'NEWPW'|translate}} *</label>
    <input #addpassword class="form-control" type="password"/> 
-   <label> {{'FIRSTNAME'|translate}} </label>
+   <label> {{'FIRSTNAME'|translate}} *</label>
    <input #addfirstname class="form-control"/>
-   <label> {{'LASTNAME'|translate}} </label>
+   <label> {{'LASTNAME'|translate}} *</label>
    <input #addlastname class="form-control"/>
-   <label> {{'BIRTHDAY'|translate}}</label>
+   <label> {{'BIRTHDAY'|translate}} *</label>
    <div class="input-group">
    <input #addbirthday class="form-control" [value]="date | date:'dd. MMMM y'"/>
    <span class="input-group-btn">
@@ -45,8 +45,14 @@
   <div class="form-group">
    <label> {{'COUNTRY'|translate}} </label>
    <input #addcountry class="form-control"/>
+
   </div>
+  <div *ngIf="failed === true" class="alert alert-warning alert-dismissible">
+     {{'REQUIEREDMESSAGE'| translate}}
+  </div>
+  <p>* {{'REQUIERED'| translate}}</p>
   <button class="btn btn-info" 
   (click)="addUser(addname.value, addpassword.value, addfirstname.value, addlastname.value, addstreet.value,addnumber.value,addzip.value,addtown.value,addcountry.value,addbirthday.value)
-  ; password.value=''">{{'ADD'| translate}}</button>
+  ; password.value=''" >{{'ADD'| translate}}</button>
+  
 </div>

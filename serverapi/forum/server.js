@@ -62,6 +62,7 @@ var Post = require('./src/app/models/post')
 var User = require('./src/app/models/user')
 var Comment = require('./src/app/models/comment')
 
+
 var jwt_simple = require('jwt-simple')
 
 
@@ -115,8 +116,10 @@ router.route('/authenticate')
             });
         });
 
+
+
 router.route('/topics')
-        .get( function(req, res){
+        .get(function(req, res){
             Post.distinct("topics.description", function(err, post){
                 if(err)
                 res.send(err)
@@ -202,6 +205,7 @@ router.route('/posts')
             post.title = req.body.title;
             post.topics.description =  req.body.topics;
             post.Username = req.decoded.username;
+            post.created = req.body.date
             post.save(function(err) {
                 if(err) 
                 res.send(err);

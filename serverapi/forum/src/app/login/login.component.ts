@@ -26,8 +26,9 @@ export class LoginComponent implements OnInit {
      translate.addLangs(["Englisch","Deutsch" ])
     translate.setDefaultLang('Englisch')
     let InitParams = {
-      appId: '1111111111111',
+      appId: '813569922141631',
       xfbml: true,
+      cookie: true,
       version: 'v2.8'
     }
     fb.init(InitParams)
@@ -45,6 +46,7 @@ export class LoginComponent implements OnInit {
     this.fb.login()
       .then((response: LoginResponse) => console.log(response))
       .catch((error: any) => console.error(error))
+
   }
   login(name: string, password: string) {
     if(!name){ this.failed=true; return}
@@ -63,4 +65,11 @@ export class LoginComponent implements OnInit {
   gotoCreate(){
    return this.router.navigate(['newuser'])
   }
+  getProfile() {
+    this.fb.api('/me')
+      .then((res: any) => {
+        console.log('Got the users profile', res);
+      })
+      
+}
 }

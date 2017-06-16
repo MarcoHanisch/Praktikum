@@ -22,10 +22,13 @@
             <select #langSelect (change)="translate.use(langSelect.value)" class="selectpicker form-control ">
                 <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
             </select>
-                <button type="button" class="btn btn-primary navbar-btn " (click)="logout()">{{'LOGOUT' | translate}}</button>
+                <button type="button" class="btn btn-primary navbar-btn " (click)="logout() || facebooklogout()">{{'LOGOUT' | translate}}</button>
             </div>
             </form>
         </div>
     </div>
 </nav>
-<router-outlet></router-outlet>
+
+<router-outlet ></router-outlet>
+<div class="placeholder"></div>
+<app-footer></app-footer>
