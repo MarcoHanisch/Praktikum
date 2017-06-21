@@ -31,7 +31,7 @@ import { EditcommentComponent } from './editcomment/editcomment.component';
 import { KarmatestComponent } from './karmatest/karmatest.component';
 import { NewuserComponent } from './newuser/newuser.component';
 import { FooterComponent } from './footer/footer.component';
-import { ChatComponent } from './chat/chat.component';
+import { ChatComponent, SafeHtmlPipe } from './chat/chat.component';
 
 
 
@@ -65,6 +65,9 @@ export const ROUTES = [
   {
     path: 'newuser',
     component: NewuserComponent
+  },{
+    path: 'chat',
+    component: ChatComponent
   },
   {
     path: 'posts/:post_id',
@@ -122,7 +125,7 @@ export function HttpLoaderFactory(http: Http) {
     NewuserComponent,
     FooterComponent,
     ChatComponent,
-   
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,

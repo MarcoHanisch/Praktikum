@@ -1,8 +1,16 @@
 
+.mytext{
+    border:0;padding:10px;background:whitesmoke;
+}
 .text{
-    display:flex;flex-direction:column; margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
-}   
-
+    display:flex;flex-direction:column;
+}
+.text > p:first-of-type{
+    margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
+}
+.text > p:last-of-type{
+    text-align:right;color:black;margin-bottom:-7px;margin-top:auto;
+}
 .text-l{
     float:left;padding-right:10px;
 }        
@@ -11,7 +19,7 @@
 }
 
 .macro{
-    margin:5px;border-radius:5px;padding:5px;display:flex;
+    margin-top:5px;border-radius:5px;padding:5px;display:flex;
 }
 .msj-rta{
     float:right;background:blue
@@ -19,41 +27,35 @@
 .msj{
     float:left;background:lightgrey;
 }
-
-#chatbox {
+.frame{
+    
+    height:90%;
+    overflow:hidden;
+    padding:0;
+}
+.frame > div:last-of-type{
+    position:absolute;bottom:5px;width:100%;display:flex;
+}
+ul {
     width:100%;
     list-style-type: none;   
     bottom:32px;
     display:flex;
     flex-direction: column;
-    padding-right: 10px;
-    padding-left: 10px
-
+    -webkit-padding-start: 0;
 }
   
-.chat-container{
+.container{
     margin-left: auto;
 margin-right: auto;
-height: 40%;
-width: 30%;
+height: 500px;
+width: 90%;
 border: 1px solid rgb(43, 113, 177);
-border-radius: 5px;
 max-height: 80%;
-position: fixed;
-right: 2px;
-bottom: 0;
-background-color: #ffffff;
-z-index: 2}
+overflow: auto;
+overflow-x: hidden;
 
-
-.chat-message{
-    height: 85%;
-    overflow-x: hidden;
-    overflow-y: auto
 }
-
-
-
 .saving {
   font-size: 40px;
   color: black

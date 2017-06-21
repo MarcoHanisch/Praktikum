@@ -1,215 +1,268 @@
 <html>
-    <head>
-        <title> Testseite </title>
-        <link rel="stylesheet" type="text/css"  href="css/styles2.css" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-<script>$(document).ready(function() {
-var me = {};
-var you = {};
-//array with all questions
-var question = ["Question1","Question2","Question3","Question4","Question5","Question6","Question7"]
-//array with answers of questions, answers for the same question are in one array, array 1 for question 1, array2 for question2, ...
-var answer = [["Option1", "Option2","Optisdddddddddsdon3"],["OtherOp1","OtherOp2"],["asd","as"],["asd","as"],["asd","as"],["asd","as"],["asd","as"]]
-//counter to get wrigth answer
-var index = 0
-//array with all choosen answers
-var voted = []
-//boolean for display elements
-var waiting = false
+
+<head>
+    <title> Testseite </title>
+    <link rel="stylesheet" type="text/css" href="css/styles2.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            var me = true
+            //array with all questions
+            var question = ["Wann soll das Meeting statt finden?", "Question2", "Question3", "Question4", "Question5"]
+            //array with answers of questions, answers for the same question are in one array, array 1 for question 1, array2 for question2, ...
+            var answer = [["Option1", "1", "Option2", "2", "Option3", "3"], ["OtherOp1", "1", "OtherOp2", "2"], ["asd", "1", "asd", "2", "as", "3"], ["asd", "1", "as", "2"], ["asd", "1", "as", "2"]]
+            //counter to get wrigth answer
+            var index = 0
+            //array with all choosen answers
+            var voted = []
+            //boolean for display elements
+            var waiting = false
 
 
-//function to get the time
-function formatAMPM(date) {
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
-    var strTime = hours + ':' + minutes + ' ' + ampm;
-    return strTime;
-}            
+            //function to get the time
+            function formatAMPM(date) {
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                var strTime = hours + ':' + minutes + ' ' + ampm;
+                return strTime;
+            }
 
-//function to insert the question and the choosen answer
-function insertChat(who, text, time = 0){
-    var control = "";
-    var date = formatAMPM(new Date());
+            //function to insert the question and the choosen answer 
+            function insertChat(who, text, time = 0) {
+                var control = "";
+                var date = formatAMPM(new Date());
 
-    
 
-    if (who == "me"){
-        //elements to show LoadingDots before question is shown
-        var controller = '<li style="width:50%; word-break: break-all" class="loading" >' +
+
+                if (who === true) {
+                    //elements to show LoadingDots before question is shown
+                    var controller = '<li style="width:50%; word-break: break-all" class="loading" >' +
                         '<div class="msj macro">' +
-                        '<div class="avatar"></div>' +
-                            '<div class="text text-l" >' +
-                                '<p class="saving" style="margin-bottom:0px"><span>.</span><span>.</span><span>.</span></p>'
-                            '</div>' +
+                        '<div class="text text-l" >' +
+                        '<p class="saving" style="margin-bottom:0px"><span>.</span><span>.</span><span>.</span></p>'
+                    '</div>' +
                         '</div>' +
-                    '</li>';   
-            
-        $("ul").append(controller)
-        
-        //elements to initialize the question, is hidden till function showit() is called
-        control = '<li style="width:50%; display: none; word-break: break-all" class="question" >' +
-                        '<div class="msj macro">' +
-                        '<div class="avatar"></div>' +
-                            '<div class="text text-l">' +
-                                '<p>'+ text +'</p>' +
-                                '<p><small>'+date+'</small></p>' +
-                            '</div>' +
-                        '</div>' +
-                    '</li>';   
+                        '</li>';
 
-        //elements to initialize LoadingDots after question is shown, is hidden till function showit() is called           
-        var controller2 = '<li style="width:50%;display: none; word-break: break-all" class="question waiting" id="waiting" >' +
+                    $("#chatbox").append(controller)
+
+                    //elements to initialize the question, is hidden till function showit() is called
+                    control = '<li style="width:50%; display: none; word-break: break-all" class="question" >' +
                         '<div class="msj macro">' +
-                        '<div class="avatar"></div>' +
-                            '<div class="text text-l" >' +
-                                '<p class="saving" style="margin-bottom:0px"><span>.</span><span>.</span><span>.</span></p>'
-                            '</div>' +
+                        '<div class="text text-l">' +
+                        '<p>' + text + '</p>' +
                         '</div>' +
-                    '</li>';   
-            
-        
-                                     
-    }else{
-        //elements to initialize and show the choosen option as answer
-        control = '<div class="message" style="text-align: right ; word-break: break-all">'+
-        '<li style="width:50%; float: right">' +
+                        '</div>' +
+                        '</li>';
+
+                    //elements to initialize LoadingDots after question is shown, is hidden till function showit() is called           
+                    var controller2 = '<li style="width:50%;display: none; word-break: break-all" class="question waiting" id="waiting" >' +
+                        '<div class="msj macro">' +
+                        '<div class="text text-l" >' +
+                        '<p class="saving" style="margin-bottom:0px"><span>.</span><span>.</span><span>.</span></p>'
+                    '</div>' +
+                        '</div>' +
+                        '</li>';
+
+
+
+                } else {
+                    //elements to initialize and show the choosen option as answer
+                    control = '<div class="message" style="text-align: right ; word-break: break-all">' +
+                        '<li style="width:50%; float: right">' +
                         '<div class="msj-rta macro">' +
-                            '<div class="text text-r">' +
-                                '<p>'+text+'</p>' +
-                               '<p><small style="color: white">'+date+'</small></p>' +
-                            '</div>' +                      
-                  '</li>';
-    } 
-    $("ul").append(control);
-    $("ul").append(controller2)
-    
-
-}
-
-function resetChat(){
-    $("ul").empty();
-    index = 0
-}
-
-
-//function to initialize the possible answers
-function insertOption(who, text, time = 0){
-    var control = "";
-    var date = formatAMPM(new Date());
-    //all answers are shown in one row, divide give the columm-width
-    var divide = 12/answer[index].length
-    //div is needed to show all answer in one row
-    controller = '<div class="row ">'+
-                '</div>';
-        $("ul").append(controller)
-    //loop to initialize all answers to the latest question, get latest question with help of counter
-    for (var i=0;i<answer[index].length;i++){
-    text = answer[index][i]
-        //elements to initialize the possible answers, is hidden till function showit() is called
-        control = '<li style="width:100%; display: none ; word-break: break-all" class="option col-sm-'+divide+'"  >' +
-                        '<div class="msj macro" style="background: lightblue">' +
-                        '<div class="avatar"></div>' +
-                            '<div class="text text-l" >' +
-                               '<button style="border:none; background: lightblue" >'+text+'</button>' +
-                            '</div>' +
+                        '<div class="text text-r">' +
+                        '<p>' + text + '</p>' +
                         '</div>' +
-                    '</li>';   
-                                     
-         $(".row ").append(control)
-         
-
-    }
-}
-
-//function to remove the options from answered questions
-function hideoptions(){
-    $('.option').remove()
-    $(".row").remove()
-}
-
-//function to show and hide elements, need classname from elements, which should be shown and time after that elements are shown as input
-//time is set in 1/1000 seconds (5 seconds = 5000)
-function showit(classname, time) {
-    
-    setTimeout(function(){
-        //get all elements with the classname
-       var options = document.getElementsByClassName(classname)
-       //each founded element get the property "display: unset", elements are shown now
-        for( var i=0;i<options.length;i++){
-            options[i].style.display = "unset"
-        }
-        //remove the LoadingDots before the question, when question is shown
-        $(".loading").remove()
-        //remove the LoadingDots after the question, when options are shown
-        if(waiting === true){
-            $(".waiting").remove()
-        }
-        waiting = !waiting
-    },time)
-    
-}
-
-//trigger to start actions when option is choosen
- $("ul").on('click', '.option', function(){
-     //increase counter to get next question
-     index = index+1
-     //get choosen option and insert as answer
-     vote = $(this).text()
-     insertChat("you",vote)
-     //insert choosen option to array with all choosen answers
-     voted.push(vote)
-     //remove options
-     hideoptions()
-     //if more questions are avaible initialize this question with answer and show them
-     if(index<answer.length){
-     insertChat("me", question[index],0)
-     insertOption("me",answer[index],0)}
-     showit("question",2000)
-     showit("option",5000)
- })
+                        '</li>';
+                }
+                $("#chatbox").append(control);
+                $("#chatbox").append(controller2)
 
 
+            }
+
+            function insertEnd(who, text, time) {
+                var control = ""
+                var date = formatAMPM(new Date())
+
+                control = '<li style="width:100% ; word-break: break-all" id="end"  >' +
+                    '<div class="msj macro" style="background: lightblue">' +
+                    '<div class="text text-l" >' +
+                    '<button style="border:none; background: lightblue" >' + text + '</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '</li>'
+                $("#chatbox").append(control)
+                             var element = document.getElementById('chat-message')
+                    element.scrollTop = element.scrollHeight
+            }
+
+            function resetChat() {
+                $("#chatbox").empty();
+                index = 0
+            }
 
 
-//-- Clear Chat
-resetChat();
+            //function to initialize the possible answers
+            function insertOption(who, text, time = 0) {
+                var control = "";
+                var date = formatAMPM(new Date());
+                //all answers are shown in one row, divide give the columm-width
+                var divide = 12 / (answer[index].length / 2)
+                if (divide < 3) {
+                    divide = 2
+                }
 
-//-- Print Messages
+                //div is needed to show all answer in one row
+                controller = '<div class="row " id="optionsrow">' +
+                    '</div>';
+                $("#chatbox").append(controller)
+                //loop to initialize all answers to the latest question, get latest question with help of counter
+                for (var i = 0; i < answer[index].length; i = i + 2) {
+                    text = answer[index][i]
+                    //elements to initialize the possible answers, is hidden till function showit() is called
+                    control = '<li style="width:100%; display: none; float: left ; word-break: break-all" class="option col-sm-'+divide+'" >' +
+                        '<div class="msj macro" style="background: lightblue; margin-right=5px">' +
 
-insertChat("me", question[index], 0); 
+                        '<button style="border:none; background: lightblue" >' + text + '</button>' +
 
-insertOption("me",answer[index],1000)
-showit("question",2000)
-showit("option",5000)
+                        '</div>' +
+                        '</li>';
+
+                    $("#optionsrow ").append(control)
+
+                }
+            }
+
+            //function to remove the options from answered questions
+            function hideoptions() {
+                $('.option').remove()
+                $("#optionsrow").remove()
+            }
+
+            //function to show and hide elements, need classname from elements, which should be shown and time after that elements are shown as input
+            //time is set in 1/1000 seconds (5 seconds = 5000)
+            function showit(classname, time) {
+
+                setTimeout(function () {
+                    //get all elements with the classname
+                    var options = document.getElementsByClassName(classname)
+                    //each founded element get the property "display: unset", elements are shown now
+                    for (var i = 0; i < options.length; i++) {
+                        options[i].style.display = "unset"
+                    }
+                    var element = document.getElementById('chat-message')
+                    element.scrollTop = element.scrollHeight
+
+                    //remove the LoadingDots before the question, when question is shown
+                    $(".loading").remove()
+                    //remove the LoadingDots after the question, when options are shown
+                    if (waiting === true) {
+                        $(".waiting").remove()
+                    }
+                    waiting = !waiting
+                }, time)
+
+            }
 
 
+            //trigger to start actions when option is choosen
+            $("#chat").on('click', '.option', function () {
 
+                //get choosen option and insert as answer
+                selected = $(this).text()
+                vote = 2 * ($(this).index()) + 1
+                console.log(answer[index][vote])
+                choosen = answer[index][vote]
+                console.log(choosen)
+                console.log(vote)
 
-})
-</script>
-    </head>
-
-    <body>
+                insertChat(false, selected)
+                //insert choosen option to array with all choosen answers
+                voted.push(choosen)
+                //remove options
+                hideoptions()
+                console.log(voted)
+                //increase counter to get next question
+                index = index + 1
+                //if more questions are avaible initialize this question with answer and show them
+                if (index < answer.length) {
+                    insertChat(true, question[index], 0)
+                    insertOption(true, answer[index], 0)
+                }
+                else {
+                    insertEnd(true, "Ende", 1000)
        
-        <h1> Testseite </h1>
-       <p class= 'myclass'> Hallo dies ist aus der index.html</p>
-       <div class="container" style="padding-left: 5px; padding-right: 5px">
-      
-            <ul></ul>
+                }
+                showit("question", 2000)
+                showit("option", 2000)
+                
+            }
+
+            )
+
+
+
+
+            //-- Clear Chat
+            resetChat();
+
+            //-- Print Messages
+
+            insertChat(true, question[index], 0);
+
+            insertOption(true, answer[index], 1000)
+            showit("question", 2000)
+            showit("option", 2000)
+
+
+
+
+        })
+
+    </script>
+</head>
+
+<body>
+
+    <h1> Testseite </h1>
+    <p class='myclass'> Hallo dies ist aus der index.html</p>
+    <button id="startchat" style="position:fixed; right:2px; bottom:2px"> Chatbot</button>
+    <div class="chat-container" style="display: none" id="scroll">
+        <div class="popup-head" style="height: 10%; background-color:lightseagreen" id="chathead">
+            <p style="text-align:center">ChatBot</p>
+        </div>
+        <div class="chat-message" id="chat-message">
+        <ul id="chatbox"></ul>
+        </div>
+        <div class="popup-footer" style="height: 5%; background-color:lightseagreen">
+        </div>
+
+
+    </div>
+    <button onclick="resetChat()">Zurücksetzen</button>
+    <script>
+        function resetChat() {
+            $("ul").empty();
+            location.reload()
+        }
         
-       
-       </div>
-        <button onclick="resetChat()">Zurücksetzen</button>
-        <script> function resetChat(){
-    $("ul").empty();
-    location.reload()
-} </script>
-    </body>
+            $('#startchat').on('click', function(){
+                document.getElementById('scroll').style.display ="inherit"
+            })
+            
+            
+    </script>
+</body>
+
 </html>
