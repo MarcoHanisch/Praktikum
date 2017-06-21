@@ -13,7 +13,7 @@
         $(document).ready(function () {
             var me = true
             //array with all questions
-            var question = ["Wann soll das Meeting statt finden?", "Question2", "Question3", "Question4", "Question5"]
+            var question = ["Wann soll das Meeting statt finden?", "Bitte wählem Sie eine der nachfolgenden Antworten Wer-Einträge aus!", "Bitte wählem Sie eine der nachfolgenden Antworten Wieviel-Einträge aus!", "Bitte wählem Sie eine der nachfolgenden Antworten Was-Einträge aus!", "Wie lang soll das Meeting dauern?"]
             //array with answers of questions, answers for the same question are in one array, array 1 for question 1, array2 for question2, ...
             var answer = [["Option1", "1", "Option2", "2", "Option3", "3"], ["OtherOp1", "1", "OtherOp2", "2"], ["asd", "1", "asd", "2", "as", "3"], ["asd", "1", "as", "2"], ["asd", "1", "as", "2"]]
             //counter to get wrigth answer
@@ -45,44 +45,33 @@
 
                 if (who === true) {
                     //elements to show LoadingDots before question is shown
-                    var controller = '<li style="width:50%; word-break: break-all" class="loading" >' +
-                        '<div class="msj macro">' +
-                        '<div class="text text-l" >' +
+                    var controller = '<li class="loading" >' +
+                        '<div class="msj macro text">' +
                         '<p class="saving" style="margin-bottom:0px"><span>.</span><span>.</span><span>.</span></p>'
-                    '</div>' +
                         '</div>' +
                         '</li>';
 
                     $("#chatbox").append(controller)
 
                     //elements to initialize the question, is hidden till function showit() is called
-                    control = '<li style="width:50%; display: none; word-break: break-all" class="question" >' +
-                        '<div class="msj macro">' +
-                        '<div class="text text-l">' +
-                        '<p>' + text + '</p>' +
-                        '</div>' +
-                        '</div>' +
+                    control = '<li style=" display: none" class="question msj macro text" >' +
+                        '<p style="margin-bottom:0">' + text + '</p>' +
                         '</li>';
 
                     //elements to initialize LoadingDots after question is shown, is hidden till function showit() is called           
-                    var controller2 = '<li style="width:50%;display: none; word-break: break-all" class="question waiting" id="waiting" >' +
-                        '<div class="msj macro">' +
-                        '<div class="text text-l" >' +
+                    var controller2 = '<li style="display: none" class="question waiting" id="waiting" >' +
+                        '<div class="msj macro text">' +
                         '<p class="saving" style="margin-bottom:0px"><span>.</span><span>.</span><span>.</span></p>'
                     '</div>' +
-                        '</div>' +
                         '</li>';
 
 
 
                 } else {
                     //elements to initialize and show the choosen option as answer
-                    control = '<div class="message" style="text-align: right ; word-break: break-all">' +
-                        '<li style="width:50%; float: right">' +
-                        '<div class="msj-rta macro">' +
-                        '<div class="text text-r">' +
-                        '<p>' + text + '</p>' +
-                        '</div>' +
+                    control = '<div class="message" style="text-align: right ">' +
+                        '<li style="float: right" class="msj-rta macro text text-r">' +
+                        '<p style="margin-bottom:0">' + text + '</p>' +
                         '</li>';
                 }
                 $("#chatbox").append(control);
@@ -95,11 +84,9 @@
                 var control = ""
                 var date = formatAMPM(new Date())
 
-                control = '<li style="width:100% ; word-break: break-all" id="end"  >' +
-                    '<div class="msj macro" style="background: lightblue">' +
-                    '<div class="text text-l" >' +
+                control = '<li style="max-width:100% " id="end"  >' +
+                    '<div class="msj macro text" style="background: lightblue">' +
                     '<button style="border:none; background: lightblue" >' + text + '</button>' +
-                    '</div>' +
                     '</div>' +
                     '</li>'
                 $("#chatbox").append(control)
@@ -131,12 +118,8 @@
                 for (var i = 0; i < answer[index].length; i = i + 2) {
                     text = answer[index][i]
                     //elements to initialize the possible answers, is hidden till function showit() is called
-                    control = '<li style="width:100%; display: none; float: left ; word-break: break-all" class="option col-sm-'+divide+'" >' +
-                        '<div class="msj macro" style="background: lightblue; margin-right=5px">' +
-
-                        '<button style="border:none; background: lightblue" >' + text + '</button>' +
-
-                        '</div>' +
+                    control = '<li style=" display: none; float: left; margin-left: 10px; margin-top: 5px" class="option" >' +
+                        '<button style="border:none; background: lightblue; border-radius: 5px; font-size: 13px" >' + text + '</button>' +
                         '</li>';
 
                     $("#optionsrow ").append(control)
@@ -177,7 +160,7 @@
 
 
             //trigger to start actions when option is choosen
-            $("#chat").on('click', '.option', function () {
+            $("#chatbox").on('click', '.option', function () {
 
                 //get choosen option and insert as answer
                 selected = $(this).text()
@@ -221,9 +204,9 @@
 
             insertChat(true, question[index], 0);
 
-            insertOption(true, answer[index], 1000)
-            showit("question", 2000)
-            showit("option", 2000)
+            insertOption(true, answer[index], 0)
+            showit("question", 0)
+            showit("option", 0)
 
 
 
@@ -238,14 +221,14 @@
     <h1> Testseite </h1>
     <p class='myclass'> Hallo dies ist aus der index.html</p>
     <button id="startchat" style="position:fixed; right:2px; bottom:2px"> Chatbot</button>
-    <div class="chat-container" style="display: none" id="scroll">
-        <div class="popup-head" style="height: 10%; background-color:lightseagreen" id="chathead">
+    <div class="chat-container hidden-sm-down"  id="scroll">
+        <div class="popup-head" id="chat-head">
             <p style="text-align:center">ChatBot</p>
         </div>
         <div class="chat-message" id="chat-message">
         <ul id="chatbox"></ul>
         </div>
-        <div class="popup-footer" style="height: 5%; background-color:lightseagreen">
+        <div class="popup-footer" id="chat-foot">
         </div>
 
 
