@@ -9,13 +9,13 @@
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
         crossorigin="anonymous"></script>
-    <script>
+   <!-- <script>
         $(document).ready(function () {
             var me = true
             //array with all questions
             var question = ["Wann soll das Meeting statt finden?", "Bitte wählem Sie eine der nachfolgenden Antworten Wer-Einträge aus!", "Bitte wählem Sie eine der nachfolgenden Antworten Wieviel-Einträge aus!", "Bitte wählem Sie eine der nachfolgenden Antworten Was-Einträge aus!", "Wie lang soll das Meeting dauern?"]
             //array with answers of questions, answers for the same question are in one array, array 1 for question 1, array2 for question2, ...
-            var answer = [["Option1", "1", "Option2", "2", "Option3", "3"], ["OtherOp1", "1", "OtherOp2", "2"], ["asd", "1", "asd", "2", "as", "3"], ["asd", "1", "as", "2"], ["asd", "1", "as", "2"]]
+            var answer = [["≤ 2 Wochen", "1", "1 x Monat/Quartal", "2", "1-2 x im Jahr", "3"], ["Extern", "1", "OE-Intern", "2","OE-Übergeifend","3"], ["10≤X≤25", "1", "26≤X", "2", "X≤9", "3"], ["Überwiegend Information", "1"], ["≤1 H", "1", "1H≤XH≤3H", "2","3≤XH","3"]]
             //counter to get wrigth answer
             var index = 0
             //array with all choosen answers
@@ -24,29 +24,13 @@
             var waiting = false
 
 
-            //function to get the time
-            function formatAMPM(date) {
-                var hours = date.getHours();
-                var minutes = date.getMinutes();
-                var ampm = hours >= 12 ? 'PM' : 'AM';
-                hours = hours % 12;
-                hours = hours ? hours : 12; // the hour '0' should be '12'
-                minutes = minutes < 10 ? '0' + minutes : minutes;
-                var strTime = hours + ':' + minutes + ' ' + ampm;
-                return strTime;
-            }
-
             //function to insert the question and the choosen answer 
             function insertChat(who, text, time = 0) {
                 var control = "";
-                var date = formatAMPM(new Date());
-
-
-
                 if (who === true) {
                     //elements to show LoadingDots before question is shown
                     var controller = '<li class="loading" >' +
-                        '<div class="msj macro text">' +
+                        '<div class="msj text">' +
                         '<p class="saving" style="margin-bottom:0px"><span>.</span><span>.</span><span>.</span></p>'
                         '</div>' +
                         '</li>';
@@ -54,13 +38,13 @@
                     $("#chatbox").append(controller)
 
                     //elements to initialize the question, is hidden till function showit() is called
-                    control = '<li style=" display: none" class="question msj macro text" >' +
+                    control = '<li style=" display: none" class="question msj text" >' +
                         '<p style="margin-bottom:0">' + text + '</p>' +
                         '</li>';
 
                     //elements to initialize LoadingDots after question is shown, is hidden till function showit() is called           
                     var controller2 = '<li style="display: none" class="question waiting" id="waiting" >' +
-                        '<div class="msj macro text">' +
+                        '<div class="msj text">' +
                         '<p class="saving" style="margin-bottom:0px"><span>.</span><span>.</span><span>.</span></p>'
                     '</div>' +
                         '</li>';
@@ -69,28 +53,29 @@
 
                 } else {
                     //elements to initialize and show the choosen option as answer
-                    control = '<div class="message" style="text-align: right ">' +
-                        '<li style="float: right" class="msj-rta macro text text-r">' +
+                    control = '<div class="message">' +
+                        '<li  class="msj-rta text">' +
                         '<p style="margin-bottom:0">' + text + '</p>' +
                         '</li>';
                 }
                 $("#chatbox").append(control);
                 $("#chatbox").append(controller2)
-
+                //scroll to the bottom of the element with the id "chat-message"
+                var element = document.getElementById('chat-message')
+                    element.scrollTop = element.scrollHeight
 
             }
 
             function insertEnd(who, text, time) {
                 var control = ""
-                var date = formatAMPM(new Date())
-
                 control = '<li style="max-width:100% " id="end"  >' +
-                    '<div class="msj macro text" style="background: lightblue">' +
+                    '<div class="msj text" style="background: lightblue">' +
                     '<button style="border:none; background: lightblue" >' + text + '</button>' +
                     '</div>' +
                     '</li>'
                 $("#chatbox").append(control)
-                             var element = document.getElementById('chat-message')
+                //scroll to the bottom of the element with the id "chat-message"
+                    var element = document.getElementById('chat-message')
                     element.scrollTop = element.scrollHeight
             }
 
@@ -103,13 +88,6 @@
             //function to initialize the possible answers
             function insertOption(who, text, time = 0) {
                 var control = "";
-                var date = formatAMPM(new Date());
-                //all answers are shown in one row, divide give the columm-width
-                var divide = 12 / (answer[index].length / 2)
-                if (divide < 3) {
-                    divide = 2
-                }
-
                 //div is needed to show all answer in one row
                 controller = '<div class="row " id="optionsrow">' +
                     '</div>';
@@ -118,7 +96,7 @@
                 for (var i = 0; i < answer[index].length; i = i + 2) {
                     text = answer[index][i]
                     //elements to initialize the possible answers, is hidden till function showit() is called
-                    control = '<li style=" display: none; float: left; margin-left: 10px; margin-top: 5px" class="option" >' +
+                    control = '<li style=" display: none; margin-left: 10px; margin-top: 5px" class="option" >' +
                         '<button style="border:none; background: lightblue; border-radius: 5px; font-size: 13px" >' + text + '</button>' +
                         '</li>';
 
@@ -144,6 +122,7 @@
                     for (var i = 0; i < options.length; i++) {
                         options[i].style.display = "unset"
                     }
+                    //scroll to the bottom of the element with the id "chat-message"
                     var element = document.getElementById('chat-message')
                     element.scrollTop = element.scrollHeight
 
@@ -213,7 +192,8 @@
 
         })
 
-    </script>
+    </script>-->
+    <script type="text/javascript" src="/html/chat-script.js"></script>
 </head>
 
 <body>
@@ -221,14 +201,14 @@
     <h1> Testseite </h1>
     <p class='myclass'> Hallo dies ist aus der index.html</p>
     <button id="startchat" style="position:fixed; right:2px; bottom:2px"> Chatbot</button>
-    <div class="chat-container hidden-sm-down"  id="scroll">
-        <div class="popup-head" id="chat-head">
-            <p style="text-align:center">ChatBot</p>
+    <div class="chat-container hidden-sm-down"  id="chat-container">
+        <div class="chat-head" id="chat-head">
+            <p style="text-align:center; padding:3px; margin-bottom:0">ChatBot</p>
         </div>
         <div class="chat-message" id="chat-message">
         <ul id="chatbox"></ul>
         </div>
-        <div class="popup-footer" id="chat-foot">
+        <div class="chat-footer" id="chat-foot">
         </div>
 
 
@@ -241,7 +221,7 @@
         }
         
             $('#startchat').on('click', function(){
-                document.getElementById('scroll').style.display ="inherit"
+                document.getElementById('chat-container').style.display ="inherit"
             })
             
             
