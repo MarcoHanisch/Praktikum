@@ -54,9 +54,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(name, password).subscribe (user => {
       this.user = user
       if(this.user === true){
-        console.log( this.user)
     this.router.navigate(['topics'])}
-    else { this.error=true; console.log(this.user); return}
+    else { this.error=true; return}
   })}
   ngOnInit() {
   

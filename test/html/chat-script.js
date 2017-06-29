@@ -53,6 +53,7 @@ jQuery(document).ready(function () {
     //function to insert the question and the choosen answer
     function insertChat(who, text, time = 0) {
         var control = "";
+        var text = unescape(text)
         var date = formatAMPM(new Date());
         if (who === true) {
             //elements to show LoadingDots before question is shown
@@ -100,7 +101,7 @@ jQuery(document).ready(function () {
         jQuery("#chatbox").append(controller)
         //loop to initialize all answers to the latest question, get latest question with help of counter
         for (var i = 0; i < answer[index].length; i = i + 2) {
-            text = answer[index][i]
+            text = unescape(answer[index][i])
             id = answer[index][i + 1]
             //elements to initialize the possible answers, is hidden till function showit() is called
             control = '<li id="' + id + '" style="display: none; margin-left: 10px; margin-top: 5px" class="option "â€‚â€‚>' +
@@ -144,10 +145,10 @@ jQuery(document).ready(function () {
     jQuery("#chatbox").on('click', '.option', function () {
         selected = 2 * ($(this).index()) + 1
         //get choosen option and insert as answer
-        vote = jQuery(this).text()
+        vote = 2 * jQuery(this).index()
         //voteId = jQuery(this).context.id;
         votedId = answer[index][selected]
-        insertChat(false, vote)
+        insertChat(false, answer[index][vote])
         //insert choosen option to array with all choosen answers
         voted.push(votedId)
         //increase counter to get next question

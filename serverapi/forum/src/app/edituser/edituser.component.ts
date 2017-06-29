@@ -23,7 +23,6 @@ export class EdituserComponent implements OnInit {
    private translate: TranslateService, private formBuilder: FormBuilder) {
      translate.addLangs(["Englisch","Deutsch"])
     translate.setDefaultLang('Englisch')
-    this.createForm()
    }
 
   ngOnInit() {
@@ -33,8 +32,8 @@ export class EdituserComponent implements OnInit {
       })
       this.useJwtHelper()
   }
-editUser(name: string, password: string,isAdmin: boolean, user_id: string, firstname: string, lastname: string,
-birthday: string, street: string, number: string, town: string, ZIP: string, country: string): void { 
+  editUser(name: string, password: string,isAdmin: boolean, user_id: string, firstname: string, lastname: string,
+    birthday: string, street: string, number: string, town: string, ZIP: string, country: string): void { 
     this.postsService.editUser(name,password,isAdmin,user_id,firstname,lastname,birthday,street,number,town,ZIP,country).subscribe(user =>this.user.push(user))
     this.router.navigate(['user'])
   }
@@ -44,23 +43,6 @@ birthday: string, street: string, number: string, town: string, ZIP: string, cou
   }
   showcal() {
     return this.calendar = (!this.calendar)
-  }
-
-  createForm() {
-    this.userForm = this.formBuilder.group({
-      name: '',
-      password: '',
-      firstname: '',
-      lastname: '',
-      birthday: '',
-      adress: this.formBuilder.group({
-        street: '',
-        number: '',
-        town: '',
-        ZIP: '',
-        country:''
-      })
-    })
   }
 
 }

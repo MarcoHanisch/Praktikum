@@ -9,13 +9,11 @@ var UserSchema = new Schema({
     firstname: String,
     lastname: String,
     birthday: String,
-    adress: {
-        street: String,
-        number: String,
-        town: String,
-        ZIP: String,
-        country: String
-    }
+    street: String,
+    number: String,
+    town: String,
+    ZIP: String,
+    country: String
 })
 
 module.exports = mongoose.model('User', UserSchema)

@@ -1,4 +1,10 @@
 <div class="container"> 
+  <h2> Neueste Beiträge</h2>
+  <div class="container newbox">
+  <ul >
+    <li *ngFor="let post of posts| orderBy: 'created': reverse | slice:0:2 " [class.selected]="isSelected(post)" (click)="onSelect(post)">{{post.title}}</li>
+  </ul>
+  </div>
  <table class="table table-responsive table-striped">
       <thead>
         <tr>

@@ -9,14 +9,13 @@ var users = exports.users = {
         firstname: 'John',
         lastname: 'Franklin',
         birthday: '16. April 1786',
-        adress: {
-            street: 'Seitengasse',
-            number: '1b',
-            town: 'Erfurt',
-            ZIP: '980963',
-            country: 'Germany'
+        street: 'Seitengasse',
+        number: '1b',
+        town: 'Erfurt',
+        ZIP: '980963',
+        country: 'Germany'
             
-        },
+
     },
     user2: {
         name: 'Komoot',
@@ -26,13 +25,12 @@ var users = exports.users = {
         firstname: 'Roald',
         lastname: 'Amundsen',
         birthday: '16. July 1872',
-         adress: {
-            street: 'Schlossalle',
-            number: '87',
-            town: 'Dresden',
-            ZIP: '01059',
-            country: 'Germany'
-        }
+        street: 'Schlossalle',
+        number: '87',
+        town: 'Dresden',
+        ZIP: '01059',
+        country: 'Germany'
+        
     },
     user3: {
         name: 'NutzerAdmin',
@@ -42,13 +40,12 @@ var users = exports.users = {
         firstname: 'Alexander',
         lastname: 'von Humboldt',
         birthday: '14. September 1769',
-         adress: {
-            street: '1th Avenue',
-            number: '2343',
-            town: 'Vancouver',
-            ZIP: '2342432',
-            country: 'Kanada'
-        }
+        street: '1th Avenue',
+        number: '2343',
+        town: 'Vancouver',
+        ZIP: '2342432',
+        country: 'Kanada'
+        
     },
    
 }

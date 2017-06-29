@@ -10,6 +10,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
+import { ContactComponent } from './contact/contact.component';
+import { BlacklistComponent } from './blacklist/blacklist.component';
+import { SetingsComponent } from './setings/setings.component';
+import { WorkshoptemplistComponent } from './workshoptemplist/workshoptemplist.component';
+import { WorkshoptempComponent } from './workshoptemp/workshoptemp.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +22,12 @@ import { LoginComponent } from './login/login.component';
     HeaderComponent,
     FooterComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    ContactComponent,
+    BlacklistComponent,
+    SetingsComponent,
+    WorkshoptemplistComponent,
+    WorkshoptempComponent
   ],
   imports: [
     BrowserModule,

@@ -10,8 +10,8 @@ import { TranslateService } from '@ngx-translate/core'
 })
 export class NewuserComponent implements OnInit {
   calendar: boolean = false
-  date= new Date()
-  user: any =[]
+  date = new Date()
+  user: any = []
   failed: boolean = false
   
 
@@ -20,11 +20,11 @@ export class NewuserComponent implements OnInit {
 
   ngOnInit() {
   }
-addUser(name: string, password: string, firstname: string, lastname: string, 
-  street: string, number: string, ZIP: string, town: string, country: string, birthday: string) {
+  addUser(name: string, password: string, firstname: string, lastname: string, 
+  street: string, number: string, ZIP: string, town: string, country: string, birthday: Date) {
     if(!name || !password || !firstname || !lastname || !birthday){return this.failed = true}
-    this.postsService.postUser(name,password,firstname,lastname,street,number,ZIP,town,country,birthday).subscribe(user =>this.user.push(user));
-   this.router.navigate(['login'])
+    this.postsService.addUser(name,password,firstname,lastname,street,number,ZIP,town,country,birthday).subscribe(user =>this.user.push(user));
+    this.router.navigate(['login'])
 }
 
   getDate(): number {

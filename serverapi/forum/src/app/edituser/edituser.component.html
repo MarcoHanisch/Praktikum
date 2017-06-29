@@ -27,26 +27,26 @@
     <div class="row ">
     <div class="col-sm-10 form-group">  
    <label> {{'STREET'| translate}}</label>
-   <input #street [(ngModel)]="user.adress.street" class="form-control" name="street"/>
+   <input #street [(ngModel)]="user.street" class="form-control" name="street"/>
    </div>
     <div class="col-sm-2 form-group">
    <label> {{'NUMBER'| translate}}</label>
-   <input #number [(ngModel)]="user.adress.number" class="form-control" name="number"/>
+   <input #number [(ngModel)]="user.number" class="form-control" name="number"/>
  
     </div>
   </div>
   <div class="row ">
     <div class="col-sm-10 form-group">
    <label> {{'TOWN'| translate}}</label>
-   <input #town [(ngModel)]="user.adress.town" class="form-control" name="town"/>
+   <input #town [(ngModel)]="user.town" class="form-control" name="town"/>
     </div>
     <div class="col-sm-2 form-group">
    <label> {{'ZIP'| translate}}</label>
-   <input #zip [(ngModel)]="user.adress.ZIP" class="form-control" name="ZIP"/>
+   <input #zip [(ngModel)]="user.ZIP" class="form-control" name="ZIP" maxlength="6"/>
     </div>
   </div>
    <label> {{'COUNTRY'| translate}}</label>
-   <input #country [(ngModel)]="user.adress.country" class="form-control" name="country"/>
+   <input #country [(ngModel)]="user.country" class="form-control" name="country"/>
 
   </form>
   <form *ngIf="decoded.isAdmin === true">
@@ -57,7 +57,7 @@
   </div>
   <input #id hidden [(ngModel)]="user._id" name="idn"/>
   <button class="btn btn-info" (click)="editUser(user.name, user.password,user.isAdmin,user._id, user.firstname,user.lastname
-  ,user.birthday,street.value,user.adress.number,user.adress.town,user.adress.ZIP,user.adress.country)">{{'EDIT'| translate}}</button>
+  ,user.birthday,user.street,user.number,user.town,user.ZIP,user.country)">{{'EDIT'| translate}}</button>
 </div>
 </div>
 </div>

@@ -7,7 +7,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr  *ngFor="let user of user"  [class.selected]="isSelected(user)" (click)="onSelect(user)">
+        <tr  *ngFor="let user of user | orderBy: 'name'"  [class.selected]="isSelected(user)" (click)="onSelect(user)">
           <td>{{user.name}}</td>
           <td>
              <div class="btn-group">

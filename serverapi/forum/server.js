@@ -143,17 +143,17 @@ router.route('/user')
                 if(user) {
                     res.json({succes: false, message: 'User is already in use'});
                 } else {
-                    var user = new User
+                    var user = new User()
                     user.name = req.body.name
                     user.password = req.body.password
                     user.isAdmin = false
                     user.firstname = req.body.firstname
                     user.lastname = req.body.lastname
-                    user.adress.street = req.body.street
-                    user.adress.number = req.body.number
-                    user.adress.ZIP = req.body.ZIP
-                    user.adress.town = req.body.town
-                    user.adress.country = req.body.country
+                    user.street = req.body.street
+                    user.number = req.body.number
+                    user.ZIP = req.body.ZIP
+                    user.town = req.body.town
+                    user.country = req.body.country
                     user.birthday = req.body.birthday
                     user.save(function(err) {
                     if(err) 
@@ -283,7 +283,7 @@ router.route('/posts/:post_id/comments')
             comment.Username = req.decoded.username;
             comment.save(function(err) {
                 if(err) 
-                res.send(err);
+                res.send(err)
                 res.json(comment)
             })
         })

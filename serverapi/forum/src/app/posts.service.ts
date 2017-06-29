@@ -51,17 +51,6 @@ export class PostsService {
     return this.http.get('http://localhost:8080/api/user', {headers})
         .map(response => response.json());
   }
-  postUser(name: string, password: string, firstname: string, lastname: string, 
-  street: string, number: string, ZIP: string, town: string, country: string, birthday: string): Observable<User> {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    let token = localStorage.getItem('token');
-    headers.append('x-acces-token', `${token}`);
-    return this.http.post('http://localhost:8080/api/user', 
-    JSON.stringify({name: name, password: password, firstname: firstname, 
-      lastname: lastname, street: street, number: number, ZIP: ZIP, town: town, country: country, birthday: birthday}), {headers})
-      .map(response => response.json())
-  }
   getTopic(topicsname: string){
     return this.http.get(`http://localhost:8080/api/topics/${topicsname}`)
       .map(response => response.json())
@@ -83,6 +72,18 @@ export class PostsService {
         .map(response => response.json());
   }
   
+    addUser(name: string, password: string, firstname: string, lastname: string, 
+  street: string, number: string, ZIP: string, town: string, country: string, birthday: Date){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let token = localStorage.getItem('token');
+    headers.append('x-acces-token', `${token}`);
+    return this.http.post('http://localhost:8080/api/user', 
+    JSON.stringify({name: name, password: password, firstname: firstname, 
+      lastname: lastname, street: street, number: number, ZIP: ZIP, town: town, country: country, birthday: birthday}), {headers})
+      .map(response => response.json())
+  }
+
   addPost(title: string, topics: string, date: Date){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
