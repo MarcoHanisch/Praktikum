@@ -23,4 +23,10 @@ export class DashboardComponent implements OnInit {
   gotoWSTemplist(){
     this.router.navigate(['/workshoptemplatelist'])
   }
+  gotoEMTemplist(){
+    this.router.navigate(['/emailtemplatelist'])
+  }
+  gotoWSList(){
+    this.router.navigate(['/workshoplist'])
+  }
 }

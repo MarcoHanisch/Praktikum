@@ -9,6 +9,9 @@ import { BlacklistComponent} from './blacklist/blacklist.component'
 import { SetingsComponent } from './setings/setings.component'
 import { WorkshoptemplistComponent } from './workshoptemplist/workshoptemplist.component'
 import { WorkshoptempComponent } from './workshoptemp/workshoptemp.component'
+import { EmailtemplistComponent } from './emailtemplist/emailtemplist.component'
+import { EmailtempComponent } from './emailtemp/emailtemp.component'
+import { WorkshoplistComponent } from'./workshoplist/workshoplist.component'
 
 const routes: Routes = [
     {path: '', redirectTo:'start', pathMatch: 'full'},
@@ -19,7 +22,10 @@ const routes: Routes = [
     {path: 'blacklist', component: BlacklistComponent},
     {path: 'settings', component: SetingsComponent},
     {path: 'workshoptemplatelist', component: WorkshoptemplistComponent},
-    {path: 'workshoptemplate', component: WorkshoptempComponent}
+    {path: 'workshoptemplate', component: WorkshoptempComponent},
+    {path: 'emailtemplatelist', component: EmailtemplistComponent},
+    {path: 'emailtemplate', component: EmailtempComponent},
+    {path: 'workshoplist', component: WorkshoplistComponent}
 ];
 
 @NgModule({

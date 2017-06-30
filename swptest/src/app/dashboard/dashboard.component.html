@@ -2,11 +2,11 @@
 <h1>Dashboard</h1>
 <div class="text-center">
 <ul style="list-style: none">
-<li><button class="btn">E-mail-Template</button>
+<li><button class="btn" (click)="gotoEMTemplist()">E-mail-Template</button>
 <button class="btn">Admin-Überblick</button></li>
 <li><button class="btn" (click)="gotoBL()">Blacklist-Überlick</button>
 <button class="btn" (click)="gotoWSTemplist()">Termin-Vorlage</button></li>
-<li><button class="btn">Termin-Übersicht</button>
+<li><button class="btn" (click)="gotoWSList()" >Termin-Übersicht</button>
 <button class="btn" (click)="gotoSettings()">Einstellungen</button></li>
 </ul>
 </div>

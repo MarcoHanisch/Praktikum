@@ -15,6 +15,10 @@ import { BlacklistComponent } from './blacklist/blacklist.component';
 import { SetingsComponent } from './setings/setings.component';
 import { WorkshoptemplistComponent } from './workshoptemplist/workshoptemplist.component';
 import { WorkshoptempComponent } from './workshoptemp/workshoptemp.component';
+import { EmailtemplistComponent } from './emailtemplist/emailtemplist.component';
+import { EmailtempComponent } from './emailtemp/emailtemp.component';
+import { WorkshoplistComponent } from './workshoplist/workshoplist.component';
+import { AdminwslistComponent } from './adminwslist/adminwslist.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,11 @@ import { WorkshoptempComponent } from './workshoptemp/workshoptemp.component';
     BlacklistComponent,
     SetingsComponent,
     WorkshoptemplistComponent,
-    WorkshoptempComponent
+    WorkshoptempComponent,
+    EmailtemplistComponent,
+    EmailtempComponent,
+    WorkshoplistComponent,
+    AdminwslistComponent
   ],
   imports: [
     BrowserModule,
